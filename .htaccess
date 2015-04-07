@@ -1,4 +1,4 @@
 # Redirect to HTTPS first.
 RewriteEngine on
 RewriteCond %{HTTPS} off
-RewriteRule ^/?(.*) https://badssl.com [R=301,L]
+RewriteRule ^/?(.*) https://badssl.com%{REQUEST_URI} [R=301,L]
