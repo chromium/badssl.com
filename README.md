@@ -1,4 +1,4 @@
-# [`badssl.com`](https://badssl.com)
+[![badssl.com](badssl.com.png)](https://badssl.com)
 
 - [Chrome](https://support.google.com/chrome/answer/6098869?hl=en): `Your connection is not private`
 - [Firefox](https://support.mozilla.org/en-US/kb/connection-untrusted-error-message): `This Connection is Untrusted`
