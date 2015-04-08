@@ -9,6 +9,7 @@
 
 ## Server Setup
 
+Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to the VM.
 
 Push the code into `~/badssl/` on the server:
 
@@ -24,5 +25,7 @@ Set up nginx on the server:
 
     sudo ln -s /var/www/badssl/config/nginx.conf /etc/nginx/sites-available/badssl
     sudo ln -s /etc/nginx/sites-available/badssl /etc/nginx/sites-enabled/badssl
+
+    # Make sure the actual keys are in /var/www/badssl/keys/
     sudo service nginx restart
 
