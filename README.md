@@ -18,6 +18,10 @@
 - [rc4.badssl.com](https://rc4.badssl.com/)
 - [cbc.badssl.com](https://rc4.badssl.com/)
 
+### Content
+
+- [mixed.badssl.com](https://mixed.badssl.com/)
+
 ## Server Setup
 
 Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to the VM.
