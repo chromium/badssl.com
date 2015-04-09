@@ -16,7 +16,7 @@
 ### Old Cipher Suites
 
 - [rc4.badssl.com](https://rc4.badssl.com/)
-- [cbc.badssl.com](https://rc4.badssl.com/)
+- [cbc.badssl.com](https://cbc.badssl.com/)
 
 ### Content
 
