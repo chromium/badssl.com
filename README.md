@@ -8,9 +8,15 @@
 
 ## Other Test Domains
 
+### Certificate Issues
+
 - [sha1.badssl.com](https://sha1.badssl.com/)
   - [sha1-2016.badssl.com](https://sha1-2016.badssl.com/)
+
+### Old Cipher Suites
+
 - [rc4.badssl.com](https://rc4.badssl.com/)
+- [cbc.badssl.com](https://rc4.badssl.com/)
 
 ## Server Setup
 
