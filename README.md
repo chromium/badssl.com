@@ -6,21 +6,13 @@
 - [Opera](http://help.opera.com/Mac/12.10/en/certificates.html): `Invalid Certificate`
 - [Internet Explorer](http://support.microsoft.com/en-us/kb/931850): `There is a problem with this website’s security certificate.`
 
-## Other Test Domains
+## Test Domains
 
-### Certificate Issues
-
-- [sha1.badssl.com](https://sha1.badssl.com/)
-  - [sha1-2016.badssl.com](https://sha1-2016.badssl.com/)
-
-### Old Cipher Suites
-
-- [rc4.badssl.com](https://rc4.badssl.com/)
-- [cbc.badssl.com](https://cbc.badssl.com/)
-
-### Content
-
-- [mixed.badssl.com](https://mixed.badssl.com/)
+- [`badssl.com`](https://badssl.com/)
+- [`sha1.badssl.com`](https://sha1.badssl.com/)
+- [`rc4.badssl.com`](https://rc4.badssl.com/)
+- [`cbc.badssl.com`](https://cbc.badssl.com/)
+- [`mixed.badssl.com`](https://mixed.badssl.com/)
 
 ## Server Setup
 
