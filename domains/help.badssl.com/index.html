@@ -26,7 +26,7 @@
       color: white;
       font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
       font-size: 5em;
-      font-size: 5vw;
+      font-size: 5vh;
       display: block;
       padding: 2.5vh 7vw 2.5vh 0vw;
       margin: 2vh 0em;
@@ -34,6 +34,11 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: all 150ms;
       font-weight: bold;
+    }
+    @media (max-width: 600px) {
+      .links a {
+          font-size: 3vh;
+      }
     }
     .links a:hover {
       text-decoration: underline;
@@ -66,6 +71,7 @@
 
   <div class="links">
     <a href="https://badssl.com/" class="bad">badssl.com</a>
+    <a href="https://expired.badssl.com/" class="bad">expired.badssl.com</a>
     <a href="https://sha1.badssl.com/" class="dubious">sha1.badssl.com</a>
     <a href="https://mixed.badssl.com/" class="dubious">mixed.badssl.com</a>
     <a href="https://rc4.badssl.com/" class="neutral">rc4.badssl.com</a>

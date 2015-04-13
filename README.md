@@ -8,7 +8,10 @@
 
 ## Test Domains
 
+Visit [`help.badssl.com`](https://help.badssl.com/) for links to these:
+
 - [`badssl.com`](https://badssl.com/)
+- [`expired.badssl.com`](https://expired.badssl.com/)
 - [`sha1.badssl.com`](https://sha1.badssl.com/)
 - [`rc4.badssl.com`](https://rc4.badssl.com/)
 - [`cbc.badssl.com`](https://cbc.badssl.com/)
