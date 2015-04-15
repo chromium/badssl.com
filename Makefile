@@ -12,6 +12,7 @@ upload:
 		-e "ssh -i ${HOME}/.ssh/google_compute_engine" \
 		--exclude .DS_Store \
 		--exclude .git \
+		--delete \
 		./ \
 		badssl.com:~/badssl/
 	echo "\nDone deploying. Go to ${URL}\n"
