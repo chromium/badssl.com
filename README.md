@@ -36,6 +36,6 @@ Set up nginx on the server:
     sudo ln -s /var/www/badssl/config/nginx.conf /etc/nginx/sites-available/badssl
     sudo ln -s /etc/nginx/sites-available/badssl /etc/nginx/sites-enabled/badssl
 
-    # Make sure the actual keys are in /var/www/badssl/keys/
+    # Make sure the actual keys are in /etc/keys/
     sudo service nginx restart
 
