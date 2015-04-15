@@ -22,6 +22,9 @@
     div {
       text-align: right;
     }
+    .links {
+      padding: 0 3vw 0 3vw;
+    }
     .links a {
       text-decoration: none;
       color: white;
@@ -29,16 +32,21 @@
       font-size: 5em;
       font-size: 4vh;
       display: block;
-      padding: 2.5vh 7vw 2.5vh 0vw;
-      margin: 2vh 0em;
+      padding: 1vh 3vw 1vh 3vw;
+      margin: 1.5vh -3vw;
       width: 100%;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: all 150ms;
       font-weight: bold;
     }
-    @media (max-width: 600px) {
+    @media (min-height: 1000px) {
       .links a {
-          font-size: 3vw;
+          font-size: 3vh;
+      }
+    }
+    @media (max-width: 600px) and (min-height: 600px) {
+      .links a {
+          font-size: 5vw;
       }
     }
     .links a:hover {
@@ -56,6 +64,9 @@
       text-align: center;
       margin-top: 6vh;
       font-family: Helvetica, sans-serif;
+    }
+    .good {
+      background: green;
     }
     .dubious {
       background: rgb(246, 207, 47);
@@ -87,6 +98,8 @@
     <a href="https://mixed.badssl.com/" class="dubious">mixed.badssl.com</a>
     <a href="https://rc4.badssl.com/" class="neutral">rc4.badssl.com</a>
     <a href="https://cbc.badssl.com/" class="neutral">cbc.badssl.com</a>
+    <a href="https://hsts.badssl.com/" class="good">hsts.badssl.com</a>
+    <a href="https://preloaded-hsts.badssl.com/" class="good">preloaded-hsts.badssl.com</a>
   </div>
 
   <!-- Start of GitHub ribbon. -->
