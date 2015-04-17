@@ -1,21 +1,17 @@
 [![badssl.com](badssl.com.png)](https://badssl.com)
 
-- [Chrome](https://support.google.com/chrome/answer/6098869?hl=en): `Your connection is not private`
-- [Firefox](https://support.mozilla.org/en-US/kb/connection-untrusted-error-message): `This Connection is Untrusted`
-- Safari: `Safari can't verify the identity of the website "badssl.com".`
-- [Opera](http://help.opera.com/Mac/12.10/en/certificates.html): `Invalid Certificate`
-- [Internet Explorer](http://support.microsoft.com/en-us/kb/931850): `There is a problem with this website’s security certificate.`
+Visit [`badssl.com`](https://badssl.com/) for a list of test subdomains, including:
 
-## Test Domains
-
-Visit [`help.badssl.com`](https://help.badssl.com/) for links to these:
-
-- [`badssl.com`](https://badssl.com/)
-- [`expired.badssl.com`](https://expired.badssl.com/)
-- [`sha1.badssl.com`](https://sha1.badssl.com/)
-- [`rc4.badssl.com`](https://rc4.badssl.com/)
-- [`cbc.badssl.com`](https://cbc.badssl.com/)
-- [`mixed.badssl.com`](https://mixed.badssl.com/)
+<span style="color: red;">&#x25cf;</span> [`self-signed.badssl.com`](https://self-signed.badssl.com)  
+<span style="color: red;">&#x25cf;</span>  [`wrong.host.badssl.com`](https://wrong.host.badssl.com)  
+<span style="color: red;">&#x25cf;</span>  [`expired.badssl.com`](https://expired.badssl.com)  
+<span style="color: rgb(243, 121, 46);">&#x25cf;</span>  [`incomplete-chain.badssl.com`](https://incomplete-chain.badssl.com)  
+<span style="color: rgb(246, 207, 47);">&#x25cf;</span>  [`sha1.badssl.com`](https://sha1.badssl.com)  
+<span style="color: rgb(246, 207, 47);">&#x25cf;</span>  [`mixed.badssl.com`](https://mixed.badssl.com)  
+<span style="color: gray;">&#x25cf;</span>  [`rc4.badssl.com`](https://rc4.badssl.com)  
+<span style="color: gray;">&#x25cf;</span>  [`cbc.badssl.com`](https://cbc.badssl.com)  
+<span style="color: green;">&#x25cf;</span>  [`hsts.badssl.com`](https://hsts.badssl.com)  
+<span style="color: green;">&#x25cf;</span>  [`preloaded-hsts.badssl.com`](https://preloaded-hsts.badssl.com)
 
 ## Server Setup
 
