@@ -25,27 +25,33 @@
     .links {
       padding: 0 3vw 0 3vw;
     }
+    .links a, .links #ua {
+      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
+      font-size: 3.5vh;
+      padding: 0.75vh 10vw 0.75vh 10vw;
+      margin: 1.5vh -10vw;
+    }
     .links a {
       text-decoration: none;
       color: white;
-      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
       font-size: 5em;
       font-size: 4vh;
       display: block;
-      padding: 1vh 10vw 1vh 10vw;
-      margin: 1.5vh -10vw;
       width: 100%;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: all 150ms;
       font-weight: bold;
     }
+    .links #ua {
+      margin-top: 3vh;
+    }
     @media (min-height: 1000px) {
-      .links a {
-          font-size: 3vh;
+      .links a, .links #ua {
+          font-size: 2.5vh;
       }
     }
     @media (max-width: 600px) and (min-height: 600px) {
-      .links a {
+      .links a, .links #ua {
           font-size: 5vw;
       }
     }
@@ -91,6 +97,32 @@
       background: rgb(243, 121, 46);
     }
   </style>
+  <script>
+
+  function simplifyUserAgent(ua) {
+    var regexes = [
+      /Chrome\/[\d\.]*\b/,
+      /CriOS\/[\d\.]*\b/,
+      /Firefox\/[\d\.]*\b/,
+      /OPR\/[\d\.]*\b/,
+      /Version\/[\d\.]*\b/ /* Safari has "Version/8.0.5 Safari/600.5.17", but "Safari/600.5.17" is the WebKit version, which Chrome and Opera also include. */
+    ]
+
+    for (i in regexes) {
+      var match = regexes[i].exec(ua);
+      if (match) {
+        return match[0];
+      }
+    }
+    return navigator.userAgent;
+  }
+
+  window.addEventListener("load", function() {
+    document.getElementById("ua").title = navigator.userAgent;
+    document.getElementById("ua").innerHTML = "UA: " + simplifyUserAgent(navigator.userAgent);
+    console.log(navigator.userAgent);
+  })
+  </script>
 </head>
 <body>
 
@@ -105,6 +137,7 @@
     <a href="https://cbc.badssl.com/" class="neutral">cbc</a>
     <a href="https://hsts.badssl.com/" class="good">hsts</a>
     <a href="https://preloaded-hsts.badssl.com/" class="good">preloaded-hsts</a>
+    <div id="ua"></div>
   </div>
 
   <!-- Start of GitHub ribbon. -->
