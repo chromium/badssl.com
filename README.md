@@ -35,3 +35,8 @@ Set up nginx on the server:
     # Make sure the actual keys are in /etc/keys/
     sudo service nginx restart
 
+## Other SSL Test Sites
+
+- [SSL Labs Test](https://www.ssllabs.com/ssltest/)
+- [`tls-o-matic.com`](https://www.tls-o-matic.com/)
+- [`certificate.revocationcheck.com`](https://certificate.revocationcheck.com/)
