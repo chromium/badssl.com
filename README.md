@@ -40,3 +40,11 @@ Set up nginx on the server:
 - [SSL Labs Test](https://www.ssllabs.com/ssltest/)
 - [`tls-o-matic.com`](https://www.tls-o-matic.com/)
 - [`certificate.revocationcheck.com`](https://certificate.revocationcheck.com/)
+
+## Use Cases
+
+- [crbug.com/477868](https://code.google.com/p/chromium/issues/detail?id=477868) uses:
+  - <https://self-signed.badssl.com/test/imported.js>
+- XHR ping URLS to test SHA-1 vs. SHA-256 support:
+  - <https://sha256.badssl.com/test/cors/cors.json>
+  - <https://sha1.badssl.com/test/cors/cors.json>
