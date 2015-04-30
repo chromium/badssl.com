@@ -35,11 +35,15 @@ Set up nginx on the server:
     # Make sure the actual keys are in /etc/keys/
     sudo service nginx restart
 
-## Other SSL Test Sites
+## Other Browser Security Test Sites
 
 - [SSL Labs Test](https://www.ssllabs.com/ssltest/)
 - [`tls-o-matic.com`](https://www.tls-o-matic.com/)
 - [`certificate.revocationcheck.com`](https://certificate.revocationcheck.com/)
+- Safe Browsing:
+  - [`testsafebrowsing.appspot.com`](https://testsafebrowsing.appspot.com/)
+    - Also, separate domains for [phishing](http://phishing.safebrowsingtest.com/) and [uwd](http://uwd.safebrowsingtest.com/).
+  - [`testsafebrowsing.appspot.com/chrome`](https://testsafebrowsing.appspot.com/chrome)
 
 ## Use Cases
 
