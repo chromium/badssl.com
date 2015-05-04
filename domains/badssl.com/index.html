@@ -96,6 +96,16 @@
       color: #222;
       background: rgb(243, 121, 46);
     }
+    .goodorbad {
+      background: red; /* Old browsers */
+      background: -moz-linear-gradient(left, red 0%, green 100%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, right top, color-stop(0%,red), color-stop(100%,green)); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(left, red 0%, green 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(left, red 0%, green 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(left, red 0%, green 100%); /* IE10+ */
+      background: linear-gradient(to right, red 0%, green 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='red', endColorstr='green',GradientType=1 ); /* IE6-9 */
+    }
   </style>
   <script>
 
@@ -136,7 +146,7 @@
     <a href="https://rc4.badssl.com/" class="neutral">rc4</a>
     <a href="https://cbc.badssl.com/" class="neutral">cbc</a>
     <!--a href="https://sha256.badssl.com/" class="good">sha256</a-->
-    <a href="https://hsts.badssl.com/" class="good">hsts</a>
+    <a href="https://hsts.badssl.com/" class="goodorbad">hsts</a>
     <a href="https://preloaded-hsts.badssl.com/" class="good">preloaded-hsts</a>
     <div id="ua"></div>
   </div>

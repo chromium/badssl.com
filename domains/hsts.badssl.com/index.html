@@ -31,6 +31,18 @@
         0 0 60px rgba(255, 255, 255, 0.5);
     }
   </style>
+  <script>
+  // Set the background color based on whether or not HSTS is working
+  window.onload = function () {
+    if (document.location.protocol === 'https:') {
+      document.getElementsByTagName('html')[0].style.backgroundColor = 'green';
+      document.getElementsByTagName('body')[0].style.backgroundColor = 'green';
+    } else {
+      document.getElementsByTagName('html')[0].style.backgroundColor = 'red';
+      document.getElementsByTagName('body')[0].style.backgroundColor = 'red';
+    }
+  };
+  </script>
 </head>
 <body>
     <h1>hsts.badssl.com</h1>
