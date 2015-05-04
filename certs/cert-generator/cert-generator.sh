@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Why is lgarron so defensive, anyways?
+set -eu
+cd "$(dirname ${0})"
+
 # Some data generation stuff
 d2016=$(date -d '12/31/2016' +%s)
 dnow=$(date +%s)
