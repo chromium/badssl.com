@@ -116,5 +116,11 @@ openssl x509 -req -days 730 -sha256 -CAcreateserial \
 cp out.pem ../self-signed/wildcard.self-signed.pem
 rm out.pem
 
+# Copy the certs to the certs directory, if it's not the production system
+if [ ! `hostname` == 'badssl-com' ]; then
+	echo -e "\nDeploying BadSSL Self-Signed Certs"
+	cp ../self-signed/wildcard*.pem ..
+fi
+
 # Clean up after ourselves
 rm badssl-wildcard.csr
