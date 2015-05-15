@@ -8,30 +8,23 @@
 
       margin: 0;
       padding: 0;
-
-      height: 100%;
-      display: -webkit-flexbox;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      justify-content: center;
     }
     div {
       text-align: center;
     }
-    .links {
+    #links {
+      width: 50vh;
+      max-width: 50vw;
+      margin: 5vh auto;
       padding: 0 3vw 0 3vw;
     }
-    .links a, .links #ua {
+    #links a, #links #ua {
       font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
       font-size: 3.5vh;
       padding: 0.75vh 10vw 0.75vh 10vw;
       margin: 1.5vh -10vw;
     }
-    .links a {
+    #links a {
       text-decoration: none;
       color: white;
       font-size: 5em;
@@ -42,20 +35,20 @@
       transition: all 150ms;
       font-weight: bold;
     }
-    .links #ua {
+    #links #ua {
       margin-top: 3vh;
     }
     @media (min-height: 1000px) {
-      .links a, .links #ua {
+      #links a, #links #ua {
           font-size: 2.5vh;
       }
     }
     @media (max-width: 600px) and (min-height: 600px) {
-      .links a, .links #ua {
+      #links a, #links #ua {
           font-size: 5vw;
       }
     }
-    .links a:hover, .links a:focus {
+    #links a:hover, #links a:focus {
       text-decoration: underline;
       text-shadow:
         0 0 20px rgba(255, 255, 255, 0.5),
@@ -80,10 +73,10 @@
     .dubious {
       background: rgb(246, 207, 47);
     }
-    .links a.dubious {
+    #links a.dubious {
       color: #222;
     }
-    .links a.dubious:hover {
+    #links a.dubious:hover {
       text-shadow:
         0 0 20px rgba(150, 100, 0, 0.15),
         0 0 40px rgba(150, 100, 0, 0.15),
@@ -98,6 +91,21 @@
     .orange {
       color: #222;
       background: rgb(243, 121, 46);
+    }
+    #links .more {
+      display: none;
+    }
+    #links.show-more .more {
+      display: block;
+    }
+    #links #reveal-more {
+      background: black;
+    }
+    #links #reveal-more:hover {
+      cursor: pointer
+    }
+    #links.show-more #reveal-more {
+      display: none;
     }
   </style>
   <script>
@@ -124,12 +132,15 @@
     document.getElementById("ua").title = navigator.userAgent;
     document.getElementById("ua").innerHTML = "UA: " + simplifyUserAgent(navigator.userAgent);
     console.log(navigator.userAgent);
+    document.getElementById("reveal-more").addEventListener("click", function() {
+      document.getElementById("links").classList.add("show-more");
+    });
   })
   </script>
 </head>
 <body>
 
-  <div class="links">
+  <div id="links">
     <a href="https://expired.badssl.com/" class="bad">expired</a>
     <a href="https://wrong.host.badssl.com/" class="bad">wrong.host</a>
     <a href="https://self-signed.badssl.com/" class="bad">self-signed</a>
@@ -138,9 +149,12 @@
     <a href="https://mixed.badssl.com/" class="dubious">mixed</a>
     <a href="https://rc4.badssl.com/" class="neutral">rc4</a>
     <a href="https://cbc.badssl.com/" class="neutral">cbc</a>
-    <!--a href="https://sha256.badssl.com/" class="good">sha256</a-->
     <a href="https://hsts.badssl.com/" class="goodish">hsts</a>
     <a href="https://preloaded-hsts.badssl.com/" class="goodish">preloaded-hsts</a>
+    <a id="reveal-more">More...</a>
+    <a href="https://dh480.badssl.com/" class="more bad">dh480</a>
+    <a href="https://dh512.badssl.com/" class="more bad">dh512</a>
+    <a href="https://sha256.badssl.com/" class="more good">sha256</a>
     <div id="ua"></div>
   </div>
 
