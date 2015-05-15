@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# Why is lgarron so defensive, anyways?
+# Defense is the best offense
 set -eu
 cd "$(dirname ${0})"
 
-# Some data generation stuff
-d2016=$(date -d '12/31/2016' +%s)
+# Certificate date calculations
+d2016=1483055999 # the last second of Dec. 30, 2016 in UTC: $(( $(date -ud '12/30/2016' +%s) - 1 ))
 dnow=$(date +%s)
 du2016=$(( (d2016-dnow)/(3600*24) ))
 du2017=$((du2016+365))
