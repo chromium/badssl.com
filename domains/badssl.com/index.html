@@ -135,8 +135,9 @@
     document.getElementById("ua").title = navigator.userAgent;
     document.getElementById("ua").innerHTML = "UA: " + simplifyUserAgent(navigator.userAgent);
     console.log(navigator.userAgent);
-    document.getElementById("reveal-more").addEventListener("click", function() {
+    document.getElementById("reveal-more").addEventListener("click", function(e) {
       document.getElementById("links").classList.add("show-more");
+      e.preventDefault();
     });
   })
   </script>
@@ -151,7 +152,7 @@
     <a href="https://mixed.badssl.com/" class="dubious">mixed</a>
     <a href="https://rc4.badssl.com/" class="neutral">rc4</a>
     <a href="https://cbc.badssl.com/" class="neutral">cbc</a>
-    <a id="reveal-more">More...</a>
+    <a href="" id="reveal-more">More...</a>
     <a href="https://sha256.badssl.com/" class="more good">sha256</a>
     <a href="https://hsts.badssl.com/" class="more goodish">hsts</a>
     <a href="https://preloaded-hsts.badssl.com/" class="more goodish">preloaded-hsts</a>
