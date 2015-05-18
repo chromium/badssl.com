@@ -115,6 +115,57 @@ openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -out out.pem
 cp out.pem ../self-signed/wildcard.self-signed.pem
 rm out.pem
+echo
+
+# The RSA-512 and RSA-1024 certs require us to do the whole song and dance all over again
+if [ ! -f ../self-signed/rsa512.badssl.com.key ]; then
+  echo "Generating BadSSL.com RSA-512 Private Key"
+  openssl genrsa -out ../self-signed/rsa512.badssl.com.key 512
+  echo
+fi
+
+echo "Generating BadSSL RSA-512 Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/rsa512.badssl.com.key \
+  -out rsa512.badssl-wildcard.csr \
+  -config badssl-wildcard.conf
+echo
+
+echo "Signing BadSSL RSA-512 Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in rsa512.badssl-wildcard.csr \
+  -CA ../self-signed/badssl-intermediate.pem \
+  -CAkey ../self-signed/badssl-intermediate.key \
+  -extfile badssl-wildcard.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.rsa512.pem
+rm out.pem
+
+if [ ! -f ../self-signed/rsa1024.badssl.com.key ]; then
+  echo "Generating BadSSL.com RSA-1024 Private Key"
+  openssl genrsa -out ../self-signed/rsa1024.badssl.com.key 1024
+  echo
+fi
+
+echo "Generating BadSSL RSA-1024 Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/rsa1024.badssl.com.key \
+  -out rsa1024.badssl-wildcard.csr \
+  -config badssl-wildcard.conf
+echo
+
+echo "Signing BadSSL RSA-1024 Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in rsa1024.badssl-wildcard.csr \
+  -CA ../self-signed/badssl-intermediate.pem \
+  -CAkey ../self-signed/badssl-intermediate.key \
+  -extfile badssl-wildcard.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.rsa1024.pem
+rm out.pem
+echo
 
 # Copy the certs to the certs directory, if it's not the production system
 if [ ! `hostname` == 'badssl-com' ]; then
@@ -123,4 +174,4 @@ if [ ! `hostname` == 'badssl-com' ]; then
 fi
 
 # Clean up after ourselves
-rm badssl-wildcard.csr
+rm *.csr

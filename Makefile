@@ -14,6 +14,10 @@ upload:
 		--exclude .git \
 		--exclude domains/sha1-2017.badssl.com \
 		--exclude domains/sha1-2017.badssl.com.conf \
+		--exclude domains/rsa512.badssl.com \
+		--exclude domains/rsa512.badssl.com.conf \
+		--exclude domains/rsa1024.badssl.com \
+		--exclude domains/rsa1024.badssl.com.conf \
 		--delete \
 		./ \
 		badssl.com:~/badssl/
