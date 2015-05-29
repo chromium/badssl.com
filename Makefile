@@ -26,7 +26,24 @@ upload:
 .PHONY: nginx
 nginx:
 	ssh -i ${HOME}/.ssh/google_compute_engine badssl.com "sudo service nginx reload"
-
+    
 .PHONY: open
 open:
 	open "${URL}"
+
+.PHONY: keys
+keys:
+	./certs/cert-generator/cert-generator.sh y
+
+.PHONY: install-keys
+install-keys:
+	mkdir -p /etc/keys
+	cp certs/self-signed/*.key /etc/keys
+	cp certs/self-signed/*.pem certs/
+	cp certs/self-signed/badssl-root.pem domains/misc/badssl.com/
+
+.PHONY: install
+install: | keys install-keys
+	if [ ! -d /var/www ]; then mkdir -p /var/www; fi
+	if [ ! -d /var/www/badssl ]; then ln -sf `pwd` /var/www/badssl; fi
+	@echo "Please add `pwd`/nginx.conf to your nginx.conf configuration."
