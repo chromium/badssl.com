@@ -40,7 +40,7 @@ install-keys:
 	mkdir -p /etc/keys
 	cp certs/self-signed/*.key /etc/keys
 	cp certs/self-signed/*.pem certs/
-	cp certs/self-signed/badssl-root.pem domains/misc/badssl.com/
+	cp certs/self-signed/badssl-root.pem domains/misc/http.badssl.com/
 
 .PHONY: install
 install: | keys install-keys

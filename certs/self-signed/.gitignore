@@ -1,0 +1,4 @@
+# Ignore all files that get placed into self-signed
+*
+# Except this file
+!.gitignore
