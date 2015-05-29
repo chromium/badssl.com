@@ -173,10 +173,10 @@ echo
 
 # Generate the Diffie-Hellman primes
 if [[ $regen =~ ^[Yy]$ ]]; then
-  openssl dhparam -out dh480.pem 480 
-  openssl dhparam -out dh512.pem 512
-  openssl dhparam -out dh1024.pem 1024
-  openssl dhparam -out dh2048.pem 2048
+  openssl dhparam -out ../self-signed/dh480.pem 480 
+  openssl dhparam -out ../self-signed/dh512.pem 512
+  openssl dhparam -out ../self-signed/dh1024.pem 1024
+  openssl dhparam -out ../self-signed/dh2048.pem 2048
 fi
 
 # Clean up after ourselves
