@@ -205,11 +205,5 @@ if [[ $regen =~ ^[Yy]$ ]]; then
   openssl dhparam -out ../self-signed/dh2048.pem 2048
 fi
 
-# Copy the certs to the certs directory, if it's not the production system
-if [ ! `hostname` == 'badssl-com' ]; then
-	echo -e "\nDeploying BadSSL Self-Signed Certs"
-	cp ../self-signed/wildcard*.pem ..
-fi
-
 # Clean up after ourselves
 rm *.csr
