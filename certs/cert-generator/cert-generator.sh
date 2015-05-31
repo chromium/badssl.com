@@ -171,12 +171,44 @@ cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pe
 rm out.pem
 echo
 
+# Generate the RSA-8192 certificate
+if [ ! -f ../self-signed/rsa8192.badssl.com.key ]; then
+  echo "Generating BadSSL.com RSA-8192 Private Key"
+  openssl genrsa -out ../self-signed/rsa8192.badssl.com.key 8192
+  echo
+fi
+
+echo "Generating BadSSL RSA-8192 Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/rsa8192.badssl.com.key \
+  -out rsa8192.badssl-wildcard.csr \
+  -config badssl-wildcard.conf
+echo
+
+echo "Signing BadSSL RSA-8192 Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in rsa8192.badssl-wildcard.csr \
+  -CA ../self-signed/badssl-intermediate.pem \
+  -CAkey ../self-signed/badssl-intermediate.key \
+  -extfile badssl-wildcard.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/rsa8192.badssl.com.pem
+rm out.pem
+echo
+
 # Generate the Diffie-Hellman primes
 if [[ $regen =~ ^[Yy]$ ]]; then
   openssl dhparam -out ../self-signed/dh480.pem 480 
   openssl dhparam -out ../self-signed/dh512.pem 512
   openssl dhparam -out ../self-signed/dh1024.pem 1024
   openssl dhparam -out ../self-signed/dh2048.pem 2048
+fi
+
+# Copy the certs to the certs directory, if it's not the production system
+if [ ! `hostname` == 'badssl-com' ]; then
+	echo -e "\nDeploying BadSSL Self-Signed Certs"
+	cp ../self-signed/wildcard*.pem ..
 fi
 
 # Clean up after ourselves
