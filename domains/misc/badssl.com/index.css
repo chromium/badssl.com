@@ -1,0 +1,110 @@
+    html, body {
+      background: rgb(77, 149, 218);
+
+      margin: -1.25vh 0 0 0;
+      padding: 0;
+    }
+    div {
+      text-align: center;
+    }
+    #links {
+      width: 50vh;
+      max-width: 50vw;
+      margin: 5vh auto;
+      padding: 0 3vw 0 3vw;
+    }
+    #links a, #links #ua, #links div {
+      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
+      font-size: 3.5vh;
+      padding: 0.75vh 10vw 0.75vh 10vw;
+      margin: 1.5vh -10vw;
+    }
+    #links a, #links .header {
+      text-decoration: none;
+      color: white;
+      font-size: 5em;
+      font-size: 4vh;
+      display: block;
+      width: 100%;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      transition: all 150ms;
+      font-weight: bold;
+    }
+    #links .header {
+      background: black;
+      margin-top: 5vh;
+    }
+    #links #ua {
+      margin-top: 3vh;
+      padding: 0.75vh 0vh;
+    }
+    @media (min-height: 1000px) {
+      #links a, #links #ua {
+          font-size: 2.5vh;
+      }
+    }
+    @media (max-width: 600px) and (min-height: 600px) {
+      #links a, #links #ua {
+          font-size: 5vw;
+      }
+    }
+    #links a:hover, #links a:focus {
+      text-decoration: underline;
+      text-shadow:
+        0 0 20px rgba(255, 255, 255, 0.5),
+        0 0 40px rgba(255, 255, 255, 0.5),
+        0 0 60px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+      transform: translateY(-2px);
+    }
+    .github {
+      background: rgba(0, 0, 0, 0.2);
+      color: black;
+      text-align: center;
+      margin-top: 6vh;
+      font-family: Helvetica, sans-serif;
+    }
+    .good {
+      background: green;
+    }
+    .goodish {
+      background: #484;
+    }
+    .dubious {
+      background: rgb(246, 207, 47);
+    }
+    #links a.dubious {
+      color: #222;
+    }
+    #links a.dubious:hover {
+      text-shadow:
+        0 0 20px rgba(150, 100, 0, 0.15),
+        0 0 40px rgba(150, 100, 0, 0.15),
+        0 0 60px rgba(150, 100, 0, 0.15);
+    }
+
+    .bad {
+      background: red;
+    }
+    .neutral {
+      background: gray;
+    }
+    .orange {
+      color: #222;
+      background: rgb(243, 121, 46);
+    }
+    #links .more {
+      display: none;
+    }
+    #links.show-more .more {
+      display: block;
+    }
+    #links #reveal-more {
+      background: black;
+    }
+    #links #reveal-more:hover {
+      cursor: pointer
+    }
+    #links.show-more #reveal-more {
+      display: none;
+    }
