@@ -53,10 +53,28 @@ openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in badssl-wildcard.csr \
   -CA ../self-signed/badssl-intermediate.pem \
   -CAkey ../self-signed/badssl-intermediate.key \
+  -set_serial 01 \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
 cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.normal.pem
+echo
+
+echo "Generating expired OCSP response for BadSSL Default Certificate"
+printf "V\t\t\t01\t\t\n" > index.txt # 01 must match serial # of cert, as passed to -set_serial above
+echo "unique_subject = no" > index.txt.attr
+openssl ocsp \
+  -index index.txt \
+  -rsigner ../self-signed/badssl-intermediate.pem \
+  -rkey ../self-signed/badssl-intermediate.key \
+  -CA ../self-signed/badssl-intermediate.pem \
+  -issuer ../self-signed/badssl-intermediate.pem \
+  -CAfile ../self-signed/badssl-root.pem \
+  -serial 01 \
+  -nmin 1 \
+  -nrequest 1 \
+  -respout ../self-signed/wildcard.expired-ocsp.der
+rm index.txt index.txt.attr
 echo
 
 echo "Generating incomplete certificate chain"
@@ -69,6 +87,7 @@ openssl x509 -req -days $du2016 -sha1 -CAcreateserial \
   -in badssl-wildcard.csr \
   -CA ../self-signed/badssl-intermediate.pem \
   -CAkey ../self-signed/badssl-intermediate.key \
+  -set_serial 02 \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
@@ -81,6 +100,7 @@ openssl x509 -req -days $du2017 -sha1 -CAcreateserial \
   -in badssl-wildcard.csr \
   -CA ../self-signed/badssl-intermediate.pem \
   -CAkey ../self-signed/badssl-intermediate.key \
+  -set_serial 03 \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
@@ -96,6 +116,7 @@ if [ ! -f ../self-signed/wildcard.expired.pem ]
       -in badssl-wildcard.csr \
       -CA ../self-signed/badssl-intermediate.pem \
       -CAkey ../self-signed/badssl-intermediate.key \
+      -set_serial 04 \
       -extfile badssl-wildcard.conf \
       -extensions req_v3_usr \
       -out out.pem
@@ -110,6 +131,7 @@ echo "Self-signing BadSSL SHA-256 Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in badssl-wildcard.csr \
   -signkey ../self-signed/badssl.com.key \
+  -set_serial 05 \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
@@ -136,6 +158,7 @@ openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in rsa512.badssl-wildcard.csr \
   -CA ../self-signed/badssl-intermediate.pem \
   -CAkey ../self-signed/badssl-intermediate.key \
+  -set_serial 06 \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
@@ -160,6 +183,7 @@ openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in rsa1024.badssl-wildcard.csr \
   -CA ../self-signed/badssl-intermediate.pem \
   -CAkey ../self-signed/badssl-intermediate.key \
+  -set_serial 07 \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
