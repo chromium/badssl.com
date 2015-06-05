@@ -10,7 +10,15 @@ dnow=$(date +%s)
 du2016=$(( (d2016-dnow)/(3600*24) ))
 du2017=$((du2016+365))
 
-if [ ! -f ../self-signed/badssl-root.pem ]; then
+# Ask to regenerate keys if not invoked from make keys
+if [[ $# -gt 0 ]]; then
+  regen=${1}
+else
+  read -p "Regenerate the root and intermediate keys? Recommended for first installs. [y/N] " -n 1 regen
+  echo
+fi
+
+if [[ $regen =~ ^[Yy]$ ]]; then
   echo "Generating BadSSL.com Root Certificate Authority"
   openssl req -new -x509 -days 7300 \
     -config badssl-root.conf \
@@ -33,13 +41,13 @@ if [ ! -f ../self-signed/badssl-root.pem ]; then
     -out ../self-signed/badssl-intermediate.pem
   rm badssl-intermediate.csr
   echo
+
+  # If you're regenerating keys, then the "expired" cert won't work anymore
+  rm -f ../self-signed/wildcard.expired.pem
 fi
 
-if [ ! -f ../self-signed/badssl.com.key ]; then
-  echo "Generating BadSSL.com Private Key"
-  openssl genrsa -out ../self-signed/badssl.com.key 2048
-  echo
-fi
+echo "Generating BadSSL.com Private Key"
+openssl genrsa -out ../self-signed/badssl.com.key 2048
 
 echo "Generating BadSSL Certificate Signing Request"
 openssl req -new \
@@ -118,11 +126,9 @@ rm out.pem
 echo
 
 # The RSA-512 and RSA-1024 certs require us to do the whole song and dance all over again
-if [ ! -f ../self-signed/rsa512.badssl.com.key ]; then
-  echo "Generating BadSSL.com RSA-512 Private Key"
-  openssl genrsa -out ../self-signed/rsa512.badssl.com.key 512
-  echo
-fi
+echo "Generating BadSSL.com RSA-512 Private Key"
+openssl genrsa -out ../self-signed/rsa512.badssl.com.key 512
+echo
 
 echo "Generating BadSSL RSA-512 Certificate Signing Request"
 openssl req -new \
@@ -142,11 +148,9 @@ openssl x509 -req -days 730 -sha256 -CAcreateserial \
 cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.rsa512.pem
 rm out.pem
 
-if [ ! -f ../self-signed/rsa1024.badssl.com.key ]; then
-  echo "Generating BadSSL.com RSA-1024 Private Key"
-  openssl genrsa -out ../self-signed/rsa1024.badssl.com.key 1024
-  echo
-fi
+echo "Generating BadSSL.com RSA-1024 Private Key"
+openssl genrsa -out ../self-signed/rsa1024.badssl.com.key 1024
+echo
 
 echo "Generating BadSSL RSA-1024 Certificate Signing Request"
 openssl req -new \
@@ -167,6 +171,7 @@ cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pe
 rm out.pem
 echo
 
+# Generate the RSA-8192 certificate
 if [ ! -f ../self-signed/rsa8192.badssl.com.key ]; then
   echo "Generating BadSSL.com RSA-8192 Private Key"
   openssl genrsa -out ../self-signed/rsa8192.badssl.com.key 8192
@@ -192,10 +197,12 @@ cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pe
 rm out.pem
 echo
 
-# Copy the certs to the certs directory, if it's not the production system
-if [ ! `hostname` == 'badssl-com' ]; then
-	echo -e "\nDeploying BadSSL Self-Signed Certs"
-	cp ../self-signed/wildcard*.pem ..
+# Generate the Diffie-Hellman primes
+if [[ $regen =~ ^[Yy]$ ]]; then
+  openssl dhparam -out ../self-signed/dh480.pem 480 
+  openssl dhparam -out ../self-signed/dh512.pem 512
+  openssl dhparam -out ../self-signed/dh1024.pem 1024
+  openssl dhparam -out ../self-signed/dh2048.pem 2048
 fi
 
 # Clean up after ourselves

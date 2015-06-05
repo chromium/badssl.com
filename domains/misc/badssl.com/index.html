@@ -4,123 +4,20 @@
   <title>badssl.com</title>
   <link rel="shortcut icon" href="/icons/favicon-blue.ico"/>
   <link rel="apple-touch-icon" href="/icon-blue.png"/>
-  <style>
-    html, body {
-      background: rgb(77, 149, 218);
-
-      margin: 0;
-      padding: 0;
-    }
-    div {
-      text-align: center;
-    }
-    #links {
-      width: 50vh;
-      max-width: 50vw;
-      margin: 5vh auto;
-      padding: 0 3vw 0 3vw;
-    }
-    #links a, #links #ua {
-      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
-      font-size: 3.5vh;
-      padding: 0.75vh 10vw 0.75vh 10vw;
-      margin: 1.5vh -10vw;
-    }
-    #links a {
-      text-decoration: none;
-      color: white;
-      font-size: 5em;
-      font-size: 4vh;
-      display: block;
-      width: 100%;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      transition: all 150ms;
-      font-weight: bold;
-    }
-    #links #ua {
-      margin-top: 3vh;
-      padding: 0.75vh 0vh;
-    }
-    @media (min-height: 1000px) {
-      #links a, #links #ua {
-          font-size: 2.5vh;
-      }
-    }
-    @media (max-width: 600px) and (min-height: 600px) {
-      #links a, #links #ua {
-          font-size: 5vw;
-      }
-    }
-    #links a:hover, #links a:focus {
-      text-decoration: underline;
-      text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.5),
-        0 0 60px rgba(255, 255, 255, 0.5);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-      transform: translateY(-2px);
-    }
-    .github {
-      background: rgba(0, 0, 0, 0.2);
-      color: black;
-      text-align: center;
-      margin-top: 6vh;
-      font-family: Helvetica, sans-serif;
-    }
-    .good {
-      background: green;
-    }
-    .goodish {
-      background: #484;
-    }
-    .dubious {
-      background: rgb(246, 207, 47);
-    }
-    #links a.dubious {
-      color: #222;
-    }
-    #links a.dubious:hover {
-      text-shadow:
-        0 0 20px rgba(150, 100, 0, 0.15),
-        0 0 40px rgba(150, 100, 0, 0.15),
-        0 0 60px rgba(150, 100, 0, 0.15);
-    }
-    .bad {
-      background: red;
-    }
-    .neutral {
-      background: gray;
-    }
-    .orange {
-      color: #222;
-      background: rgb(243, 121, 46);
-    }
-    #links .more {
-      display: none;
-    }
-    #links.show-more .more {
-      display: block;
-    }
-    #links #reveal-more {
-      background: black;
-    }
-    #links #reveal-more:hover {
-      cursor: pointer
-    }
-    #links.show-more #reveal-more {
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="index.css"/>
+  <link rel="stylesheet" type="text/css" href="github-ribbon.css"/>
   <script>
 
   function simplifyUserAgent(ua) {
+    'use strict';
+    var i;
     var regexes = [
       /Chrome\/[\d\.]*\b/,
       /CriOS\/[\d\.]*\b/,
       /Firefox\/[\d\.]*\b/,
       /OPR\/[\d\.]*\b/,
       /Version\/[\d\.]*\b/ /* Safari has "Version/8.0.5 Safari/600.5.17", but "Safari/600.5.17" is the WebKit version, which Chrome and Opera also include. */
-    ]
+    ];
 
     for (i in regexes) {
       var match = regexes[i].exec(ua);
@@ -131,43 +28,46 @@
     return navigator.userAgent;
   }
 
-  window.addEventListener("load", function() {
-    document.getElementById("ua").title = navigator.userAgent;
-    document.getElementById("ua").innerHTML = "UA: " + simplifyUserAgent(navigator.userAgent);
+  window.addEventListener('load', function() {
+    document.getElementById('ua').title = navigator.userAgent;
+    document.getElementById('ua').innerHTML = "UA: " + simplifyUserAgent(navigator.userAgent);
     console.log(navigator.userAgent);
-    document.getElementById("reveal-more").addEventListener("click", function(e) {
-      document.getElementById("links").classList.add("show-more");
+    document.getElementById('reveal-more').addEventListener('click', function(e) {
+      document.getElementById('links').classList.add('show-more');
       e.preventDefault();
     });
-  })
+  });
   </script>
 </head>
 <body>
 
   <div id="links">
+    <div class="header">certs</div>
     <a href="https://expired.badssl.com/" class="bad">expired</a>
-    <a href="https://wrong.host.badssl.com/" class="bad">wrong.host</a>
     <a href="https://self-signed.badssl.com/" class="bad">self-signed</a>
+    <a href="https://wrong.host.badssl.com/" class="bad">wrong.host</a>
+    <a href="https://incomplete-chain.badssl.com/" class="orange">incomplete-chain</a>
     <a href="https://sha1.badssl.com/" class="dubious">sha1</a>
-    <a href="https://mixed.badssl.com/" class="dubious">mixed</a>
-    <a href="https://rc4.badssl.com/" class="neutral">rc4</a>
+    <a href="https://sha256.badssl.com/" class="good">sha256</a>
+    <div class="header">cipher suites</div>
     <a href="https://cbc.badssl.com/" class="neutral">cbc</a>
-    <a href="" id="reveal-more">More...</a>
-    <a href="https://sha256.badssl.com/" class="more good">sha256</a>
-    <a href="https://hsts.badssl.com/" class="more goodish">hsts</a>
-    <a href="https://preloaded-hsts.badssl.com/" class="more goodish">preloaded-hsts</a>
-    <a href="https://subdomain.preloaded-hsts.badssl.com/" class="more bad">subdomain.<br>preloaded-hsts</a>
-    <a href="https://dh480.badssl.com/" class="more bad">dh480</a>
-    <a href="https://dh512.badssl.com/" class="more bad">dh512</a>
-    <a href="https://dh1024.badssl.com/" class="more dubious">dh1024</a>
-    <a href="https://dh2048.badssl.com/" class="more good">dh2048</a>
-    <a href="https://rsa8192.badssl.com/" class="more dubious">rsa8192</a>
-    <a href="https://dh-small-subgroup.badssl.com/" class="more bad">dh-small-subgroup</a>
-    <a href="https://dh-composite.badssl.com/" class="more bad">dh-composite</a>
-    <a href="https://incomplete-chain.badssl.com/" class="more orange">incomplete-chain</a>
-    <a href="https://very.badssl.com/" class="more dubious">very</a>
-    <a href="https://rc4-md5.badssl.com/" class="more neutral">rc4-md5</a>
-    <a href="http://http.badssl.com/" class="more neutral">http</a>
+    <a href="https://rc4.badssl.com/" class="neutral">rc4</a>
+    <a href="https://rc4-md5.badssl.com/" class="neutral">rc4-md5</a>
+    <div class="header">diffie-hellman</div>
+    <a href="https://dh-composite.badssl.com/" class="bad">dh-composite</a>
+    <a href="https://dh-small-subgroup.badssl.com/" class="bad">dh-small-subgroup</a>
+    <a href="https://dh480.badssl.com/" class="bad">dh480</a>
+    <a href="https://dh512.badssl.com/" class="bad">dh512</a>
+    <a href="https://dh1024.badssl.com/" class="dubious">dh1024</a>
+    <a href="https://dh2048.badssl.com/" class="good">dh2048</a>
+    <div class="header">hsts</div>
+    <a href="https://subdomain.preloaded-hsts.badssl.com/" class="bad">subdomain.<br>preloaded-hsts</a>
+    <a href="https://hsts.badssl.com/" class="goodish">hsts</a>
+    <a href="https://preloaded-hsts.badssl.com/" class="goodish">preloaded-hsts</a>
+    <div class="header">misc</div>
+    <a href="https://mixed.badssl.com/" class="dubious">mixed</a>
+    <a href="https://very.badssl.com/" class="dubious">very</a>
+    <a href="http://http.badssl.com/" class="neutral">http</a>
     <div id="ua"></div>
   </div>
 
@@ -178,149 +78,6 @@
           <a href="https://github.com/lgarron/badssl.com">Fork me on GitHub</a>
       </div>
   </div>
-
-  <style>
-  /*!
-   * "Fork me on GitHub" CSS ribbon v0.1.1 | MIT License
-   * https://github.com/simonwhitaker/github-fork-ribbon-css
-  */
-
-  /* Left will inherit from right (so we don't need to duplicate code) */
-  .github-fork-ribbon {
-    /* The right and left classes determine the side we attach our banner to */
-    position: absolute;
-
-    /* Add a bit of padding to give some substance outside the "stitching" */
-    padding: 2px 0;
-
-    /* Set the base colour */
-    background-color: black;
-
-    /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.15)));
-    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-
-    /* Add a drop shadow */
-    -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
-
-    /* Set the font */
-    font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-    z-index: 9999;
-    pointer-events: auto;
-  }
-
-  .github-fork-ribbon a,
-  .github-fork-ribbon a:hover {
-    /* Set the text properties */
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
-    text-align: center;
-
-    /* Set the geometry. If you fiddle with these you'll also need
-       to tweak the top and right values in .github-fork-ribbon. */
-    width: 200px;
-    line-height: 20px;
-
-    /* Set the layout properties */
-    display: inline-block;
-    padding: 2px 0;
-
-    /* Add "stitching" effect */
-    border-width: 1px 0;
-    border-style: dotted;
-    border-color: #fff;
-    border-color: rgba(255, 255, 255, 0.7);
-  }
-
-  .github-fork-ribbon-wrapper {
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    z-index: 9999;
-    pointer-events: none;
-  }
-
-  .github-fork-ribbon-wrapper.fixed {
-    position: fixed;
-  }
-
-  .github-fork-ribbon-wrapper.left {
-    left: 0;
-  }
-
-  .github-fork-ribbon-wrapper.right {
-    right: 0;
-  }
-
-  .github-fork-ribbon-wrapper.left-bottom {
-    position: fixed;
-    top: inherit;
-    bottom: 0;
-    left: 0;
-  }
-
-  .github-fork-ribbon-wrapper.right-bottom {
-    position: fixed;
-    top: inherit;
-    bottom: 0;
-    right: 0;
-  }
-
-  .github-fork-ribbon-wrapper.right .github-fork-ribbon {
-    top: 42px;
-    right: -43px;
-
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
-  .github-fork-ribbon-wrapper.left .github-fork-ribbon {
-    top: 42px;
-    left: -43px;
-
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-
-
-  .github-fork-ribbon-wrapper.left-bottom .github-fork-ribbon {
-    top: 80px;
-    left: -43px;
-
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
-  .github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon {
-    top: 80px;
-    right: -43px;
-
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-  </style>
 
   <!-- End of GitHub ribbon. -->
 
