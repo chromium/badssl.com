@@ -88,6 +88,9 @@
     .bad {
       background: red;
     }
+    .bad.no-interstitial {
+      background: rgb(170, 0, 0);
+    }
     .neutral {
       background: gray;
     }
@@ -148,6 +151,7 @@
     <a href="https://expired.badssl.com/" class="bad">expired</a>
     <a href="https://wrong.host.badssl.com/" class="bad">wrong.host</a>
     <a href="https://self-signed.badssl.com/" class="bad">self-signed</a>
+    <a href="https://sha1-2017.badssl.com/" class="bad no-interstitial">sha1-2017</a>
     <a href="https://sha1.badssl.com/" class="dubious">sha1</a>
     <a href="https://mixed.badssl.com/" class="dubious">mixed</a>
     <a href="https://rc4.badssl.com/" class="neutral">rc4</a>
