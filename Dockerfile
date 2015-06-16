@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     nginx
 
 # Install badssl.com
-RUN git clone https://github.com/marumari/badssl.com.git
+RUN git clone https://github.com/lgarron/badssl.com.git
 RUN cd badssl.com ; make install
 RUN cd badssl.com ; sed -i '/Virtual Host Configs/a include /var/www/badssl/nginx.conf;' /etc/nginx/nginx.conf
 
