@@ -44,6 +44,7 @@ Set up nginx on the server:
   - [`testsafebrowsing.appspot.com`](https://testsafebrowsing.appspot.com/)
     - Also, separate domains for [phishing](http://phishing.safebrowsingtest.com/) and [uwd](http://uwd.safebrowsingtest.com/).
   - [`testsafebrowsing.appspot.com/chrome`](https://testsafebrowsing.appspot.com/chrome)
+- [`rc4.io`](https://rc4.io/)
 
 ## Use Cases
 
