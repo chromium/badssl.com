@@ -1,8 +1,8 @@
 (function() {
   // Change the background to red
-  document.querySelector("html").style.backgroundColor = "#f00";
-  document.querySelector("body").style.backgroundColor = "#f00";
+  document.querySelector("html").style.backgroundColor = "red";
+  document.querySelector("body").style.backgroundColor = "red";
 
   // Write text to the page
-  document.getElementById("mixed").innerHTML = "[Active mixed content loaded]";
+  document.getElementById("footer").innerHTML = "This page has run active mixed content<br>(a script from an insecure URL).";
 })();
