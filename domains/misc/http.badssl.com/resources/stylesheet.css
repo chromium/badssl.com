@@ -1,0 +1,12 @@
+html, body {
+  background: red !important;
+}
+
+.not-triggered {
+  display: none !important;
+}
+
+.triggered {
+  display: inline !important;
+}
+
