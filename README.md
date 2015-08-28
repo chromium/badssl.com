@@ -45,6 +45,7 @@ Set up nginx on the server:
     - Also, separate domains for [phishing](http://phishing.safebrowsingtest.com/) and [uwd](http://uwd.safebrowsingtest.com/).
   - [`testsafebrowsing.appspot.com/chrome`](https://testsafebrowsing.appspot.com/chrome)
 - [`rc4.io`](https://rc4.io/)
+- [`cert-test.sandbox.google.com`](https://cert-test.sandbox.google.com/) (from the [Google FAQ for Certificate Changes](https://pki.google.com/faq.html)
 
 ## Use Cases
 
