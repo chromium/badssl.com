@@ -46,6 +46,13 @@ Set up nginx on the server:
   - [`testsafebrowsing.appspot.com/chrome`](https://testsafebrowsing.appspot.com/chrome)
 - [`rc4.io`](https://rc4.io/)
 - [`cert-test.sandbox.google.com`](https://cert-test.sandbox.google.com/) (from the [Google FAQ for Certificate Changes](https://pki.google.com/faq.html)
+- [`howsmyssl.com`](https://www.howsmyssl.com/)
+
+Other
+
+- [Runscope Community Projects](https://www.runscope.com/community)
+  - [`httpbin.org`](https://httpbin.org/)
+  - [`httpstatus.es`](http://httpstatus.es/)
 
 ## Use Cases
 
