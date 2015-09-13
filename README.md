@@ -17,23 +17,23 @@ Visit [`badssl.com`](https://badssl.com/) for a list of test subdomains, includi
 
 Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to the VM.
 
-Push the code into `~/badssl/` on the server:
+### Commands
 
-    make deploy
+    sudo apt-get update ; sudo apt-get install git nginx
+    git clone https://github.com/lgarron/badssl.com && cd badssl.com
 
-Set up nginx on the server:
-
-    sudo apt-get update
-    sudo apt-get install nginx
-
-    # Link repo into /var/www
-    sudo ln -s "${HOME}/badssl" /var/www/badssl
-
-    sudo ln -s /var/www/badssl/config/nginx.conf /etc/nginx/sites-available/badssl
-    sudo ln -s /etc/nginx/sites-available/badssl /etc/nginx/sites-enabled/badssl
-
-    # Make sure the actual keys are in /etc/keys/
+    sudo make install
     sudo service nginx restart
+
+### Docker version
+
+
+    sudo apt-get update ; sudo apt-get install docker.io
+    git clone https://github.com/lgarron/badssl.com && cd badssl.com
+
+    sudo docker build --no-cache -t badssl .
+    sudo docker run -d -p 80:80 -p 443:443 --name badssl badssl
+
 
 ## Other Browser Security Test Sites
 
