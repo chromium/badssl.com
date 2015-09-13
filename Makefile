@@ -3,6 +3,33 @@ all:
 SITE = badssl.com
 URL = "https://${SITE}/"
 
+.PHONY: open
+open:
+	open "${URL}"
+
+.PHONY: keys
+keys:
+	./certs/cert-generator/cert-generator.sh y
+
+.PHONY: install-keys
+install-keys:
+	mkdir -p /etc/keys
+	cp certs/self-signed/*.key /etc/keys
+	cp certs/self-signed/*.pem certs/
+	cp certs/self-signed/*.pem common/certs/
+
+.PHONY: link
+link:
+	if [ ! -d /var/www ]; then mkdir -p /var/www; fi
+	if [ ! -d /var/www/badssl ]; then ln -sf "`pwd`" /var/www/badssl; fi
+	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/nginx.conf to your nginx.conf configuration."; fi
+
+.PHONY: install
+install: keys install-keys link
+
+
+## Deployment
+
 .PHONY: deploy
 deploy: upload nginx
 
@@ -24,24 +51,3 @@ upload:
 .PHONY: nginx
 nginx:
 	ssh -i ${HOME}/.ssh/google_compute_engine badssl.com "sudo service nginx reload"
-
-.PHONY: open
-open:
-	open "${URL}"
-
-.PHONY: keys
-keys:
-	./certs/cert-generator/cert-generator.sh y
-
-.PHONY: install-keys
-install-keys:
-	mkdir -p /etc/keys
-	cp certs/self-signed/*.key /etc/keys
-	cp certs/self-signed/*.pem certs/
-	cp certs/self-signed/*.pem common/certs/
-
-.PHONY: install
-install: | keys install-keys
-	if [ ! -d /var/www ]; then mkdir -p /var/www; fi
-	if [ ! -d /var/www/badssl ]; then ln -sf "`pwd`" /var/www/badssl; fi
-	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/nginx.conf to your nginx.conf configuration."; fi
