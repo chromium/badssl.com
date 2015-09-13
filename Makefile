@@ -43,5 +43,5 @@ install-keys:
 .PHONY: install
 install: | keys install-keys
 	if [ ! -d /var/www ]; then mkdir -p /var/www; fi
-	if [ ! -d /var/www/badssl ]; then ln -sf `pwd` /var/www/badssl; fi
-	@echo "Please add `pwd`/nginx.conf to your nginx.conf configuration."
+	if [ ! -d /var/www/badssl ]; then ln -sf "`pwd`" /var/www/badssl; fi
+	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/nginx.conf to your nginx.conf configuration."; fi
