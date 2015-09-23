@@ -7,6 +7,14 @@ URL = "https://${SITE}/"
 open:
 	open "${URL}"
 
+.PHONY: clean
+clean:
+	rm -f /etc/keys/*.key
+	find certs -maxdepth 1 -type f ! -iname "dh-*" ! -iname '.gitignore' -delete
+	rm -f common/certs/*.pem
+	rm -f certs/self-signed/*.key
+	rm -f certs/self-signed/*.pem
+
 .PHONY: keys
 keys:
 	./certs/cert-generator/cert-generator.sh y
