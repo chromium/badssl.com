@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- https://*.badssl.com/crossdomain.xml -->
+<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+  <allow-access-from domain="*.youtube.com" />
+  <allow-access-from domain="s.ytimg.com" />
+</cross-domain-policy>
