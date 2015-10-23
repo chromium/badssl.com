@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <title>mixed.badssl.com</title>
+  <link rel="shortcut icon" href="/icons/favicon-yellow.ico"/>
+  <link rel="apple-touch-icon" href="/icons/icon-yellow.png"/>
+  <style>
+    html, body {
+      background: rgb(246, 207, 47);
+
+      margin: 0;
+      padding: 0;
+
+      height: 100%;
+      display: -webkit-flexbox;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+    }
+    h1 {
+      color: white;
+      text-align: center;
+      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
+      font-size: 5em;
+      font-size: 7vw;
+      text-shadow:
+        0 0 20px rgba(255, 255, 255, 0.5),
+        0 0 40px rgba(255, 255, 255, 0.5),
+        0 0 60px rgba(255, 255, 255, 0.5);
+    }
+    img {
+      width: 20vh;
+      max-width: 256;
+      margin-top: 5vh;
+    }
+    .footer {
+      background: rgba(0, 0, 0, 0.25);
+      
+      position: fixed;
+      width: 80vw;
+      bottom: 0;
+      left: 0;
+      padding: 2vh 10vw;
+
+      font-family: Helvetica, Tahoma, sans-serif;
+      text-align: center;
+      color: white;
+      font-size: 3vw;
+    }
+  </style>
+</head>
+<body>
+    <h1>
+      mixed.badssl.com<br>
+      <div id="img-container"></div>
+      <div class="footer" id="footer">This page triggers a mixed content image load<br>after a delay of 5 seconds.</div>
+      <script>
+        setTimeout(function() {
+          var img = document.createElement('img');
+          img.src = "http://mixed.badssl.com/image.jpg";
+          img.alt = "mixed badssl";
+          document.getElementById("img-container").appendChild(img);
+        }, 5000);
+      </script>
+    </body>
+</body>
+</html>
