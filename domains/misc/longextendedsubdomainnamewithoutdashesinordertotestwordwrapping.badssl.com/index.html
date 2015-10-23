@@ -1,40 +1,12 @@
-<!doctype html>
-<html>
-<head>
-  <title>long-extended-subdomain-name-containing-many-letters-and-dashes.badssl.com.badssl.com</title>
-  <link rel="shortcut icon" href="/icons/favicon-green.ico"/>
-  <link rel="apple-touch-icon" href="/icons/icon-green.png"/>
-  <style>
-    html, body {
-      background: green;
+---
+subdomain: longextendedsubdomainnamewithoutdashesinordertotestwordwrapping
+layout: page
+favicon: green
+background: green
+---
 
-      margin: 0;
-      padding: 0;
-
-      height: 100%;
-      display: -webkit-flexbox;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-    }
-    h1 {
-      color: white;
-      text-align: center;
-      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
-      font-size: 5em;
-      font-size: 2vw;
-      text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.5),
-        0 0 60px rgba(255, 255, 255, 0.5);
-    }
-  </style>
-</head>
-<body>
-    <h1>longextendedsubdomainnamewithoutdashesinordertotestwordwrapping.badssl.com</h1>
-</body>
-</html>
+<div id="content">
+  <h1 style="font-size: 2vw;">
+    {{ page.subdomain }}.{{ site.domain }}
+  </h1>
+</div>

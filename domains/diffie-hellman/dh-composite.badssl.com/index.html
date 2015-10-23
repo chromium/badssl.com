@@ -1,55 +1,16 @@
-<!doctype html>
-<html>
-<head>
-  <title>dh-composite.badssl.com</title>
-  <link rel="shortcut icon" href="/icons/favicon-red.ico"/>
-  <link rel="apple-touch-icon" href="/icons/icon-red.png"/>
-  <style>
-    html, body {
-      background: red;
+---
+subdomain: dh-composite
+layout: page
+favicon: red
+background: red
+---
 
-      margin: 0;
-      padding: 0;
+<div id="content">
+  <h1 style="font-size: 10vw;">
+    {{ page.subdomain }}.<br>{{ site.domain }}
+  </h1>
+</div>
 
-      height: 100%;
-      display: -webkit-flexbox;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-    }
-    h1 {
-      color: white;
-      text-align: center;
-      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
-      font-size: 5em;
-      font-size: 10vw;
-      text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.5),
-        0 0 60px rgba(255, 255, 255, 0.5);
-    }
-    .footer {
-      background: rgba(0, 0, 0, 0.25);
-      
-      position: fixed;
-      width: 80vw;
-      bottom: 0;
-      left: 0;
-      padding: 2vh 10vw;
-
-      font-family: Helvetica, Tahoma, sans-serif;
-      text-align: center;
-      color: white;
-      font-size: 3vw;
-    }
-  </style>
-</head>
-<body>
-    <h1>dh-composite.<br>badssl.com</h1>
-    <div class="footer">This site uses an ephemeral Diffie-Hellman key exchange over a composite group.</div>
-</body>
-</html>
+<div id="footer">
+  This site uses an ephemeral Diffie-Hellman key exchange<br>over a composite group.
+</div>

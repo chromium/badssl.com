@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/icons/favicon-{{ favicon }}.ico"/>
+  <link rel="apple-touch-icon" href="/icons/icon-{{ favicon }}.png"/>
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ page.subdomain }}.{{ site.domain }}{% endif %}</title>
+  <!-- Include CSS directly, so that we get always get pretty display
+       iff we have content, no matter what other requessts are broken. -->
+  <style>{% include style.css %}</style>
+</head>
+<body>
+{{ content }}
+</body>
+</html>

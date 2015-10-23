@@ -1,0 +1,6 @@
+domain: badssl.com
+
+http-domain: http.badssl.com
+
+# Build settings
+markdown: kramdown

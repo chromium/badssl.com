@@ -1,55 +1,33 @@
-<!doctype html>
-<html>
-<head>
-  <title>very.badssl.com/delayed</title>
-  <link rel="shortcut icon" href="/icons/favicon-red.ico"/>
-  <link rel="apple-touch-icon" href="/icons/icon-red.png"/>
-  <style>
-    html, body {
-      background: red;
+---
+subdomain: very
+layout: page
+favicon: red
+background: red
+---
 
-      margin: 0;
-      padding: 0;
+<style>
+#content h1 {
+  font-family: "Comic Sans MS", "Comic Sans", "Marker Felt", "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
+}
+#content img {
+  width: 60vw;
+  max-width: 512px;
+  margin-top: 2.5vh;
+}
+</style>
 
-      height: 100%;
-      display: -webkit-flexbox;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-    }
-    h1 {
-      color: white;
-      text-align: center;
-      font-family: "Comic Sans MS", "Comic Sans", "Marker Felt", "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
-      font-size: 5em;
-      font-size: 4vw;
-      text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.5),
-        0 0 60px rgba(255, 255, 255, 0.5);
-    }
-    img {
-      width: 60vw;
-      max-width: 512px;
-      margin-top: 2.5vh;
-    }
-  </style>
-</head>
-<body>
-    <h1>
-      very.badssl.com<br>/delayed<br>
-      <img src="http://very.badssl.com/image.jpg" alt="very badssl">
-      <script>
-        setTimeout(function() {
-          var script = document.createElement('script');
-          script.src = "http://very.badssl.com/test/imported.js";
-          document.head.appendChild(script);
-        }, 1000);
-      </script>
-    </body>
-</body>
-</html>
+<div id="content">
+  <h1 style="font-size: 4vw;">
+    {{ page.subdomain }}.{{ site.domain }}<br>/delayed
+  </h1>
+  <img src="http://{{ page.subdomain }}.{{ site.domain }}/image.jpg" alt="very badssl">
+</div>
+
+
+<script>
+  setTimeout(function() {
+    var script = document.createElement('script');
+    script.src = "http://{{ page.subdomain }}.{{ site.domain }}/test/imported.js";
+    document.head.appendChild(script);
+  }, 1000);
+</script>

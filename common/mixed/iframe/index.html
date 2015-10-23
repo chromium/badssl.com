@@ -1,50 +1,22 @@
-<!doctype html>
-<html>
-<head>
-  <title>mixed iframe</title>
-  <link rel="shortcut icon" href="/icons/favicon-red.ico"/>
-  <link rel="apple-touch-icon" href="/icons/icon-red.png"/>
-  <style>
-    html, body {
-      background: gray;
+---
+title: mixed iframe
+layout: page
+favicon: red
+background: gray
+---
 
-      margin: 0;
-      padding: 0;
+<style>
+  iframe {
+    width: 20vh;
+    height: 10vh;
+    max-width: 256;
+    margin-top: 5vh;
+  }
+</style>
 
-      height: 100%;
-      display: -webkit-flexbox;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-    }
-    h1 {
-      color: white;
-      text-align: center;
-      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
-      font-size: 5em;
-      font-size: 7vw;
-      text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.5),
-        0 0 60px rgba(255, 255, 255, 0.5);
-    }
-    iframe {
-      width: 20vh;
-      height: 10vh;
-      max-width: 256;
-      margin-top: 5vh;
-    }
-  </style>
-</head>
-<body>
-    <h1>
-      mixed iframe<br>
-      <iframe src="http://http.badssl.com/resources/iframe.html"></iframe>
-    </h1>
-    </body>
-</body>
-</html>
+<div id="content">
+  <h1 style="font-size: 7vw;">
+    mixed iframe
+  </h1>
+  <iframe src="http://{{ site.http-domain }}/resources/iframe.html"></iframe>
+</div>

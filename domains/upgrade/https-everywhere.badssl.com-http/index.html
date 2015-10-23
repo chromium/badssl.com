@@ -1,65 +1,17 @@
-<!doctype html>
-<html>
-<head>
-  <title>https-everywhere.badssl.com</title>
-  <link rel="shortcut icon" href="/icons/favicon-red.ico"/>
-  <link rel="apple-touch-icon" href="/icons/icon-red.png"/>
-  <style>
-    html, body {
-      background: #A44;
+---
+subdomain: https-everywhere
+layout: page
+favicon: red
+background: rgb(170, 68, 68)
+---
 
-      margin: 0;
-      padding: 0;
+<div id="content">
+  <h1 style="font-size: 7vw;">
+    http://{{ page.subdomain }}.<br>{{ site.domain }}
+  </h1>
+</div>
 
-      height: 100%;
-      display: -webkit-flexbox;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-    }
-    h1 {
-      color: white;
-      text-align: center;
-      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
-      font-size: 5em;
-      font-size: 9vw;
-      text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.5),
-        0 0 60px rgba(255, 255, 255, 0.5);
-    }
-    .footer {
-      background: rgba(0, 0, 0, 0.25);
-      
-      position: fixed;
-      width: 94vw;
-      bottom: 0;
-      left: 0;
-      padding: 2vh 3vw;
-
-      font-family: Helvetica, Tahoma, sans-serif;
-      text-align: center;
-      color: white;
-      font-size: 2.5vw;
-    }
-    #http-vs-https {
-      height: 1.5em;
-      vertical-align: middle;
-    }
-    a {
-        color: rgba(255, 192, 192, 0.75);
-    }
-    a:hover {
-        color: white;
-    }
-  </style>
-</head>
-<body>
-    <h1>https-everywhere.<br>badssl.com</h1>
-  <div class="footer"><i>HTTPS Everywhere</i> does not work or is not enabled.<br>This domain is intended to be included in a future version of <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.</div>
-</body>
-</html>
+<div id="footer" style="font-size: 2.5vw;">
+  <i>HTTPS Everywhere</i> does not work or is not enabled.<br>
+  This domain is intended to be included in a future version of <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
+</div>

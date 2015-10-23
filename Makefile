@@ -43,6 +43,8 @@ deploy: upload nginx
 
 .PHONY: upload
 upload:
+	rm -rf ./_site/
+	jekyll build
 	rsync -avz \
 		-e "ssh -i ${HOME}/.ssh/google_compute_engine" \
 		--exclude .DS_Store \
@@ -52,7 +54,7 @@ upload:
 		--exclude domains/cert/rsa1024.badssl.com \
 		--exclude domains/cert/rsa1024.badssl.com.conf \
 		--delete \
-		./ \
+		./_site/ \
 		badssl.com:~/badssl/
 	echo "\nDone deploying. Go to ${URL}\n"
 
