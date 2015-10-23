@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="/icons/favicon-{{ page.favicon }}.ico"/>
   <link rel="apple-touch-icon" href="/icons/icon-{{ page.favicon }}.png"/>
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ page.subdomain }}.{{ site.domain }}{% endif %}</title>
   <link rel="stylesheet" href="/style.css">
   <style>body { background: {% if page.background %}{{ page.background }}{% else %}gray{% endif %}; }</style>
 </head>
