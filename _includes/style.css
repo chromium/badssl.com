@@ -3,11 +3,13 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
 body {
-  background: {% if page.background %}{{ page.background }}{% else %}gray{% endif %};
+  background: gray;
   display: flex;
   flex-direction: column;
 }
+
 #content {
   text-align: center;
 
@@ -20,43 +22,58 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 #content h1 {
   margin: 0em auto;
   color: white;
   font-weight: bold;
   font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
-  font-size: {% if page.h1-size %}{{ page.h1-size }}{% else %}7vw{% endif %};
+  font-size: 7vw;
   text-shadow:
     0 0 20px rgba(255, 255, 255, 0.5),
     0 0 40px rgba(255, 255, 255, 0.5),
     0 0 60px rgba(255, 255, 255, 0.5);
 }
+
 #content img.mixed {
   width: 20vh;
   max-width: 256;
   margin-top: 5vh;
 }
+
+#content input {
+  min-width: 15em;
+}
+
+#content input, button {
+  text-align: center;
+  font-size: 2vw;
+}
+
 #footer {
   padding: 2vh 2vw;
   background: rgba(0, 0, 0, 0.25);
   color: white;
   text-align: center;
   font-family: Helvetica, Tahoma, sans-serif;
-  font-size: {% if page#footer-size %}{{ page#footer-size }}{% else %}3vw{% endif %};
+  font-size: 3vw;
 
   /* Size based on content */
   flex: 0 0 content;
 }
+
 #footer a {
   color: white;
   transition: all 150ms;
 }
+
 #footer a:hover {
   text-shadow:
     0px 0px 20px rgba(255, 255, 255, 0.5),
     0px 0px 40px rgba(255, 255, 255, 0.5),
     0px 0px 60px rgba(255, 255, 255, 0.5);
 }
+
 #footer #http-vs-https {
   height: 1.5em;
   vertical-align: middle;
