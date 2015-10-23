@@ -1,0 +1,16 @@
+---
+subdomain: pinning-test
+layout: page
+favicon: red
+background: red
+---
+
+<div id="content">
+  <h1>
+    {{ page.subdomain }}.<br>{{ site.domain }}
+  </h1>
+</div>
+
+<div id="footer">
+  This site is preloaded with a bad HPKP pin starting in Chrome 48.
+</div>
