@@ -46,13 +46,16 @@
     input, button {
       font-size: 2vw;
     }
+    input[type=password] {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
     <div>
       <h1>mixed password</h1>
       <form action="http://http.badssl.com/resources/form-submitted.html" method="post">
-        <input type="password" id="value" placeholder="This form submits to HTTP."/>
+        <input type="password" id="value" placeholder="This form submits to HTTP." value="password"/>
         <button type="submit">Submit</button>
       </form>
     </div>
