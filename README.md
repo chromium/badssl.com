@@ -3,15 +3,11 @@
 Visit [`badssl.com`](https://badssl.com/) for a list of test subdomains, including:
 
 - [`self-signed.badssl.com`](https://self-signed.badssl.com)
-- [`wrong.host.badssl.com`](https://wrong.host.badssl.com)
 - [`expired.badssl.com`](https://expired.badssl.com)
-- [`incomplete-chain.badssl.com`](https://incomplete-chain.badssl.com)
 - [`sha1.badssl.com`](https://sha1.badssl.com)
 - [`mixed.badssl.com`](https://mixed.badssl.com)
 - [`rc4.badssl.com`](https://rc4.badssl.com)
-- [`cbc.badssl.com`](https://cbc.badssl.com)
 - [`hsts.badssl.com`](https://hsts.badssl.com)
-- [`preloaded-hsts.badssl.com`](https://preloaded-hsts.badssl.com)
 
 ## Server Setup
 
@@ -34,27 +30,8 @@ Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to
     sudo docker build --no-cache -t badssl .
     sudo docker run -d -p 80:80 -p 443:443 --name badssl badssl
 
+## Disclaimer
 
-## Other Browser Security Test Sites
+`badssl.com` is maintained for *manual* testing of security UI in web clients.
 
-- [SSL Labs Test](https://www.ssllabs.com/ssltest/)
-- [`tls-o-matic.com`](https://www.tls-o-matic.com/)
-- [`certificate.revocationcheck.com`](https://certificate.revocationcheck.com/)
-- Safe Browsing:
-  - [`testsafebrowsing.appspot.com`](https://testsafebrowsing.appspot.com/)
-    - Also, separate domains for [phishing](http://phishing.safebrowsingtest.com/) and [uwd](http://uwd.safebrowsingtest.com/).
-  - [`testsafebrowsing.appspot.com/chrome`](https://testsafebrowsing.appspot.com/chrome)
-- [`rc4.io`](https://rc4.io/)
-- [`cert-test.sandbox.google.com`](https://cert-test.sandbox.google.com/) (from the [Google FAQ for Certificate Changes](https://pki.google.com/faq.html)
-- [`howsmyssl.com`](https://www.howsmyssl.com/)
-
-Other
-
-- [Runscope Community Projects](https://www.runscope.com/community)
-  - [`httpbin.org`](https://httpbin.org/)
-  - [`httpstatus.es`](http://httpstatus.es/)
-
-## Use Cases
-
-- [crbug.com/477868](https://code.google.com/p/chromium/issues/detail?id=477868) uses:
-  - <https://self-signed.badssl.com/test/imported.js>
+The functionality of any given subdomain is likely to be stable, but note that anything may change without notice. If you would like a documented guarantee for a particular use case, please file an issue. (Alternatively, you could make a fork and host your own copy.)
