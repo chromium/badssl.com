@@ -58,4 +58,4 @@ upload:
 
 .PHONY: nginx
 nginx:
-	ssh -i ${HOME}/.ssh/google_compute_engine badssl.com "sudo service nginx reload"
+	ssh -i ${HOME}/.ssh/google_compute_engine badssl.com "sudo nginx -t ; sudo service nginx reload"
