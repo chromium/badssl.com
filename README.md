@@ -23,11 +23,12 @@ Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to
 
 ### Docker version
 
+Your user should be part of the `docker` group or otherwise permitted to access Docker.
 
     sudo apt-get update ; sudo apt-get install docker.io
     git clone https://github.com/lgarron/badssl.com && cd badssl.com
 
-    sudo docker build --no-cache -t badssl .
+    make docker
     sudo docker run -d -p 80:80 -p 443:443 --name badssl badssl
 
 ## Disclaimer
