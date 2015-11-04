@@ -35,6 +35,14 @@ link:
 .PHONY: install
 install: keys install-keys link
 
+.PHONY: jekyll
+jekyll:
+	rm -rf ./_site/
+	jekyll build
+
+.PHONY: docker
+docker: jekyll
+	sudo docker build -t badssl .
 
 ## Deployment
 
@@ -42,9 +50,7 @@ install: keys install-keys link
 deploy: upload nginx
 
 .PHONY: upload
-upload:
-	rm -rf ./_site/
-	jekyll build
+upload: jekyll
 	rsync -avz \
 		-e "ssh -i ${HOME}/.ssh/google_compute_engine" \
 		--exclude .DS_Store \
