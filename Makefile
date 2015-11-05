@@ -60,7 +60,7 @@ upload: jekyll
 		--exclude domains/cert/rsa1024.badssl.com \
 		--exclude domains/cert/rsa1024.badssl.com.conf \
 		--delete \
-		./_site/ \
+		./ \
 		badssl.com:~/badssl/
 	echo "\nDone deploying. Go to ${URL}\n"
 
