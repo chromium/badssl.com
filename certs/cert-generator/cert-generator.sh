@@ -42,12 +42,12 @@ if [[ $regen =~ ^[Yy]$ ]]; then
   rm badssl-intermediate.csr
   echo
 
+  echo "Generating BadSSL.com Private Key"
+  openssl genrsa -out ../self-signed/badssl.com.key 2048
+
   # If you're regenerating keys, then the "expired" cert won't work anymore
   rm -f ../self-signed/wildcard.expired.pem
 fi
-
-echo "Generating BadSSL.com Private Key"
-openssl genrsa -out ../self-signed/badssl.com.key 2048
 
 echo "Generating BadSSL Certificate Signing Request"
 openssl req -new \
@@ -195,9 +195,45 @@ cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pe
 rm out.pem
 echo
 
+echo "Generating BadSSL.com 1000-sANs Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/badssl.com.key \
+  -out badssl-1000-sans.csr \
+  -config badssl-1000-sans.conf
+
+echo "Signing BadSSL.com 1000-sANs Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in badssl-1000-sans.csr \
+  -CA ../self-signed/badssl-intermediate.pem \
+  -CAkey ../self-signed/badssl-intermediate.key \
+  -extfile badssl-1000-sans.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/1000-sans.badssl.com.pem
+rm out.pem
+echo
+
+echo "Generating BadSSL.com 10000-sANs Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/badssl.com.key \
+  -out badssl-10000-sans.csr \
+  -config badssl-10000-sans.conf
+
+echo "Signing BadSSL.com 10000-sANs Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in badssl-10000-sans.csr \
+  -CA ../self-signed/badssl-intermediate.pem \
+  -CAkey ../self-signed/badssl-intermediate.key \
+  -extfile badssl-10000-sans.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/10000-sans.badssl.com.pem
+rm out.pem
+echo
+
 # Generate the Diffie-Hellman primes
 if [[ $regen =~ ^[Yy]$ ]]; then
-  openssl dhparam -out ../self-signed/dh480.pem 480 
+  openssl dhparam -out ../self-signed/dh480.pem 480
   openssl dhparam -out ../self-signed/dh512.pem 512
   openssl dhparam -out ../self-signed/dh1024.pem 1024
   openssl dhparam -out ../self-signed/dh2048.pem 2048
