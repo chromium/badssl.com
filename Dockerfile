@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     nginx
 
 # Install badssl.com
-RUN git clone https://github.com/lgarron/badssl.com.git
+ADD . badssl.com
 RUN cd badssl.com ; make install
 
 # Start things up!
