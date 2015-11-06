@@ -59,6 +59,10 @@ upload: jekyll
 		--exclude domains/cert/rsa512.badssl.com.conf \
 		--exclude domains/cert/rsa1024.badssl.com \
 		--exclude domains/cert/rsa1024.badssl.com.conf \
+		--exclude domains/cert/1000-sans.badssl.com \
+		--exclude domains/cert/1000-sans.badssl.com.conf \
+		--exclude domains/cert/10000-sans.badssl.com \
+		--exclude domains/cert/10000-sans.badssl.com.conf \
 		--delete \
 		./ \
 		badssl.com:~/badssl/
