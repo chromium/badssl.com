@@ -239,7 +239,7 @@ openssl req -new \
 
 echo "Signing BadSSL.com must-staple Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
-  -in badssl-1000-sans.csr \
+  -in badssl-must-staple.csr \
   -CA ../self-signed/badssl-intermediate.pem \
   -CAkey ../self-signed/badssl-intermediate.key \
   -extfile badssl-must-staple.conf \
