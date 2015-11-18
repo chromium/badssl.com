@@ -17,20 +17,21 @@ clean:
 
 .PHONY: keys
 keys:
-	./certs/cert-generator/cert-generator.sh y
+	./_site/certs/cert-generator/cert-generator.sh y
 
 .PHONY: install-keys
 install-keys:
 	mkdir -p /etc/keys
-	cp certs/self-signed/*.key /etc/keys
-	cp certs/self-signed/*.pem certs/
-	cp certs/self-signed/*.pem common/certs/
+	cp ./_site/certs/self-signed/*.key /etc/keys
+	cp ./_site/certs/self-signed/*.pem ./_site/certs/
+	mkdir -p ./_site/common/certs # Jekyll doesn't copy empty directories.
+	cp ./_site/certs/self-signed/*.pem ./_site/common/certs/
 
 .PHONY: link
 link:
 	if [ ! -d /var/www ]; then mkdir -p /var/www; fi
 	if [ ! -d /var/www/badssl ]; then ln -sf "`pwd`" /var/www/badssl; fi
-	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/nginx.conf to your nginx.conf configuration."; fi
+	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/_site/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/_site/nginx.conf to your nginx.conf configuration."; fi
 
 .PHONY: install
 install: keys install-keys link
@@ -38,7 +39,7 @@ install: keys install-keys link
 .PHONY: jekyll
 jekyll:
 	rm -rf ./_site/
-	jekyll build
+	DOMAIN="${SITE}" HTTP_DOMAIN="http.${SITE}" jekyll build
 
 .PHONY: docker
 docker: jekyll
