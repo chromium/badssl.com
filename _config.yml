@@ -1,6 +1,4 @@
-domain: badssl.com
-
-http-domain: http.badssl.com
+# `domain` and `http-domain` are populated via environment.
 
 # Build settings
 markdown: kramdown
