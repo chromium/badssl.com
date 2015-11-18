@@ -56,11 +56,11 @@ upload: jekyll
 		-e "ssh -i ${HOME}/.ssh/google_compute_engine" \
 		--exclude .DS_Store \
 		--exclude .git \
-		--exclude domains/cert/rsa512.badssl.com \
-		--exclude domains/cert/rsa512.badssl.com.conf \
-		--exclude domains/cert/rsa1024.badssl.com \
-		--exclude domains/cert/rsa1024.badssl.com.conf \
-		--delete \
+		--exclude _site/domains/cert/rsa512 \
+		--exclude _site/domains/cert/rsa512.conf \
+		--exclude _site/domains/cert/rsa1024 \
+		--exclude _site/domains/cert/rsa1024.conf \
+		--delete  --delete-excluded \
 		./ \
 		badssl.com:~/badssl/
 	echo "\nDone deploying. Go to ${URL}\n"
