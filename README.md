@@ -33,6 +33,6 @@ Your user should be part of the `docker` group or otherwise permitted to access 
 
 ## Disclaimer
 
-`badssl.com` is maintained for *manual* testing of security UI in web clients.
+`badssl.com` is meant for *manual* testing of security UI in web clients.
 
 The functionality of any given subdomain is likely to be stable, but note that anything may change without notice. If you would like a documented guarantee for a particular use case, please file an issue. (Alternatively, you could make a fork and host your own copy.)
