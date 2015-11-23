@@ -39,20 +39,24 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: all 150ms;
       font-weight: bold;
+
+      word-wrap: break-word;
     }
     #links .browser-info {
-      margin-top: 3vh;
+      margin: 3em auto 2em;
       padding: 0.75vh 0vh;
       line-height: 1.5em;
+      color: white;
+      text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
     }
-    @media (min-height: 1000px) {
-      #links a, #links .browser-info {
-          font-size: 2.5vh;
+    @media (min-height: 600px) {
+      #links a {
+        margin: 0.75vh -10vw;
       }
-    }
-    @media (max-width: 600px) and (min-height: 600px) {
       #links a, #links .browser-info {
-          font-size: 5vw;
+        font-size: 20px;
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
       }
     }
     #links a:hover, #links a:focus {
@@ -119,6 +123,25 @@
     }
     #links.show-more #reveal-more {
       display: none;
+    }
+    #links .hidden {
+      display: none;
+    }
+
+    h2 {
+      color: white;
+      font-family: Helvetica;
+      text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+    }
+    h2:not(:first-child) {
+      margin-top: 2em;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+      width: 100%;
+      margin: 1em auto;
     }
   </style>
   <script>
@@ -192,44 +215,63 @@
 </head>
 <body>
 
+
   <div id="links">
-    <a href="https://expired.{{ site.domain }}/" class="bad">expired</a>
-    <a href="https://wrong.host.{{ site.domain }}/" class="bad">wrong.host</a>
-    <a href="https://self-signed.{{ site.domain }}/" class="bad">self-signed</a>
-    <a href="https://sha1-2017.{{ site.domain }}/" class="bad no-interstitial">sha1-2017</a>
-    <a href="https://sha1-2016.{{ site.domain }}/" class="dubious">sha1-2016</a>
-    <a href="https://mixed.{{ site.domain }}/" class="dubious">mixed</a>
-    <a href="https://rc4.{{ site.domain }}/" class="neutral">rc4</a>
-    <a href="https://cbc.{{ site.domain }}/" class="neutral">cbc</a>
-    <a href="" id="reveal-more">More...</a>
-    <a href="https://sha256.{{ site.domain }}/" class="more good">sha256</a>
-    <a href="https://pinning-test.{{ site.domain }}/" class="more bad">pinning-test</a>
-    <a href="https://hsts.{{ site.domain }}/" class="more goodish">hsts</a>
-    <a href="https://preloaded-hsts.{{ site.domain }}/" class="more goodish">preloaded-hsts</a>
-    <a href="https://subdomain.preloaded-hsts.{{ site.domain }}/" class="more bad">subdomain.<br>preloaded-hsts</a>
-    <a href="https://mixed-script.{{ site.domain }}/" class="more bad no-interstitial">mixed-script</a>
-    <a href="https://dh480.{{ site.domain }}/" class="more bad">dh480</a>
-    <a href="https://dh512.{{ site.domain }}/" class="more bad">dh512</a>
-    <a href="https://dh1024.{{ site.domain }}/" class="more dubious">dh1024</a>
-    <a href="https://dh2048.{{ site.domain }}/" class="more good">dh2048</a>
-    <a href="https://rsa8192.{{ site.domain }}/" class="more dubious">rsa8192</a>
-    <a href="https://dh-small-subgroup.{{ site.domain }}/" class="more bad">dh-small-subgroup</a>
-    <a href="https://dh-composite.{{ site.domain }}/" class="more bad">dh-composite</a>
-    <a href="https://incomplete-chain.{{ site.domain }}/" class="more orange">incomplete-chain</a>
-    <a href="https://very.{{ site.domain }}/" class="more bad comic-sans">very</a>
-    <a href="https://rc4-md5.{{ site.domain }}/" class="more neutral">rc4-md5</a>
-    <a href="http://http.{{ site.domain }}/" class="more neutral">http</a>
-    <a href="http://http-password.{{ site.domain }}" class="more bad">http-password</a>
-    <a href="https://mixed.{{ site.domain }}/mixed/image" class="more dubious no-interstitial">mixed/image</a>
-    <a href="https://mixed.{{ site.domain }}/mixed/form" class="more dubious no-interstitial">mixed/form</a>
-    <a href="https://mixed.{{ site.domain }}/mixed/password" class="more dubious no-interstitial">mixed/password</a>
-    <a href="https://mixed.{{ site.domain }}/mixed/script" class="more bad no-interstitial">mixed/script</a>
-    <a href="https://mixed.{{ site.domain }}/mixed/css" class="more bad no-interstitial">mixed/css</a>
-    <a href="https://mixed.{{ site.domain }}/mixed/iframe" class="more bad no-interstitial">mixed/iframe</a>
-    <a href="https://mixed.{{ site.domain }}/mixed/font" class="more bad no-interstitial">mixed/font</a>
-    <a href="https://long-extended-subdomain-name-containing-many-letters-and-dashes.{{ site.domain }}/" class="more good">long-extended-subdomain-name-containing-many-letters-and-dashes</a>
-    <a href="https://longextendedsubdomainnamewithoutdashesinordertotestwordwrapping.{{ site.domain }}/" class="more good">longextended<wbr>subdomainname<wbr>withoutdashes<wbr>inordertotest<wbr>wordwrapping</a>
-    <a href="https://upgrade.{{ site.domain }}/" class="more good">upgrade</a>
+    <h2>Certificate:</h2>
+      <a href="https://expired.{{ site.domain }}/" class="bad">expired</a>
+      <a href="https://wrong.host.{{ site.domain }}/" class="bad">wrong.host</a>
+      <a href="https://self-signed.{{ site.domain }}/" class="bad">self-signed</a>
+      <hr>
+      <a href="https://sha1-2016.{{ site.domain }}/" class="dubious">sha1-2016</a>
+      <a href="https://sha1-2017.{{ site.domain }}/" class="bad">sha1-2017</a>
+      <a href="https://sha256.{{ site.domain }}/" class="good">sha256</a>
+      <hr>
+      <a href="https://1000-sans.{{ site.domain }}/" class="good">1000-sans</a>
+      <a href="https://10000-sans.{{ site.domain }}/" class="good">10000-sans</a>
+      <hr>
+      <a href="https://incomplete-chain.{{ site.domain }}/" class="orange">incomplete-chain</a>
+      <a href="https://rsa512.{{ site.domain }}/" class="bad hidden">rsa512</a>
+      <a href="https://rsa1024.{{ site.domain }}/" class="bad hidden">rsa1024</a>
+      <a href="https://rsa8192.{{ site.domain }}/" class="dubious">rsa8192</a>
+    <h2>Mixed:</h2>
+      <a href="https://mixed-script.{{ site.domain }}/" class="bad">mixed-script</a>
+      <a href="https://very.{{ site.domain }}/" class="bad">very</a>
+      <hr>
+      <a href="https://mixed.{{ site.domain }}/" class="dubious">mixed</a>
+      <a href="https://mixed-favicon.{{ site.domain }}/" class="dubious">mixed-favicon</a>
+    <h2>Cipher Suite:</h2>
+      <a href="https://cbc.{{ site.domain }}/" class="neutral">cbc</a>
+      <a href="https://rc4-md5.{{ site.domain }}/" class="neutral hidden">rc4-md5</a>
+      <a href="https://rc4.{{ site.domain }}/" class="neutral">rc4</a>
+      <a href="https://null.{{ site.domain }}/" class="bad hidden">null</a>
+      <hr>
+      <a href="https://mozilla-old.{{ site.domain }}/" class="bad">mozilla-old</a>
+      <a href="https://mozilla-intermediate.{{ site.domain }}/" class="dubious">mozilla-intermediate</a>
+      <a href="https://mozilla-modern.{{ site.domain }}/" class="good">mozilla-modern</a>
+    <h2>Diffie-Hellman:</h2>
+      <a href="https://dh480.{{ site.domain }}/" class="bad">dh480</a>
+      <a href="https://dh512.{{ site.domain }}/" class="bad hidden">dh512</a>
+      <a href="https://dh1024.{{ site.domain }}/" class="dubious">dh1024</a>
+      <a href="https://dh2048.{{ site.domain }}/" class="good">dh2048</a>
+      <hr>
+      <a href="https://dh-small-subgroup.{{ site.domain }}/" class="bad">dh-small-subgroup</a>
+      <a href="https://dh-composite.{{ site.domain }}/" class="bad">dh-composite</a>
+    <h2>Upgrade:</h2>
+      <a href="https://hsts.{{ site.domain }}/" class="good">hsts</a>
+      <a href="https://upgrade.{{ site.domain }}/" class="good">upgrade</a>
+      <hr>
+      <a href="https://preloaded-hsts.{{ site.domain }}/" class="good">preloaded-hsts</a>
+      <a href="https://subdomain.preloaded-hsts.{{ site.domain }}/" class="bad">subdomain.preloaded-hsts</a>
+      <hr class="hidden">
+      <a href="https://https-everywhere.{{ site.domain }}/" class="good hidden">https-everywhere</a>
+    <h2>Miscellaneous:</h2>
+      <a href="http://http.{{ site.domain }}/" class="neutral">http</a>
+      <a href="https://spoofed-favicon.{{ site.domain }}/" class="neutral hidden">spoofed-favicon</a>
+      <a href="https://http-password.{{ site.domain }}/" class="bad">http-password</a>
+      <a href="https://pinning-test.{{ site.domain }}/" class="bad">pinning-test</a>
+      <hr class="hidden">
+      <a href="https://long-extended-subdomain-name-containing-many-letters-and-dashes.{{ site.domain }}/" class="good hidden">long-extended-subdomain-name-containing-many-letters-and-dashes</a>
+      <a href="https://longextendedsubdomainnamewithoutdashesinordertotestwordwrapping.{{ site.domain }}/" class="good hidden">longextendedsubdomainnamewithoutdashesinordertotestwordwrapping</a>
     <div class="browser-info">
       <span id="ua"></span>
       <br>
