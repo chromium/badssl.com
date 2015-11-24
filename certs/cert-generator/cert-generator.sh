@@ -231,6 +231,66 @@ cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pe
 rm out.pem
 echo
 
+# Generate Superfish cert
+echo "Generating Superfish Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/badssl.com.key \
+  -out superfish.csr \
+  -config badssl-superfish.conf
+echo
+
+echo "Signing Superfish Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in superfish.csr \
+  -CA ../foreign/superfish.crt \
+  -CAkey ../foreign/superfish.key \
+  -extfile badssl-superfish.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem > ../self-signed/superfish.pem
+rm out.pem
+echo
+
+# Generate eDellRoot cert
+echo "Generating eDellRoot Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/badssl.com.key \
+  -out edellroot.csr \
+  -config badssl-edellroot.conf
+echo
+
+echo "Signing eDellRoot Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in edellroot.csr \
+  -CA ../foreign/eDellRoot.crt \
+  -CAkey ../foreign/eDellRoot.key \
+  -extfile badssl-edellroot.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem > ../self-signed/edellroot.pem
+rm out.pem
+echo
+
+# Generate DSDTestProvider cert
+echo "Generating DSDTestProvider Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/badssl.com.key \
+  -out dsdtestprovider.csr \
+  -config badssl-dsdtestprovider.conf
+echo
+
+echo "Signing DSDTestProvider Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in dsdtestprovider.csr \
+  -CA ../foreign/DSDTestProvider.crt \
+  -CAkey ../foreign/DSDTestProvider.key \
+  -extfile badssl-dsdtestprovider.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem > ../self-signed/dsdtestprovider.pem
+rm out.pem
+echo
+
 # Generate the Diffie-Hellman primes
 if [[ $regen =~ ^[Yy]$ ]]; then
   openssl dhparam -out ../self-signed/dh480.pem 480

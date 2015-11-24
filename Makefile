@@ -22,10 +22,10 @@ keys:
 .PHONY: install-keys
 install-keys:
 	mkdir -p /etc/keys
-	cp ./_site/certs/self-signed/*.key /etc/keys
-	cp ./_site/certs/self-signed/*.pem ./_site/certs/
+	cp ./_site/certs/**/*.key /etc/keys
+	cp ./_site/certs/**/*.pem ./_site/certs/
 	mkdir -p ./_site/common/certs # Jekyll doesn't copy empty directories.
-	cp ./_site/certs/self-signed/*.pem ./_site/common/certs/
+	cp ./_site/certs/**/*.pem ./_site/common/certs/
 
 .PHONY: link
 link:
