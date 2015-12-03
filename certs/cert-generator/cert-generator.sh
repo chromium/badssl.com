@@ -231,6 +231,24 @@ cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pe
 rm out.pem
 echo
 
+echo "Generating BadSSL.com must-staple Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/badssl.com.key \
+  -out badssl-must-staple.csr \
+  -config badssl-must-staple.conf
+
+echo "Signing BadSSL.com must-staple Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in badssl-must-staple.csr \
+  -CA ../self-signed/badssl-intermediate.pem \
+  -CAkey ../self-signed/badssl-intermediate.key \
+  -extfile badssl-must-staple.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/must-staple.badssl.com.pem
+rm out.pem
+echo
+
 # Generate the Diffie-Hellman primes
 if [[ $regen =~ ^[Yy]$ ]]; then
   openssl dhparam -out ../self-signed/dh480.pem 480
