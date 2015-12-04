@@ -1,7 +1,3 @@
-Bag Attributes
-    localKeyID: 01 00 00 00 
-subject=/OU=DSDTestProvider/O=DSDTestProvider/CN=DSDTestProvider
-issuer=/OU=DSDTestProvider/O=DSDTestProvider/CN=DSDTestProvider
 -----BEGIN CERTIFICATE-----
 MIIFvDCCA6SgAwIBAgIQpEw4R/jucYBDTbGAuafpYjANBgkqhkiG9w0BAQ0FADBO
 MRgwFgYDVQQLEw9EU0RUZXN0UHJvdmlkZXIxGDAWBgNVBAoTD0RTRFRlc3RQcm92
