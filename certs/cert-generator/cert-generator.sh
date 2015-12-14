@@ -22,7 +22,7 @@ if [[ $regen =~ ^[Yy]$ ]]; then
   echo "Generating BadSSL.com Root Certificate Authority"
   openssl req -new -x509 -days 7300 \
     -config badssl-root.conf \
-    -out ../self-signed/badssl-root.pem
+    -out ../cert-chains/badssl-root.pem
   echo
 
   echo "Generating BadSSL.com Intermediate Certificate Authority CSR"
@@ -34,24 +34,24 @@ if [[ $regen =~ ^[Yy]$ ]]; then
   echo "Signing BadSSL.com Intermediate Certificate Authority"
   openssl x509 -req -CAcreateserial -days 3650 -sha256 \
     -in badssl-intermediate.csr \
-    -CA ../self-signed/badssl-root.pem \
-    -CAkey ../self-signed/badssl-root.key \
+    -CA ../cert-chains/badssl-root.pem \
+    -CAkey ../keys/badssl-root.key \
     -extfile badssl-intermediate.conf \
     -extensions req_v3_ca \
-    -out ../self-signed/badssl-intermediate.pem
+    -out ../cert-chains/badssl-intermediate.pem
   rm badssl-intermediate.csr
   echo
 
   echo "Generating BadSSL.com Private Key"
-  openssl genrsa -out ../self-signed/badssl.com.key 2048
+  openssl genrsa -out ../keys/badssl.com.key 2048
 
   # If you're regenerating keys, then the "expired" cert won't work anymore
-  rm -f ../self-signed/wildcard.expired.pem
+  rm -f ../cert-chains/wildcard.expired.pem
 fi
 
 echo "Generating BadSSL Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/badssl.com.key \
+  -key ../keys/badssl.com.key \
   -out badssl-wildcard.csr \
   -config badssl-wildcard.conf
 echo
@@ -59,80 +59,80 @@ echo
 echo "Signing BadSSL Default Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in badssl-wildcard.csr \
-  -CA ../self-signed/badssl-intermediate.pem \
-  -CAkey ../self-signed/badssl-intermediate.key \
+  -CA ../cert-chains/badssl-intermediate.pem \
+  -CAkey ../keys/badssl-intermediate.key \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.normal.pem
+cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/wildcard.normal.pem
 echo
 
 echo "Generating incomplete certificate chain"
-cp out.pem ../self-signed/wildcard.incomplete-chain.pem
+cp out.pem ../cert-chains/wildcard.incomplete-chain.pem
 rm out.pem
 echo
 
 echo "Signing BadSSL SHA-1 Certificate, expiring 2016"
 openssl x509 -req -days $du2016 -sha1 -CAcreateserial \
   -in badssl-wildcard.csr \
-  -CA ../self-signed/badssl-intermediate.pem \
-  -CAkey ../self-signed/badssl-intermediate.key \
+  -CA ../cert-chains/badssl-intermediate.pem \
+  -CAkey ../keys/badssl-intermediate.key \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.sha1-2016.pem
+cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/wildcard.sha1-2016.pem
 rm out.pem
 echo
 
 echo "Signing BadSSL SHA-1 Certificate, expiring 2017"
 openssl x509 -req -days $du2017 -sha1 -CAcreateserial \
   -in badssl-wildcard.csr \
-  -CA ../self-signed/badssl-intermediate.pem \
-  -CAkey ../self-signed/badssl-intermediate.key \
+  -CA ../cert-chains/badssl-intermediate.pem \
+  -CAkey ../keys/badssl-intermediate.key \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.sha1-2017.pem
+cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/wildcard.sha1-2017.pem
 rm out.pem
 echo
 
 # Too lazy to setup the loathsome mess that is openssl ca when I could just wait a day
-if [ ! -f ../self-signed/wildcard.expired.pem ]
+if [ ! -f ../cert-chains/wildcard.expired.pem ]
   then
     echo "Signing BadSSL SHA-256 Certificate, expiring tomorrow"
     openssl x509 -req -days 1 -sha256 -CAcreateserial \
       -in badssl-wildcard.csr \
-      -CA ../self-signed/badssl-intermediate.pem \
-      -CAkey ../self-signed/badssl-intermediate.key \
+      -CA ../cert-chains/badssl-intermediate.pem \
+      -CAkey ../keys/badssl-intermediate.key \
       -extfile badssl-wildcard.conf \
       -extensions req_v3_usr \
       -out out.pem
-    cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.expired.pem
+    cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/wildcard.expired.pem
     rm out.pem
     echo
   else
-    echo -e "Not regenerating expiring certificate: delete ../self-signed/wildcard.expired.pem to regenerate\n"
+    echo -e "Not regenerating expiring certificate: delete ../cert-chains/wildcard.expired.pem to regenerate\n"
 fi
 
 echo "Self-signing BadSSL SHA-256 Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in badssl-wildcard.csr \
-  -signkey ../self-signed/badssl.com.key \
+  -signkey ../keys/badssl.com.key \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
-cp out.pem ../self-signed/wildcard.self-signed.pem
+cp out.pem ../cert-chains/wildcard.self-signed.pem
 rm out.pem
 echo
 
 # The RSA-512 and RSA-1024 certs require us to do the whole song and dance all over again
 echo "Generating BadSSL.com RSA-512 Private Key"
-openssl genrsa -out ../self-signed/rsa512.badssl.com.key 512
+openssl genrsa -out ../keys/rsa512.badssl.com.key 512
 echo
 
 echo "Generating BadSSL RSA-512 Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/rsa512.badssl.com.key \
+  -key ../keys/rsa512.badssl.com.key \
   -out rsa512.badssl-wildcard.csr \
   -config badssl-wildcard.conf
 echo
@@ -140,21 +140,21 @@ echo
 echo "Signing BadSSL RSA-512 Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in rsa512.badssl-wildcard.csr \
-  -CA ../self-signed/badssl-intermediate.pem \
-  -CAkey ../self-signed/badssl-intermediate.key \
+  -CA ../cert-chains/badssl-intermediate.pem \
+  -CAkey ../keys/badssl-intermediate.key \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.rsa512.pem
+cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/wildcard.rsa512.pem
 rm out.pem
 
 echo "Generating BadSSL.com RSA-1024 Private Key"
-openssl genrsa -out ../self-signed/rsa1024.badssl.com.key 1024
+openssl genrsa -out ../keys/rsa1024.badssl.com.key 1024
 echo
 
 echo "Generating BadSSL RSA-1024 Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/rsa1024.badssl.com.key \
+  -key ../keys/rsa1024.badssl.com.key \
   -out rsa1024.badssl-wildcard.csr \
   -config badssl-wildcard.conf
 echo
@@ -162,23 +162,23 @@ echo
 echo "Signing BadSSL RSA-1024 Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in rsa1024.badssl-wildcard.csr \
-  -CA ../self-signed/badssl-intermediate.pem \
-  -CAkey ../self-signed/badssl-intermediate.key \
+  -CA ../cert-chains/badssl-intermediate.pem \
+  -CAkey ../keys/badssl-intermediate.key \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.rsa1024.pem
+cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/wildcard.rsa1024.pem
 rm out.pem
 echo
 
 # Generate the RSA-8192 keys and certs
 echo "Generating BadSSL.com RSA-8192 Private Key"
-openssl genrsa -out ../self-signed/rsa8192.badssl.com.key 8192
+openssl genrsa -out ../keys/rsa8192.badssl.com.key 8192
 echo
 
 echo "Generating BadSSL RSA-8192 Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/rsa8192.badssl.com.key \
+  -key ../keys/rsa8192.badssl.com.key \
   -out rsa8192.badssl-wildcard.csr \
   -config badssl-wildcard.conf
 echo
@@ -186,55 +186,55 @@ echo
 echo "Signing BadSSL RSA-8192 Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in rsa8192.badssl-wildcard.csr \
-  -CA ../self-signed/badssl-intermediate.pem \
-  -CAkey ../self-signed/badssl-intermediate.key \
+  -CA ../cert-chains/badssl-intermediate.pem \
+  -CAkey ../keys/badssl-intermediate.key \
   -extfile badssl-wildcard.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/rsa8192.badssl.com.pem
+cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/rsa8192.badssl.com.pem
 rm out.pem
 echo
 
 echo "Generating BadSSL.com 1000-sANs Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/badssl.com.key \
+  -key ../keys/badssl.com.key \
   -out badssl-1000-sans.csr \
   -config badssl-1000-sans.conf
 
 echo "Signing BadSSL.com 1000-sANs Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in badssl-1000-sans.csr \
-  -CA ../self-signed/badssl-intermediate.pem \
-  -CAkey ../self-signed/badssl-intermediate.key \
+  -CA ../cert-chains/badssl-intermediate.pem \
+  -CAkey ../keys/badssl-intermediate.key \
   -extfile badssl-1000-sans.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/1000-sans.badssl.com.pem
+cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/1000-sans.badssl.com.pem
 rm out.pem
 echo
 
 echo "Generating BadSSL.com 10000-sANs Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/badssl.com.key \
+  -key ../keys/badssl.com.key \
   -out badssl-10000-sans.csr \
   -config badssl-10000-sans.conf
 
 echo "Signing BadSSL.com 10000-sANs Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in badssl-10000-sans.csr \
-  -CA ../self-signed/badssl-intermediate.pem \
-  -CAkey ../self-signed/badssl-intermediate.key \
+  -CA ../cert-chains/badssl-intermediate.pem \
+  -CAkey ../keys/badssl-intermediate.key \
   -extfile badssl-10000-sans.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/10000-sans.badssl.com.pem
+cat out.pem ../cert-chains/badssl-intermediate.pem ../cert-chains/badssl-root.pem > ../cert-chains/10000-sans.badssl.com.pem
 rm out.pem
 echo
 
 # Generate Superfish cert
 echo "Generating Superfish Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/badssl.com.key \
+  -key ../keys/badssl.com.key \
   -out superfish.csr \
   -config badssl-superfish.conf
 echo
@@ -242,19 +242,19 @@ echo
 echo "Signing Superfish Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in superfish.csr \
-  -CA ../foreign/superfish.crt \
-  -CAkey ../foreign/superfish.key \
+  -CA ../cert-chains/superfish.pem \
+  -CAkey ../keys/superfish.key \
   -extfile badssl-superfish.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem > ../self-signed/superfish.pem
+cat out.pem > ../cert-chains/superfish.pem
 rm out.pem
 echo
 
 # Generate eDellRoot cert
 echo "Generating eDellRoot Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/badssl.com.key \
+  -key ../keys/badssl.com.key \
   -out edellroot.csr \
   -config badssl-edellroot.conf
 echo
@@ -262,19 +262,19 @@ echo
 echo "Signing eDellRoot Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in edellroot.csr \
-  -CA ../foreign/eDellRoot.crt \
-  -CAkey ../foreign/eDellRoot.key \
+  -CA ../cert-chains/eDellRoot.pem \
+  -CAkey ../keys/eDellRoot.key \
   -extfile badssl-edellroot.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem > ../self-signed/edellroot.pem
+cat out.pem > ../cert-chains/edellroot.pem
 rm out.pem
 echo
 
 # Generate DSDTestProvider cert
 echo "Generating DSDTestProvider Certificate Signing Request"
 openssl req -new \
-  -key ../self-signed/badssl.com.key \
+  -key ../keys/badssl.com.key \
   -out dsdtestprovider.csr \
   -config badssl-dsdtestprovider.conf
 echo
@@ -282,21 +282,21 @@ echo
 echo "Signing DSDTestProvider Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in dsdtestprovider.csr \
-  -CA ../foreign/DSDTestProvider.crt \
-  -CAkey ../foreign/DSDTestProvider.key \
+  -CA ../cert-chains/DSDTestProvider.pem \
+  -CAkey ../keys/DSDTestProvider.key \
   -extfile badssl-dsdtestprovider.conf \
   -extensions req_v3_usr \
   -out out.pem
-cat out.pem > ../self-signed/dsdtestprovider.pem
+cat out.pem > ../cert-chains/dsdtestprovider.pem
 rm out.pem
 echo
 
 # Generate the Diffie-Hellman primes
 if [[ $regen =~ ^[Yy]$ ]]; then
-  openssl dhparam -out ../self-signed/dh480.pem 480
-  openssl dhparam -out ../self-signed/dh512.pem 512
-  openssl dhparam -out ../self-signed/dh1024.pem 1024
-  openssl dhparam -out ../self-signed/dh2048.pem 2048
+  openssl dhparam -out ../cert-chains/dh480.pem 480
+  openssl dhparam -out ../cert-chains/dh512.pem 512
+  openssl dhparam -out ../cert-chains/dh1024.pem 1024
+  openssl dhparam -out ../cert-chains/dh2048.pem 2048
 fi
 
 # Clean up after ourselves
