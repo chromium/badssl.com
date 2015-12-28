@@ -23,6 +23,8 @@ keys:
 install-keys:
 	mkdir -p /etc/keys
 	cp ./_site/certs/**/*.key /etc/keys
+	chmod 640 /etc/keys/*.key
+	chmod 750 /etc/keys
 
 .PHONY: link
 link:
