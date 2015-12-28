@@ -23,9 +23,6 @@ keys:
 install-keys:
 	mkdir -p /etc/keys
 	cp ./_site/certs/**/*.key /etc/keys
-	cp ./_site/certs/**/*.pem ./_site/certs/
-	mkdir -p ./_site/common/certs # Jekyll doesn't copy empty directories.
-	cp ./_site/certs/**/*.pem ./_site/common/certs/
 
 .PHONY: link
 link:
@@ -38,8 +35,9 @@ install: keys install-keys link
 
 .PHONY: jekyll
 jekyll:
-	rm -rf ./_site/
 	DOMAIN="${SITE}" HTTP_DOMAIN="http.${SITE}" jekyll build
+	ln -s ../certs _site/common/certs # Create symlink to certs directory
+	./_site/certs/cert-generator/cert-self-signed-symlink-generator.sh # Generate symlinks to self-signed for everything that doesn't exist in certs
 
 .PHONY: docker
 docker: jekyll
