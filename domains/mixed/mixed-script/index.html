@@ -1,18 +1,12 @@
 ---
 subdomain: mixed-script
 layout: page
-favicon: red
-background: gray
 ---
 
 <div id="content">
   <h1 style="font-size: 8vw;">
     {{ page.subdomain }}.<br>{{ site.domain }}
   </h1>
-</div>
-
-<div id="footer">
-  This page triggers active mixed content<br>(a script from an insecure URL).
 </div>
 
 <script src="http://{{ page.subdomain }}.{{ site.domain }}/nonsecure.js"></script>
