@@ -42,7 +42,7 @@ jekyll:
 	./_site/certs/cert-generator/cert-self-signed-symlink-generator.sh # Generate symlinks to self-signed for everything that doesn't exist in certs
 
 .PHONY: docker
-docker: jekyll
+docker:
 	sudo docker build -t badssl .
 
 ## Deployment

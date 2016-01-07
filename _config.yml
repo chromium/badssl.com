@@ -1,5 +1,6 @@
 # `domain` and `http-domain` are populated via environment.
 
 # Build settings
+exclude: ["badssl.com.png"]
 keep_files: ["certs/self-signed"]
 markdown: kramdown
