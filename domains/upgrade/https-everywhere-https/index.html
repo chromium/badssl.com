@@ -1,17 +1,10 @@
 ---
 subdomain: https-everywhere
 layout: page
-favicon: green
-background: rgb(68, 136, 68)
 ---
 
 <div id="content">
   <h1 style="font-size: 9vw;">
     {{ page.subdomain }}.<br>{{ site.domain }}
   </h1>
-</div>
-
-<div id="footer" style="font-size: 2.5vw;">
-  <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/redirect-test/status.svg" title="This is an image with an HTTP source location specified. If HTTPS Everywhere is working and activated, the source should be rewritten to HTTPS. The image will vary depending on the outcome."><br>
-  This domain will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
 </div>

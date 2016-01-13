@@ -10,5 +10,14 @@
 </head>
 <body>
 {{ content }}
+
+{% if site.data.subdomains[page.subdomain] %}
+    {% if site.data.subdomains[page.subdomain].description %}
+        <div id="footer">
+          {{ site.data.subdomains[page.subdomain].description }}
+        </div>
+    {% endif %}
+{% endif %}
+
 </body>
 </html>

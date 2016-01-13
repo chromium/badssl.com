@@ -2,15 +2,11 @@
 subdomain: upgrade
 layout: page
 favicon: green
-background: rgb(68, 136, 68);
+background: rgb(68, 136, 68)
 ---
 
 <div id="content">
   <h1 style="font-size: 9vw;">
     {{ page.subdomain }}.<br>{{ site.domain }}
   </h1>
-</div>
-
-<div id="footer">
-  <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/upgrade-test/upgrade-test.svg" title="This is an image with an HTTP source location specified. If upgrade-insecure-requests is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome.">
 </div>
