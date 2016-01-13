@@ -210,67 +210,17 @@
 </head>
 <body>
 
-
   <div id="links">
-    <h2>Certificate:</h2>
-      <a href="https://expired.{{ site.domain }}/" class="bad">expired</a>
-      <a href="https://wrong.host.{{ site.domain }}/" class="bad">wrong.host</a>
-      <a href="https://self-signed.{{ site.domain }}/" class="bad">self-signed</a>
-      <hr>
-      <a href="https://sha1-2016.{{ site.domain }}/" class="dubious">sha1-2016</a>
-      <a href="https://sha1-2017.{{ site.domain }}/" class="bad">sha1-2017</a>
-      <a href="https://sha256.{{ site.domain }}/" class="good">sha256</a>
-      <hr>
-      <a href="https://1000-sans.{{ site.domain }}/" class="good">1000-sans</a>
-      <a href="https://10000-sans.{{ site.domain }}/" class="good">10000-sans</a>
-      <hr>
-      <a href="https://incomplete-chain.{{ site.domain }}/" class="orange">incomplete-chain</a>
-      <a href="https://rsa512.{{ site.domain }}/" class="bad hidden">rsa512</a>
-      <a href="https://rsa1024.{{ site.domain }}/" class="bad hidden">rsa1024</a>
-      <a href="https://rsa8192.{{ site.domain }}/" class="dubious">rsa8192</a>
-    <h2>Mixed:</h2>
-      <a href="https://mixed-script.{{ site.domain }}/" class="bad">mixed-script</a>
-      <a href="https://very.{{ site.domain }}/" class="bad">very</a>
-      <hr>
-      <a href="https://mixed.{{ site.domain }}/" class="dubious">mixed</a>
-      <a href="https://mixed-favicon.{{ site.domain }}/" class="dubious">mixed-favicon</a>
-    <h2>Cipher Suite:</h2>
-      <a href="https://cbc.{{ site.domain }}/" class="neutral">cbc</a>
-      <a href="https://rc4-md5.{{ site.domain }}/" class="neutral hidden">rc4-md5</a>
-      <a href="https://rc4.{{ site.domain }}/" class="neutral">rc4</a>
-      <a href="https://null.{{ site.domain }}/" class="bad hidden">null</a>
-      <hr>
-      <a href="https://mozilla-old.{{ site.domain }}/" class="bad">mozilla-old</a>
-      <a href="https://mozilla-intermediate.{{ site.domain }}/" class="dubious">mozilla-intermediate</a>
-      <a href="https://mozilla-modern.{{ site.domain }}/" class="good">mozilla-modern</a>
-    <h2>Diffie-Hellman:</h2>
-      <a href="https://dh480.{{ site.domain }}/" class="bad">dh480</a>
-      <a href="https://dh512.{{ site.domain }}/" class="bad hidden">dh512</a>
-      <a href="https://dh1024.{{ site.domain }}/" class="dubious">dh1024</a>
-      <a href="https://dh2048.{{ site.domain }}/" class="good">dh2048</a>
-      <hr>
-      <a href="https://dh-small-subgroup.{{ site.domain }}/" class="bad">dh-small-subgroup</a>
-      <a href="https://dh-composite.{{ site.domain }}/" class="bad">dh-composite</a>
-    <h2>Upgrade:</h2>
-      <a href="https://hsts.{{ site.domain }}/" class="good">hsts</a>
-      <a href="https://upgrade.{{ site.domain }}/" class="good">upgrade</a>
-      <hr>
-      <a href="https://preloaded-hsts.{{ site.domain }}/" class="good">preloaded-hsts</a>
-      <a href="https://subdomain.preloaded-hsts.{{ site.domain }}/" class="bad">subdomain.preloaded-hsts</a>
-      <hr class="hidden">
-      <a href="https://https-everywhere.{{ site.domain }}/" class="good hidden">https-everywhere</a>
-    <h2>Miscellaneous:</h2>
-      <a href="http://http.{{ site.domain }}/" class="neutral">http</a>
-      <a href="https://spoofed-favicon.{{ site.domain }}/" class="neutral hidden">spoofed-favicon</a>
-      <a href="https://http-password.{{ site.domain }}/" class="bad">http-password</a>
-      <a href="https://pinning-test.{{ site.domain }}/" class="bad">pinning-test</a>
-      <hr class="hidden">
-      <a href="https://long-extended-subdomain-name-containing-many-letters-and-dashes.{{ site.domain }}/" class="good hidden">long-extended-subdomain-name-containing-many-letters-and-dashes</a>
-      <a href="https://longextendedsubdomainnamewithoutdashesinordertotestwordwrapping.{{ site.domain }}/" class="good hidden">longextendedsubdomainnamewithoutdashesinordertotestwordwrapping</a>
-    <h2>Known Bad:</h2>
-      <a href="https://superfish.{{ site.domain }}/" class="bad">(Lenovo) Superfish</a>
-      <a href="https://edellroot.{{ site.domain }}/" class="bad">(Dell) eDellRoot</a>
-      <a href="https://dsdtestprovider.{{ site.domain }}/" class="bad">(Dell) DSD Test Provider</a>
+    {% for category in site.data.categories %}
+      <h2>{{ category.name }}</h2>
+      {% for subdomain_hash in site.data.subdomains %}
+        {% assign name = subdomain_hash[0] %}
+        {% assign subdomain = subdomain_hash[1] %}
+        {% if subdomain.category == category.name %}
+          <a href="https://{{ name }}.{{ site.domain }}/" style="background: {{ subdomain:q!Aw.background }}">{{ name }}</a>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
     <div class="browser-info">
       <span id="ua"></span>
       <br>
