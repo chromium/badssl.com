@@ -23,13 +23,13 @@
       margin: 5vh auto;
       padding: 0 3vw 0 3vw;
     }
-    #links a, #links .browser-info {
+    #links > a, #links > .browser-info {
       font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
       font-size: 3.5vh;
       padding: 0.75vh 10vw 0.75vh 10vw;
       margin: 1.5vh -10vw;
     }
-    #links a {
+    #links > a {
       text-decoration: none;
       color: white;
       font-size: 5em;
@@ -39,10 +39,18 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: all 150ms;
       font-weight: bold;
-
       word-wrap: break-word;
     }
-    #links .browser-info {
+    #links > .description {
+        text-decoration: none;
+        color: white;
+        display: none;
+        width: 100%;
+        transition: all 150ms;
+        font-weight: bold;
+        word-wrap: break-word;
+    }
+    #links > .browser-info {
       margin: 3em auto 2em;
       padding: 0.75vh 0vh;
       line-height: 1.5em;
@@ -50,16 +58,32 @@
       text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
     }
     @media (min-height: 600px) {
-      #links a {
+      #links > a {
         margin: 0.75vh -10vw;
       }
-      #links a, #links .browser-info {
+      #links > a, #links .browser-info {
         font-size: 20px;
         padding-top: 0.25em;
         padding-bottom: 0.25em;
       }
     }
-    #links a:hover, #links a:focus {
+    #description-toggle {
+        font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
+        font-size: 3.5vh;
+        padding: 0.75vh 10vw 0.75vh 10vw;
+        margin: 1.5vh -10vw 0 1.5vh;
+        text-decoration: none;
+        color: white;
+        font-size: 2.5em;
+        font-size: 2vh;
+        display: block;
+        width: 20%;
+        cursor: pointer;
+        transition: all 150ms;
+        font-weight: bold;
+        word-wrap: break-word;
+    }
+    #links > a:hover, #links > a:focus {
       text-decoration: underline;
       text-shadow:
         0 0 20px rgba(255, 255, 255, 0.5),
@@ -84,10 +108,10 @@
     .dubious {
       background: rgb(246, 207, 47);
     }
-    #links a.dubious {
+    #links > a.dubious {
       color: #222;
     }
-    #links a.dubious:hover {
+    #links > a.dubious:hover {
       text-shadow:
         0 0 20px rgba(150, 100, 0, 0.15),
         0 0 40px rgba(150, 100, 0, 0.15),
@@ -106,25 +130,25 @@
       color: #222;
       background: rgb(243, 121, 46);
     }
-    #links .comic-sans {
+    #links > .comic-sans {
       font-family: "Comic Sans MS", "Comic Sans", "Marker Felt";
     }
-    #links .more {
+    #links > .more {
       display: none;
     }
-    #links.show-more .more {
+    #links.show-more > .more {
       display: block;
     }
-    #links #reveal-more {
+    #links > #reveal-more {
       background: black;
     }
-    #links #reveal-more:hover {
+    #links > #reveal-more:hover {
       cursor: pointer
     }
-    #links.show-more #reveal-more {
+    #links.show-more > #reveal-more {
       display: none;
     }
-    #links .hidden {
+    #links > .hidden {
       display: none;
     }
 
@@ -199,25 +223,39 @@
     return null;
   }
 
+  function toggleDescriptions() {
+      var descriptions = document.querySelectorAll("#links > .description");
+      for (var i = 0; i < descriptions.length; i++) {
+          if (descriptions[i].style.display === "block") {
+              descriptions[i].style.display = "none"
+          } else {
+              descriptions[i].style.display = "block"
+          }
+
+      }
+  }
+
   window.addEventListener("load", function() {
     document.getElementById("ua").title = navigator.userAgent;
     document.getElementById("ua").textContent = getBrowserVersion();
     if (getOS()) {
       document.getElementById("os").textContent = getOS();
     }
+    document.getElementById("description-toggle").addEventListener("click", toggleDescriptions);
   })
   </script>
 </head>
 <body>
-
+  <a id="description-toggle">Show Descriptions</a>
   <div id="links">
     {% for category in site.data.categories %}
-      <h2>{{ category.name }}</h2>
+      <h2>{{ category.name }}:</h2>
       {% for subdomain_hash in site.data.subdomains %}
         {% assign name = subdomain_hash[0] %}
         {% assign subdomain = subdomain_hash[1] %}
         {% if subdomain.category == category.name %}
-          <a href="https://{{ name }}.{{ site.domain }}/" style="background: {{ subdomain:q!Aw.background }}">{{ name }}</a>
+          <a href="https://{{ name }}.{{ site.domain }}/" style="background: {{ subdomain.background }}">{{ name }}</a>
+          <div class="description">{{ subdomain.description }}</div>
         {% endif %}
       {% endfor %}
     {% endfor %}
