@@ -47,30 +47,27 @@ self-signed:
     background: red
     category: Certs
     description: |
-        TODO
+        This certificate is not signed by a trusted CA, instead it is signed by the issuer.
 sha1:
     favicon: yellow
     background: rgb(246, 207, 47)
     category: Certs
     description: |
-        The certificate for this site is signed using SHA-1<br>
-        and expires on Dec. 29, 2016.
+        The certificate for this site is signed using SHA-1 and expires on Dec. 29, 2016. This date is prior to the <a href="https://googleonlinesecurity.blogspot.ca/2014/09/gradually-sunsetting-sha-1.html">sunset date</a>.
 sha1-2016:
     favicon: yellow
     background: rgb(246, 207, 47)
     category: Certs
     # TODO: Why is this important?
     description: |
-        The certificate for this site is signed using SHA-1<br>
-        and expires on Dec. 29, 2016.
+        The certificate for this site is signed using SHA-1 and expires on Dec. 29, 2016. This date is prior to the <a href="https://googleonlinesecurity.blogspot.ca/2014/09/gradually-sunsetting-sha-1.html">sunset date</a>.
 sha-2017:
     favicon: red
     background: red
     category: Certs
     # TODO: Why is this important?
     description: |
-        The certificate for this site is signed using SHA-1<br>
-        and expires on Jan. 5, 2017.
+        The certificate for this site is signed using SHA-1 and expires on Jan. 5, 2017. This date is after to the <a href="https://googleonlinesecurity.blogspot.ca/2014/09/gradually-sunsetting-sha-1.html">sunset date</a>.
 sha256:
     favicon: green
     background: green
@@ -177,19 +174,19 @@ dsdtestprovider:
     background: red
     category: Known-Bad
     description: |
-        See https://blog.hboeck.de/archives/876-Superfish-2.0-Dangerous-Certificate-on-Dell-Laptops-breaks-encrypted-HTTPS-Connections.html
+        A MITM certificate installed on some Dell machines. <a href="https://blog.hboeck.de/archives/876-Superfish-2.0-Dangerous-Certificate-on-Dell-Laptops-breaks-encrypted-HTTPS-Connections.html">Hboeck source</a>.
 edellroot:
     favicon: red
     background: red
     category: Known-Bad
     description: |
-        See https://blog.hboeck.de/archives/876-Superfish-2.0-Dangerous-Certificate-on-Dell-Laptops-breaks-encrypted-HTTPS-Connections.html
+        Another MITM certificate installed on some Dell machines. <a href="https://blog.hboeck.de/archives/876-Superfish-2.0-Dangerous-Certificate-on-Dell-Laptops-breaks-encrypted-HTTPS-Connections.html">Hboeck source</a>.
 superfish:
     favicon: red
     background: red
     category: Known-Bad
     description: |
-        See blog.erratasec.com/2015/02/extracting-superfish-certificate.html
+        A MITM certificate installed on some Lenovo machines. <a href="http://blog.erratasec.com/2015/02/extracting-superfish-certificate.html">Erratasec source</a>.
 
 ### Misc ###
 badssl.com:
@@ -249,8 +246,7 @@ mixed-script:
     background: gray
     category: Mixed
     description: |
-        This page triggers active mixed content<br>
-        (a script from an insecure URL).
+        This page triggers active mixed content (a script from an insecure URL).
 very:
     favicon: red
     background: red
@@ -270,7 +266,7 @@ hsts-https:
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
-        <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/hsts-test/status.svg" title="This is an image with an HTTP source location specified. If HSTS is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome.">
+        TODO
 https-everywhere-http:
     favicon: red
     background: rgb(170, 68, 68)
@@ -283,21 +279,21 @@ https-everywhere-https:
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
-        <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/redirect-test/status.svg" title="This is an image with an HTTP source location specified. If HTTPS Everywhere is working and activated, the source should be rewritten to HTTPS. The image will vary depending on the outcome."><br>
+        TODO
         This domain will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
 preloaded-hsts-http:
     favicon: red
     background: rgb(170, 68, 68)
     category: Upgrade
     description: |
-        <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/hsts-test/status.svg" title="This is an image with an HTTP source location specified. If HSTS is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome."><br>
+        TODO
         Preloaded in: Chrome 44, Firefox 41
 preloaded-hsts-https:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
-        <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/hsts-test/status.svg" title="This is an image with an HTTP source location specified. If HSTS is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome."><br>
+        TODO
         Preloaded in: Chrome 44, Firefox 41
 subdomain.preloaded-hsts:
     favicon: red
@@ -310,10 +306,10 @@ upgrade-http:
     background: red
     category: Upgrade
     description: |
-        <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/upgrade-test/upgrade-test.svg" title="This is an image with an HTTP source location specified. If upgrade-insecure-requests is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome.">
+        TODO
 upgrade-https:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
-        <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/upgrade-test/upgrade-test.svg" title="This is an image with an HTTP source location specified. If upgrade-insecure-requests is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome.">
+        TODO
