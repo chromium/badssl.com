@@ -260,40 +260,38 @@ hsts-http:
     background: red
     category: Upgrade
     description: |
-        TODO
+        This site advertises HTTP Strict Transport Security however only provides HTTP.
 hsts-https:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
-        TODO
+        This site advertises HTTP Strict Transport Security and correctly provides HTTPS.
 https-everywhere-http:
     favicon: red
     background: rgb(170, 68, 68)
     category: Upgrade
     description: |
-        <i>HTTPS Everywhere</i> does not work or is not enabled.<br>
         This domain will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
 https-everywhere-https:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
-        TODO
         This domain will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
 preloaded-hsts-http:
     favicon: red
     background: rgb(170, 68, 68)
     category: Upgrade
     description: |
-        TODO
+        This site has preloaded HTTP Strict Transport Security however only provides HTTP.<br>
         Preloaded in: Chrome 44, Firefox 41
 preloaded-hsts-https:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
-        TODO
+        This site has preloaded HTTP Strict Transport Security and correctly provides HTTPS.<br>
         Preloaded in: Chrome 44, Firefox 41
 subdomain.preloaded-hsts:
     favicon: red
@@ -301,15 +299,10 @@ subdomain.preloaded-hsts:
     category: Upgrade
     description: |
         This site is preloaded to use HTTP Strict Transport Security, but its hostname doesn't match the certificate.
-upgrade-http:
-    favicon: red
-    background: red
-    category: Upgrade
-    description: |
-        TODO
+        Preloaded in: Chrome 44, Firefox 41
 upgrade-https:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
-        TODO
+        This site attempts to load an HTTP image. If upgrade-insecure-requests is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome.
