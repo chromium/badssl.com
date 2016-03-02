@@ -14,8 +14,10 @@ RUN gem2.0 install jekyll
 # Install badssl.com
 ADD . badssl.com
 WORKDIR badssl.com
-RUN make install
 RUN make jekyll
+RUN if [ ! -f _site/certs/badssl-root.key ]; then make keys; fi
+RUN make install-keys
+RUN make link
 
 # Start things up!
 CMD nginx && tail -f /var/log/nginx/access.log /var/log/nginx/error.log
