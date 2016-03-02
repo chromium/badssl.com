@@ -255,38 +255,41 @@ very:
         This site has been a very bad doge.
 
 ### Upgrade ###
-hsts-http:
-    favicon: red
-    background: red
-    category: Upgrade
-    description: |
-        This site advertises HTTP Strict Transport Security however only provides HTTP.
-hsts-https:
+hsts:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
         This site advertises HTTP Strict Transport Security and correctly provides HTTPS.
-https-everywhere-http:
+hsts-http:
+    listed: false
     favicon: red
-    background: rgb(170, 68, 68)
+    background: red
     category: Upgrade
     description: |
-        This domain will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
-https-everywhere-https:
+        This site advertises HTTP Strict Transport Security however only provides HTTP.
+https-everywhere:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
     description: |
         This domain will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
+https-everywhere-http:
+    listed: false
+    favicon: red
+    background: rgb(170, 68, 68)
+    category: Upgrade
+    description: |
+        This domain will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
 preloaded-hsts-http:
+    listed: false
     favicon: red
     background: rgb(170, 68, 68)
     category: Upgrade
     description: |
         This site has preloaded HTTP Strict Transport Security however only provides HTTP.<br>
         Preloaded in: Chrome 44, Firefox 41
-preloaded-hsts-https:
+preloaded-hsts:
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
@@ -300,7 +303,14 @@ subdomain.preloaded-hsts:
     description: |
         This site is preloaded to use HTTP Strict Transport Security, but its hostname doesn't match the certificate.
         Preloaded in: Chrome 44, Firefox 41
-upgrade-https:
+upgrade:
+    favicon: green
+    background: rgb(68, 136, 68)
+    category: Upgrade
+    description: |
+        This site attempts to load an HTTP image. If upgrade-insecure-requests is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome.
+upgrade-http:
+    listed: false
     favicon: green
     background: rgb(68, 136, 68)
     category: Upgrade
