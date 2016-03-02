@@ -208,7 +208,7 @@
         <div class="link-container">
           {% assign name = subdomain_hash[0] %}
           {% assign subdomain = subdomain_hash[1] %}
-          {% if subdomain.category == category.name %}
+          {% if subdomain.category == category.name and subdomain.listed != false %}
             <a href="https://{{ name }}.{{ site.domain }}/" style="background: {{ subdomain.background }}">{{ name }}</a>
             <div class="description">{{ subdomain.description }}</div>
           {% endif %}
