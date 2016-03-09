@@ -3,6 +3,8 @@
 # Defense is the best offense
 set -eu
 cd "$(dirname ${0})"
+# Make sure self-signed exists.
+mkdir -p ../self-signed/
 
 # Certificate date calculations
 d2016=1483055999 # the last second of Dec. 30, 2016 in UTC: $(( $(date -ud '12/30/2016' +%s) - 1 ))

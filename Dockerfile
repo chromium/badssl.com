@@ -14,8 +14,8 @@ RUN gem2.0 install jekyll
 # Install badssl.com
 ADD . badssl.com
 WORKDIR badssl.com
-RUN make install
 RUN make jekyll
+RUN make install
 
 # Start things up!
 CMD nginx && tail -f /var/log/nginx/access.log /var/log/nginx/error.log
