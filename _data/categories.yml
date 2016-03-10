@@ -1,7 +1,7 @@
-- name: Certs
-- name: Cipher-Suites
-- name: Diffie-Hellman
-- name: Known-Bad
-- name: Misc
-- name: Mixed
+- name: Certificates
+- name: Cipher Suites
+- name: Diffie Hellman
+- name: Known Bad
+- name: Miscellaneous
+- name: Mixed Content
 - name: Upgrade
