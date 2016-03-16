@@ -40,9 +40,11 @@
       word-wrap: break-word;
     }
     #links > .link-container > .description {
+        position: relative;
+        z-index: 10;
         text-decoration: none;
         color: white;
-        max-height: 0;
+        height: 0;
         overflow: hidden;
         width: 100%;
         transition: all 1.5s;
@@ -50,9 +52,12 @@
         font-weight: bold;
         font-size: 14pt;
         word-wrap: break-word;
+        top: -10px;
+        box-shadow: 0 8px 6px rgba(0,0,0,0.16), 0 8px 6px rgba(0,0,0,0.23);
     }
     #links > .link-container:hover > .description {
-        max-height: 50vh;
+        height: 34pt;
+        margin-bottom: -34pt;
     }
     #links > .browser-info {
       margin: 3em auto 2em;
@@ -210,10 +215,11 @@
           {% assign subdomain = subdomain_hash[1] %}
           {% if subdomain.category == category.name and subdomain.listed != false %}
             <a href="https://{{ name }}.{{ site.domain }}/" style="background: {{ subdomain.background }}">{{ name }}</a>
-            <div class="description">{{ subdomain.description }}</div>
+            <div class="description" style="background: {{ subdomain.background }}">{{ subdomain.description }}</div>
           {% endif %}
         </div>
       {% endfor %}
+      <hr>
     {% endfor %}
     <div class="browser-info">
       <span id="ua"></span>
