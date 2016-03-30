@@ -222,7 +222,7 @@ pinning-test:
     # TODO: Firefox?
     description: |
         This site is preloaded with a bad HPKP pin starting in Chrome 48.
-spoofed-favicon.badssl.com:
+spoofed-favicon:
     background: gray
     category: Miscellaneous
     description: |
