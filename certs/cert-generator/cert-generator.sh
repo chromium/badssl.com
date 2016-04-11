@@ -56,6 +56,13 @@ openssl req -new \
   -config badssl-wildcard.conf
 echo
 
+echo "Generating BadSSL Fallback Certificate Signing Request"
+openssl req -new \
+  -key ../self-signed/badssl.com.key \
+  -out badssl-fallback.csr \
+  -config badssl-fallback.conf
+echo
+
 echo "Signing BadSSL Default Certificate"
 openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -in badssl-wildcard.csr \
@@ -122,6 +129,17 @@ openssl x509 -req -days 730 -sha256 -CAcreateserial \
   -extensions req_v3_usr \
   -out out.pem
 cp out.pem ../self-signed/wildcard.self-signed.pem
+rm out.pem
+echo
+
+echo "Self-signing BadSSL Fallback Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in badssl-fallback.csr \
+  -signkey "../self-signed/badssl.com.key" \
+  -extfile badssl-fallback.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+cp out.pem ../self-signed/wildcard.fallback.pem
 rm out.pem
 echo
 
