@@ -1,17 +1,12 @@
 ---
 subdomain: preloaded-hsts
 layout: page
-favicon: green
-background: rgb(68, 136, 68)
 ---
+
+<img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/hsts-test/status.svg" title="This is an image with an HTTP source location specified. If HSTS is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome."><br>
 
 <div id="content">
   <h1 style="font-size: 9vw;">
     {{ page.subdomain }}.<br>{{ site.domain }}
   </h1>
-</div>
-
-<div id="footer">
-  <img id="http-vs-https" src="http://{{ page.subdomain }}.{{ site.domain }}/hsts-test/status.svg" title="This is an image with an HTTP source location specified. If HSTS is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome."><br>
-  Preloaded in: Chrome 44, Firefox 41
 </div>
