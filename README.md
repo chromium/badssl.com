@@ -36,3 +36,5 @@ Your user should be part of the `docker` group or otherwise permitted to access 
 `badssl.com` is meant for *manual* testing of security UI in web clients.
 
 Most subdomains are likely to have stable functionality, but anything *could* change without notice. If you would like a documented guarantee for a particular use case, please file an issue. (Alternatively, you could make a fork and host your own copy.)
+
+badssl.com is not an official Google product. It is offered "AS-IS" and without any warranties.
