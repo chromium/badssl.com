@@ -17,12 +17,12 @@ clean:
 
 .PHONY: keys
 keys:
-	./_site/certs/cert-generator/cert-generator.sh y
+	./certs/cert-generator/cert-generator.sh y
 
 .PHONY: install-keys
 install-keys:
 	mkdir -p /etc/keys
-	cp ./_site/certs/**/*.key /etc/keys
+	cp ./certs/**/*.key /etc/keys
 	chmod 640 /etc/keys/*.key
 	chmod 750 /etc/keys
 
@@ -30,7 +30,7 @@ install-keys:
 link:
 	if [ ! -d /var/www ]; then mkdir -p /var/www; fi
 	if [ ! -d /var/www/badssl ]; then ln -sf "`pwd`" /var/www/badssl; fi
-	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/_site/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/_site/nginx.conf to your nginx.conf configuration."; fi
+	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/nginx.conf to your nginx.conf configuration."; fi
 
 .PHONY: install
 install: keys install-keys link
@@ -38,8 +38,8 @@ install: keys install-keys link
 .PHONY: jekyll
 jekyll:
 	DOMAIN="${SITE}" HTTP_DOMAIN="http.${SITE}" jekyll build
-	ln -s ../certs _site/common/certs # Create symlink to certs directory
-	./_site/certs/cert-generator/cert-self-signed-symlink-generator.sh # Generate symlinks to self-signed for everything that doesn't exist in certs
+	ln -s ../certs common/certs # Create symlink to certs directory
+	./certs/cert-generator/cert-self-signed-symlink-generator.sh # Generate symlinks to self-signed for everything that doesn't exist in certs
 
 .PHONY: docker
 docker:
@@ -56,10 +56,10 @@ upload: jekyll
 		-e "ssh -i ${HOME}/.ssh/google_compute_engine" \
 		--exclude .DS_Store \
 		--exclude .git \
-		--exclude _site/domains/cert/rsa512 \
-		--exclude _site/domains/cert/rsa512.conf \
-		--exclude _site/domains/cert/rsa1024 \
-		--exclude _site/domains/cert/rsa1024.conf \
+		--exclude domains/cert/rsa512 \
+		--exclude domains/cert/rsa512.conf \
+		--exclude domains/cert/rsa1024 \
+		--exclude domains/cert/rsa1024.conf \
 		--delete  --delete-excluded \
 		./ \
 		badssl.com:~/badssl/
