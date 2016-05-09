@@ -18,6 +18,9 @@ else
   echo
 fi
 
+# Ensure the directory exists, otherwise we can't populate certificates.
+mkdir -p ../self-signed
+
 if [[ $regen =~ ^[Yy]$ ]]; then
   echo "Generating BadSSL.com Root Certificate Authority"
   openssl req -new -x509 -days 7300 \
