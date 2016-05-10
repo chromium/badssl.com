@@ -12,6 +12,6 @@ if [[ -f wildcard.normal.pem ]]; then
 fi
 
 # Let's go up a directory and create all the symlinks downwards
-for i in `ls self-signed`; do
-  ln -s self-signed/$i $i
+for i in `ls cert-chains`; do
+  ln -s cert-chains/$i $i
 done
