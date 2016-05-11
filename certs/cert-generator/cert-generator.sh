@@ -10,6 +10,11 @@ dnow=$(date +%s)
 du2016=$(( (d2016-dnow)/(3600*24) ))
 du2017=$((du2016+365))
 
+# Create the self-signed directory, since jekyll doesn't clone empty directories
+if [[ ! -d ../self-signed ]]; then
+  mkdir ../self-signed
+fi
+
 # Ask to regenerate keys if not invoked from make keys
 if [[ $# -gt 0 ]]; then
   regen=${1}
@@ -80,6 +85,19 @@ echo
 echo "Generating incomplete certificate chain"
 cp out.pem ../self-signed/wildcard.incomplete-chain.pem
 rm out.pem
+echo
+
+echo "Signing BadSSL Invalid Signature Certificate"
+openssl x509 -req -days 730 -sha256 -CAcreateserial \
+  -in badssl-wildcard.csr \
+  -CA ../self-signed/badssl-intermediate.pem \
+  -CAkey ../self-signed/badssl-intermediate.key \
+  -extfile badssl-wildcard.conf \
+  -extensions req_v3_usr \
+  -out out.pem
+echo "Running the certificate invalidator to break the signature on the certificate"
+./cert-signature-invalidator.py out.pem
+cat out.pem ../self-signed/badssl-intermediate.pem ../self-signed/badssl-root.pem > ../self-signed/wildcard.invalid-signature.pem
 echo
 
 echo "Signing BadSSL SHA-1 Certificate, expiring 2016"
