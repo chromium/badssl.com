@@ -75,7 +75,7 @@ list-domains:
 		| grep -v "\*"
 
 .PHONY: noether
-noether: jekyll
+noether: keys jekyll
 	docker build -t badssl .
 	docker-machine ip badssl
-	docker run -it -p 80:80 -p 443:443 badssl
+	docker run -it -p 80:80 -p 443:443 -p 1000-1024:1000-1024 badssl
