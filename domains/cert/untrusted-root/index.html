@@ -1,0 +1,16 @@
+---
+subdomain: untrusted-root
+layout: page
+favicon: red
+background: red
+---
+
+<div id="content">
+  <h1 style="font-size: 8vw;">
+    {{ page.subdomain }}.<br>{{ site.domain }}
+  </h1>
+</div>
+
+<div id="footer">
+  The certificate for this site is signed using an untrusted root.
+</div>
