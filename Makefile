@@ -65,3 +65,17 @@ upload: jekyll
 .PHONY: nginx
 nginx:
 	ssh badssl.com "sudo nginx -t ; sudo service nginx reload"
+
+.PHONY: list-domains
+list-domains:
+	grep -r "server_name.*{{ site.domain }}" . \
+		| sed "s/.*server_name \([^\{]*\).*/\1badssl.test/g" \
+		| sort \
+		| uniq \
+		| grep -v "\*"
+
+.PHONY: noether
+noether: jekyll
+	docker build -t badssl .
+	docker-machine ip badssl
+	docker run -it -p 80:80 -p 443:443 badssl
