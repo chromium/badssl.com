@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -eu
+
+OUT=$1
+shift
+DOMAIN=$1
+shift
+
+mkdir -p $(dirname $OUT)
+if [ -e pre$OUT ]
+then
+  cp pre$OUT $OUT
+  exit 0
+fi
+
+openssl x509 \
+  -req \
+  -CAcreateserial \
+  -days $1 \
+  -$2 \
+  -out $OUT \
+  -extensions $3 \
+  -extfile <(cat $4 | sed "s/__DOMAIN__/$DOMAIN/g") \
+  -in $5 \
+  -CAkey $6 \
+  -CA $7

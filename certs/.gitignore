@@ -1,2 +1,2 @@
-*.pem
-*.key
+/gen
+/src/crt/*.srl

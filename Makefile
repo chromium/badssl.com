@@ -10,21 +10,17 @@ open:
 .PHONY: clean
 clean:
 	rm -f /etc/keys/*.key
-	find certs -maxdepth 1 -type f ! -iname "dh-*" ! -iname '.gitignore' -delete
 	rm -f common/certs/*.pem
-	rm -f certs/self-signed/*.key
-	rm -f certs/self-signed/*.pem
+	rm -rf certs/gen
 
 .PHONY: keys
 keys:
-	ln -s ../certs _site/common/certs # Create symlink to certs directory
-	./_site/certs/cert-generator/cert-generator.sh y
-	./_site/certs/cert-generator/cert-self-signed-symlink-generator.sh # Generate symlinks to self-signed for everything that doesn't exist in certs
+	cd certs && make all DOMAIN="${SITE}"
 
 .PHONY: install-keys
 install-keys:
 	mkdir -p /etc/keys
-	cp ./_site/certs/**/*.key /etc/keys
+	cp ./certs/gen/key/*.key /etc/keys
 	chmod 640 /etc/keys/*.key
 	chmod 750 /etc/keys
 
@@ -40,6 +36,7 @@ install: keys install-keys link
 .PHONY: jekyll
 jekyll:
 	DOMAIN="${SITE}" HTTP_DOMAIN="http.${SITE}" jekyll build
+	ln -s ../certs _site/common/certs # Create symlink to certs directory
 
 .PHONY: docker
 docker:

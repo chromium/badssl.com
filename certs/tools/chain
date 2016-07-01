@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eu
+
+OUT=$1
+shift
+
+mkdir -p $(dirname $OUT)
+if [ -e pre$OUT ]
+then
+  cp pre$OUT $OUT
+  exit 0
+fi
+
+cat $@ > $OUT
