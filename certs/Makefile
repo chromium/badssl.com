@@ -26,7 +26,10 @@ CHAINS_LOCAL_ONLY =
 O = sets/test
 
 .PHONY: all
-all: prod chains-local
+all: test
+
+.PHONY: test
+test: prod chains-local
 
 .PHONY: prod
 prod: chains-prod dhparams

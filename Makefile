@@ -21,12 +21,12 @@ jekyll-prod:
 
 .PHONY: certs-test
 certs-test:
-	cd certs && make O=sets/test D=badssl.test
+	cd certs && make test O=sets/test D=badssl.test
 	cd certs/sets && rm -rf current && cp -R test current
 
 .PHONY: certs-prod
 certs-prod:
-	cd certs && make O=sets/prod D=badssl.com
+	cd certs && make prod O=sets/prod D=badssl.com
 	cd certs/sets && rm -rf current && cp -R prod current
 
 ################ Installation ################
