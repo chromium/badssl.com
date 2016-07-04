@@ -22,7 +22,15 @@ Your user should be part of the `docker` group or otherwise permitted to access 
 
     make list-hosts # list of domains to copy into /etc/hosts
     make test
-    # Now you can visit badssl.test in your browser.
+
+Now you can visit badssl.test in your browser.
+The root CA is at `certs/sets/test/gen/crt/ca-root.crt`. If you'd like to preserve it even when you run `make clean`, run:
+
+    cd certs/sets/test
+    mkdir -p pregen/crt
+    cp gen/crt/ca-root.crt pregen/crt/ca-root.crt
+    mkdir -p pregen/key
+    cp gen/key/ca-root.key pregen/key/ca-root.key
 
 ## Disclaimer
 
