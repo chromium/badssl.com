@@ -14,9 +14,7 @@ RUN gem install jekyll
 # Install badssl.com
 ADD . badssl.com
 WORKDIR badssl.com
-# RUN make certs-test
-# RUN make jekyll-test
-RUN make install
+RUN make inside-docker
 
 # Start things up!
 CMD nginx && tail -f /var/log/nginx/access.log /var/log/nginx/error.log

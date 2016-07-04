@@ -1,8 +1,9 @@
 ################################
 
 # This should bring up a full test server in docker from a bare repo.
+# Certs are generated outside the docker container, for persistence.
 .PHONY: test
-test: certs-test jekyll-test docker-build docker-run
+test: certs-test docker-build docker-run
 
 # This should properly deploy from any state of the repo.
 .PHONY: deploy
@@ -28,7 +29,7 @@ certs-prod:
 	cd certs && make O=sets/prod D=badssl.com
 	cd certs/sets && rm -rf current && cp -R prod current
 
-################################
+################ Installation ################
 
 .PHONY: install-keys
 install-keys:
@@ -53,7 +54,10 @@ clean:
 	# rm -f common/certs/*.pem
 	rm -rf certs/sets/*/gen
 
-################################
+################ Docker ################
+
+.PHONY: inside-docker
+inside-docker: jekyll-test install
 
 .PHONY: docker-build
 docker-build:
@@ -63,7 +67,7 @@ docker-build:
 docker-run:
 	docker run -it -p 80:80 -p 443:443 -p 1000-1024:1000-1024 badssl
 
-## Deployment
+################ Deployment ################
 
 .PHONY: upload
 upload:
