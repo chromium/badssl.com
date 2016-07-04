@@ -1,4 +1,8 @@
-[![badssl.com](badssl.com.png)](https://badssl.com)
+<center>
+  <a href="https:/badssl.com/">
+    <img src="./badssl.png" width="472" />
+  </a>
+</center>
 
 Visit [`badssl.com`](https://badssl.com/) for a list of test subdomains, including:
 
