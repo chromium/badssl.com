@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -eu
+
+COMMAND=$1
+shift
+OUT=$1
+shift
+DOMAIN=$1
+shift
+
+mkdir -p $(dirname $OUT)
+PREGEN_OUT=$(echo "$OUT" | sed "s#/gen/#/pregen/#") 
+if [ -e $PREGEN_OUT ]
+then
+  cp $PREGEN_OUT $OUT
+  exit 0
+fi
+
+case "$COMMAND" in
+chain)
+  cat $@ > $OUT
+  ;;
+dhparam)
+  openssl dhparam \
+  -out $OUT \
+  $1
+  ;;
+gen-csr)
+  openssl req -new \
+    -out $OUT \
+    -config <(cat $1 | sed "s/__DOMAIN__/$DOMAIN/g") \
+    -key $2
+  ;;
+gen-ca)
+  openssl req -new -x509 -days 7300 \
+    -out $OUT \
+    -config $1 \
+    -key $2
+  ;;  
+gen-key)
+  openssl genrsa \
+    -out $OUT \
+    $1
+  ;;
+self-sign)
+  openssl x509  -req  -CAcreateserial \
+    -out $OUT \
+    -days $1 \
+    -$2 \
+    -extensions $3 \
+    -extfile <(cat $4 | sed "s/__DOMAIN__/$DOMAIN/g") \
+    -in $5 \
+    -signkey $6
+  ;;
+sign)
+  openssl x509 \
+    -req \
+    -CAcreateserial \
+    -days $1 \
+    -$2 \
+    -out $OUT \
+    -extensions $3 \
+    -extfile <(cat $4 | sed "s/__DOMAIN__/$DOMAIN/g") \
+    -in $5 \
+    -CAkey $6 \
+    -CA $7
+  ;;
+*)
+  echo "Unknown command."
+  exit 1
+esac

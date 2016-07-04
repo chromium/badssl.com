@@ -1,26 +1,39 @@
-all:
+################################
 
-SITE = badssl.com
-URL = "https://${SITE}/"
+# This should bring up a full test server in docker from a bare repo.
+.PHONY: test
+test: certs-test jekyll-test docker-build docker-run
 
-.PHONY: open
-open:
-	open "${URL}"
+# This should properly deploy from any state of the repo.
+.PHONY: deploy
+deploy: certs-prod jekyll-prod upload nginx
 
-.PHONY: clean
-clean:
-	rm -f /etc/keys/*.key
-	rm -f common/certs/*.pem
-	rm -rf certs/gen
+################################
 
-.PHONY: keys
-keys:
-	cd certs && make all DOMAIN="${SITE}"
+.PHONY: jekyll-test
+jekyll-test:
+	DOMAIN="badssl.test" jekyll build
+
+.PHONY: jekyll-prod
+jekyll-prod:
+	DOMAIN="badssl.com" jekyll build
+
+.PHONY: certs-test
+certs-test:
+	cd certs && make O=sets/test D=badssl.test
+	cd certs/sets && rm -rf current && cp -R test current
+
+.PHONY: certs-prod
+certs-prod:
+	cd certs && make O=sets/prod D=badssl.com
+	cd certs/sets && rm -rf current && cp -R prod current
+
+################################
 
 .PHONY: install-keys
 install-keys:
 	mkdir -p /etc/keys
-	cp ./certs/gen/key/*.key /etc/keys
+	cp ./certs/sets/current/gen/key/*.key /etc/keys
 	chmod 640 /etc/keys/*.key
 	chmod 750 /etc/keys
 
@@ -31,24 +44,29 @@ link:
 	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/_site/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/_site/nginx.conf to your nginx.conf configuration."; fi
 
 .PHONY: install
-install: keys install-keys link
+install: install-keys link
 
-.PHONY: jekyll
-jekyll:
-	DOMAIN="${SITE}" HTTP_DOMAIN="http.${SITE}" jekyll build
-	ln -s ../certs _site/common/certs # Create symlink to certs directory
+.PHONY: clean
+clean:
+	rm -rf _site
+	rm -f /etc/keys/*.key
+	# rm -f common/certs/*.pem
+	rm -rf certs/sets/*/gen
 
-.PHONY: docker
-docker:
-	sudo docker build -t badssl .
+################################
+
+.PHONY: docker-build
+docker-build:
+	docker build -t badssl .
+
+.PHONY: docker-run
+docker-run:
+	docker run -it -p 80:80 -p 443:443 -p 1000-1024:1000-1024 badssl
 
 ## Deployment
 
-.PHONY: deploy
-deploy: upload nginx
-
 .PHONY: upload
-upload: jekyll
+upload:
 	rsync -avz \
 		-e "ssh -i ${HOME}/.ssh/google_compute_engine" \
 		--exclude .DS_Store \
@@ -60,22 +78,20 @@ upload: jekyll
 		--delete  --delete-excluded \
 		./ \
 		badssl.com:~/badssl/
-	echo "\nDone deploying. Go to ${URL}\n"
+	echo "\nDone deploying.\n"
 
 .PHONY: nginx
 nginx:
 	ssh badssl.com "sudo nginx -t ; sudo service nginx reload"
 
-.PHONY: list-domains
-list-domains:
+##
+
+.PHONY: list-hosts
+list-hosts:
+	@echo "#### start of badssl.test hosts ####"
 	grep -r "server_name.*{{ site.domain }}" . \
-		| sed "s/.*server_name \([^\{]*\).*/\1badssl.test/g" \
+		| sed "s/.*server_name \([^\{]*\).*/127.0.0.1 \1badssl.test/g" \
 		| sort \
 		| uniq \
 		| grep -v "\*"
-
-.PHONY: noether
-noether: keys jekyll
-	docker build -t badssl .
-	docker-machine ip badssl
-	docker run -it -p 80:80 -p 443:443 -p 1000-1024:1000-1024 badssl
+	@echo "#### end of badssl.test hosts ####"

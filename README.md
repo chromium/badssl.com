@@ -13,23 +13,16 @@ Visit [`badssl.com`](https://badssl.com/) for a list of test subdomains, includi
 
 Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to the VM.
 
-### Commands
-
-    sudo apt-get update ; sudo apt-get install git nginx
-    git clone https://github.com/lgarron/badssl.com && cd badssl.com
-
-    sudo make install
-    sudo service nginx restart
-
-### Docker version
+### Testing and development
 
 Your user should be part of the `docker` group or otherwise permitted to access Docker.
 
     sudo apt-get update ; sudo apt-get install docker.io
     git clone https://github.com/lgarron/badssl.com && cd badssl.com
 
-    make docker
-    sudo docker run -d -p 80:80 -p 443:443 --name badssl badssl
+    make list-hosts # list of domains to copy into /etc/hosts
+    make test
+    # Now you can visit badssl.test in your browser.
 
 ## Disclaimer
 

@@ -14,7 +14,8 @@ RUN gem install jekyll
 # Install badssl.com
 ADD . badssl.com
 WORKDIR badssl.com
-RUN make jekyll
+# RUN make certs-test
+# RUN make jekyll-test
 RUN make install
 
 # Start things up!
