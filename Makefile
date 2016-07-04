@@ -89,7 +89,7 @@ nginx:
 .PHONY: list-hosts
 list-hosts:
 	@echo "#### start of badssl.test hosts ####"
-	grep -r "server_name.*{{ site.domain }}" . \
+	@grep -r "server_name.*{{ site.domain }}" . \
 		| sed "s/.*server_name \([^\{]*\).*/127.0.0.1 \1badssl.test/g" \
 		| sort \
 		| uniq \
