@@ -2,8 +2,8 @@
 
 # This should bring up a full test server in docker from a bare repo.
 # Certs are generated outside the docker container, for persistence.
-.PHONY: test
-test: certs-test docker-build docker-run
+.PHONY: docker
+docker: certs-test docker-build docker-run
 
 # This should properly deploy from any state of the repo.
 .PHONY: deploy
