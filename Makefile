@@ -88,10 +88,7 @@ upload:
 		-e "ssh -i ${HOME}/.ssh/google_compute_engine" \
 		--exclude .DS_Store \
 		--exclude .git \
-		--exclude _site/domains/cert/rsa512 \
-		--exclude _site/domains/cert/rsa512.conf \
-		--exclude _site/domains/cert/rsa1024 \
-		--exclude _site/domains/cert/rsa1024.conf \
+		--exclude _site/domains-local-only \
 		--delete  --delete-excluded \
 		./ \
 		badssl.com:~/badssl/
