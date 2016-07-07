@@ -102,6 +102,13 @@ $(O)/gen/chain/wildcard-sha1-2017.pem: $(O)/gen/crt/wildcard-sha1-2017.crt $(O)/
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/crt/wildcard-md5.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(DAYS_DEFAULT) md5 req_v3_usr $^
+CHAINS_PROD += $(O)/gen/chain/wildcard-md5.pem
+$(O)/gen/chain/wildcard-md5.pem: $(O)/gen/crt/wildcard-md5.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/crt/wildcard-expired.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	# Too lazy to setup the loathsome mess that is openssl ca when I could just wait a day
 	./tool sign $@ $(D) 1 sha256 req_v3_usr $^
