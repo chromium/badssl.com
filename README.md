@@ -1,5 +1,5 @@
 <center>
-  <a href="https:/badssl.com/">
+  <a href="https://badssl.com/">
     <img src="./badssl.png" width="472" />
   </a>
 </center>
