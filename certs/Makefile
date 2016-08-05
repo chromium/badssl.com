@@ -167,6 +167,17 @@ $(O)/gen/chain/wildcard-rsa1024.pem: $(O)/gen/crt/wildcard-rsa1024.crt $(O)/gen/
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/key/leaf-rsa3072.key:
+				./tool gen-key $@ $(D) 3072
+$(O)/gen/csr/wildcard-rsa3072.csr: src/conf/wildcard-main.conf $(O)/gen/key/leaf-rsa3072.key
+				./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/wildcard-rsa3072.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-rsa3072.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+				./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-rsa3072.pem
+$(O)/gen/chain/wildcard-rsa3072.pem: $(O)/gen/crt/wildcard-rsa3072.crt $(O)/gen/crt/ca-intermediate.crt
+				./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/key/leaf-rsa8192.key:
 	./tool gen-key $@ $(D) 8192
 $(O)/gen/csr/wildcard-rsa8192.csr: src/conf/wildcard-main.conf $(O)/gen/key/leaf-rsa8192.key
