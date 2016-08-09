@@ -189,6 +189,15 @@ $(O)/gen/chain/wildcard-rsa8192.pem: $(O)/gen/crt/wildcard-rsa8192.crt $(O)/gen/
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/csr/subdomain-no-san.csr: src/conf/subdomain-no-san.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-no-san.crt: src/conf/subdomain-no-san.conf $(O)/gen/csr/subdomain-no-san.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_LOCAL_ONLY += $(O)/gen/chain/subdomain-no-san.pem
+$(O)/gen/chain/subdomain-no-san.pem: $(O)/gen/crt/subdomain-no-san.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/csr/subdomain-1000-sans.csr: src/conf/subdomain-1000-sans.conf $(O)/gen/key/leaf-main.key
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/subdomain-1000-sans.crt: src/conf/subdomain-1000-sans.conf $(O)/gen/csr/subdomain-1000-sans.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
