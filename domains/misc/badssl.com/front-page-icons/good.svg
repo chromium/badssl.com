@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>https_valid@1x</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Non-Touch-Summary-Icons" transform="translate(-128.000000, -192.000000)">
+            <g id="Icon" transform="translate(128.000000, 192.000000)">
+                <polygon id="Layout" points="0 0 32 0 32 32 0 32"></polygon>
+                <path d="M21,12.9999998 L21,10.9999998 C21,8.23999023 18.7600098,6 16,6 C13.2399902,6.02034414 11,8.23999023 11,10.9999998 L11,12.9999998 C11,12.9999998 11.1000061,13 10,12.9999998 C8.8999939,12.9999997 8,13.9003066 8,14.9926756 L8,25 C8,26.1000061 8.90002441,27 10,27 C11.0999756,27 20.9000244,27 22,27 C23.0999756,27 24,26.1000061 24,25 C24,23.8999939 24,16.1000061 24,15 C24,13.9445421 23.1000061,13 22,12.9999998 C20.8999939,13 21,12.9999998 21,12.9999998 Z M13,13.0202282 L13,11 C13,9.33999634 14.3399963,8 16,8 C17.6600037,8 19,9.33999634 19,11 L19,13.0202282 L13,13.0202282 Z" fill="#0B8043"></path>
+            </g>
+        </g>
+    </g>
+</svg>

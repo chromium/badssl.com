@@ -1,5 +1,5 @@
 <center>
-  <a href="https:/badssl.com/">
+  <a href="https://badssl.com/">
     <img src="./badssl.png" width="472" />
   </a>
 </center>
@@ -25,7 +25,7 @@ Your user should be part of the `docker` group or otherwise permitted to access 
     git clone https://github.com/lgarron/badssl.com && cd badssl.com
 
     make list-hosts # list of domains to copy into /etc/hosts
-    make docker
+    make test
 
 Now you can visit `badssl.test` in your browser.
 The root CA is at `certs/sets/test/gen/crt/ca-root.crt`. If you'd like to preserve it even when you run `make clean`, run:
