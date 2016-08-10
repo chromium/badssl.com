@@ -4,436 +4,124 @@
 <!doctype html>
 <html>
 <head>
+  <meta charset="utf-8" />
   <title>{{ site.domain }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="/icons/favicon-blue.ico"/>
   <link rel="apple-touch-icon" href="/icons/icon-blue.png"/>
-  <style>
-    html, body {
-      background: rgb(77, 149, 218);
-
-      margin: 0;
-      padding: 0;
-    }
-    div {
-      text-align: center;
-    }
-    #links {
-      width: 50vh;
-      max-width: 50vw;
-      margin: 5vh auto;
-      padding: 0 3vw 0 3vw;
-    }
-    #links a, #links .browser-info {
-      font-family: "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
-      font-size: 3.5vh;
-      padding: 0.75vh 10vw 0.75vh 10vw;
-      margin: 1.5vh -10vw;
-    }
-    #links a {
-      text-decoration: none;
-      color: white;
-      font-size: 5em;
-      font-size: 4vh;
-      display: block;
-      width: 100%;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      transition: all 150ms;
-      font-weight: bold;
-
-      word-wrap: break-word;
-    }
-    #links .browser-info {
-      margin: 3em auto 2em;
-      padding: 0.75vh 0vh;
-      line-height: 1.5em;
-      color: white;
-      text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
-    }
-    @media (min-height: 600px) {
-      #links a {
-        margin: 0.75vh -10vw;
-      }
-      #links a, #links .browser-info {
-        font-size: 20px;
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
-      }
-    }
-    #links a:hover, #links a:focus {
-      text-decoration: underline;
-      text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5),
-        0 0 40px rgba(255, 255, 255, 0.5),
-        0 0 60px rgba(255, 255, 255, 0.5);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-      transform: translateY(-2px);
-    }
-    .github {
-      background: rgba(0, 0, 0, 0.2);
-      color: black;
-      text-align: center;
-      margin-top: 6vh;
-      font-family: Helvetica, sans-serif;
-    }
-    .good {
-      background: green;
-    }
-    .goodish {
-      background: #484;
-    }
-    .dubious {
-      background: rgb(246, 207, 47);
-    }
-    #links a.dubious {
-      color: #222;
-    }
-    #links a.dubious:hover {
-      text-shadow:
-        0 0 20px rgba(150, 100, 0, 0.15),
-        0 0 40px rgba(150, 100, 0, 0.15),
-        0 0 60px rgba(150, 100, 0, 0.15);
-    }
-    .bad {
-      background: red;
-    }
-    .bad.no-interstitial {
-      background: rgb(170, 0, 0);
-    }
-    .neutral {
-      background: gray;
-    }
-    .orange {
-      color: #222;
-      background: rgb(243, 121, 46);
-    }
-    #links .comic-sans {
-      font-family: "Comic Sans MS", "Comic Sans", "Marker Felt";
-    }
-    #links .more {
-      display: none;
-    }
-    #links.show-more .more {
-      display: block;
-    }
-    #links #reveal-more {
-      background: black;
-    }
-    #links #reveal-more:hover {
-      cursor: pointer
-    }
-    #links.show-more #reveal-more {
-      display: none;
-    }
-    #links .hidden {
-      display: none;
-    }
-
-    h2 {
-      color: white;
-      font-family: Helvetica;
-      text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
-    }
-    h2:not(:first-child) {
-      margin-top: 2em;
-    }
-
-    hr {
-      border: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.5);
-      width: 100%;
-      margin: 1em auto;
-    }
-  </style>
-  <script>
-
-  function getBrowserVersion(ua) {
-    var ua = navigator.userAgent;
-
-    var regexes = [
-
-      [/^.*Edge\/([\d\.]*)\b.*$/, "Edge $1"],
-      [/^.*Chrome\/([\d\.]*)\b.*$/, "Chrome $1"],
-      [/^.*CriOS\/([\d\.]*)\b.*$/, "Chrome $1"],
-      [/^.*Firefox\/([\d\.]*)\b.*$/, "Firefox $1"],
-      [/^.*OPR\/([\d\.]*)\b.*$/, "Opera $1"],
-      [/^.*OPiOS\/([\d\.]*)\b.*$/, "Opera Mini $1"],
-      [/^.*FxiOS\/([\d\.]*)\b.*$/, "Firefox (for iOS) $1"],
-      /* This has to go last: Safari has "Version/8.0.5 Safari/600.5.17", but "Safari/600.5.17" is the WebKit version, which Chrome and Opera also include.*/
-      [/^.*Version\/([\d\.]*)\b.*$/, "Safari $1"]
-    ];
-
-    for (i in regexes) {
-      var match = regexes[i][0].exec(ua);
-      if (match) {
-        return ua.replace(regexes[i][0], regexes[i][1]);
-      }
-    }
-    return ua;
-  }
-
-  function getOS() {
-    var ua = navigator.userAgent;
-
-    var regexes = [
-      [/^.*Mac OS X (\d+)_(\d+)_(\d+).*$/g, "OSX $1.$2.$3"], // OSX Chrome, OSX Safari, OSX Opera
-      [/^.*Mac OS X (\d+)_(\d+).*$/g, "OSX $1.$2"], // Just in case?
-      [/^.*Mac OS X (\d+)\.(\d+).*$/g, "OSX $1.$2"], // OSX Firefox
-      [/^.*iPhone OS (\d+)_(\d+).*OPiOS.*$/g, null], // iPhone Opera doesn't seem to pick up the OS dynamically?
-      [/^.*iPhone OS (\d+)_(\d+).*$/g, "iOS $1.$2 (iPhone)"], // iPhone WebKit
-      [/^.*iPad.*OS (\d+)_(\d+).*$/g, "iOS $1.$2 (iPad)"], // iPad WebKit
-      [/^.*Android (\d+(\.\d+)+).*; ([^;]+) Build.*$/g, "Android $1 ($3)"], // Android + device name
-      [/^.*Android (\d+(\.\d+)+).*$/g, "Android $1"],
-      [/^.*Linux.*$/g, "Linux"],
-      [/^.*Windows NT (\d+)\.(\d+).*$/g, "Windows $1.$2"],
-      [/^.*Windows.*$/g, "Windows"],
-    ];
-
-    for (i in regexes) {
-      var match = regexes[i][0].exec(ua);
-      if (match) {
-        if (!regexes[i][1]) {
-          return null;
-        }
-        return ua.replace(regexes[i][0], regexes[i][1]);
-      }
-    }
-    return null;
-  }
-
-  window.addEventListener("load", function() {
-    document.getElementById("ua").title = navigator.userAgent;
-    document.getElementById("ua").textContent = getBrowserVersion();
-    if (getOS()) {
-      document.getElementById("os").textContent = getOS();
-    }
-  })
-  </script>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="github-ribbon.css">
+  <script src="index.js"></script>
 </head>
 <body>
 
+<div class="title-bar">
+  badssl.com
+</div>
 
-  <div id="links">
-    <h2>Certificate:</h2>
-      <a href="https://expired.{{ site.domain }}/" class="bad">expired</a>
-      <a href="https://wrong.host.{{ site.domain }}/" class="bad">wrong.host</a>
-      <a href="https://self-signed.{{ site.domain }}/" class="bad">self-signed</a>
-      <a href="https://untrusted-root.{{ site.domain }}/" class="bad">untrusted-root</a>
-      <hr>
-      <a href="https://sha1-2016.{{ site.domain }}/" class="dubious">sha1-2016</a>
-      <a href="https://sha1-2017.{{ site.domain }}/" class="bad">sha1-2017</a>
-      <a href="https://sha256.{{ site.domain }}/" class="good">sha256</a>
-      <hr>
-      <a href="https://1000-sans.{{ site.domain }}/" class="good">1000-sans</a>
-      <a href="https://10000-sans.{{ site.domain }}/" class="good">10000-sans</a>
-      <hr>
-      <a href="https://incomplete-chain.{{ site.domain }}/" class="orange">incomplete-chain</a>
-      <a href="https://rsa512.{{ site.domain }}/" class="bad hidden">rsa512</a>
-      <a href="https://rsa1024.{{ site.domain }}/" class="bad hidden">rsa1024</a>
-      <a href="https://rsa8192.{{ site.domain }}/" class="dubious">rsa8192</a>
-    <h2>Mixed:</h2>
-      <a href="https://mixed-script.{{ site.domain }}/" class="bad">mixed-script</a>
-      <a href="https://very.{{ site.domain }}/" class="bad">very</a>
-      <hr>
-      <a href="https://mixed.{{ site.domain }}/" class="dubious">mixed</a>
-      <a href="https://mixed-favicon.{{ site.domain }}/" class="dubious">mixed-favicon</a>
-    <h2>Cipher Suite:</h2>
-      <a href="https://cbc.{{ site.domain }}/" class="neutral">cbc</a>
-      <a href="https://rc4-md5.{{ site.domain }}/" class="neutral hidden">rc4-md5</a>
-      <a href="https://rc4.{{ site.domain }}/" class="neutral">rc4</a>
-      <a href="https://null.{{ site.domain }}/" class="bad hidden">null</a>
-      <hr>
-      <a href="https://mozilla-old.{{ site.domain }}/" class="bad">mozilla-old</a>
-      <a href="https://mozilla-intermediate.{{ site.domain }}/" class="dubious">mozilla-intermediate</a>
-      <a href="https://mozilla-modern.{{ site.domain }}/" class="good">mozilla-modern</a>
-    <h2>Key Exchange:</h2>
-      <a href="https://dh480.{{ site.domain }}/" class="bad">dh480</a>
-      <a href="https://dh512.{{ site.domain }}/" class="bad hidden">dh512</a>
-      <a href="https://dh1024.{{ site.domain }}/" class="dubious">dh1024</a>
-      <a href="https://dh2048.{{ site.domain }}/" class="good">dh2048</a>
-      <hr>
-      <a href="https://dh-small-subgroup.{{ site.domain }}/" class="bad">dh-small-subgroup</a>
-      <a href="https://dh-composite.{{ site.domain }}/" class="bad">dh-composite</a>
-      <hr>
-      <a href="https://static-rsa.{{ site.domain }}/" class="bad">static-rsa</a>
-    <h2>Upgrade:</h2>
-      <a href="https://hsts.{{ site.domain }}/" class="good">hsts</a>
-      <a href="https://upgrade.{{ site.domain }}/" class="good">upgrade</a>
-      <hr>
-      <a href="https://preloaded-hsts.{{ site.domain }}/" class="good">preloaded-hsts</a>
-      <a href="https://subdomain.preloaded-hsts.{{ site.domain }}/" class="bad">subdomain.preloaded-hsts</a>
-      <hr class="hidden">
-      <a href="https://https-everywhere.{{ site.domain }}/" class="good hidden">https-everywhere</a>
-    <h2>Miscellaneous:</h2>
-      <a href="http://http.{{ site.domain }}/" class="neutral">http</a>
-      <a href="https://spoofed-favicon.{{ site.domain }}/" class="neutral hidden">spoofed-favicon</a>
-      <a href="https://http-password.{{ site.domain }}/" class="bad">http-password</a>
-      <a href="https://pinning-test.{{ site.domain }}/" class="bad">pinning-test</a>
-      <hr class="hidden">
-      <a href="https://long-extended-subdomain-name-containing-many-letters-and-dashes.{{ site.domain }}/" class="good hidden">long-extended-subdomain-name-containing-many-letters-and-dashes</a>
-      <a href="https://longextendedsubdomainnamewithoutdashesinordertotestwordwrapping.{{ site.domain }}/" class="good hidden">longextendedsubdomainnamewithoutdashesinordertotestwordwrapping</a>
-    <h2>Known Bad:</h2>
-      <a href="https://superfish.{{ site.domain }}/" class="bad">(Lenovo) Superfish</a>
-      <a href="https://edellroot.{{ site.domain }}/" class="bad">(Dell) eDellRoot</a>
-      <a href="https://dsdtestprovider.{{ site.domain }}/" class="bad">(Dell) DSD Test Provider</a>
-    <div class="browser-info">
-      <span id="ua"></span>
-      <br>
-      <span id="os"></span>
+<div id="links">
+
+<div class="column">
+  <div class="group">
+    <h2><span class="emoji">🎫</span>Certificate</h2>
+    <a href="https://expired.{{ site.domain }}/" class="bad"><span class="icon"></span>expired</a>
+    <a href="https://wrong.host.{{ site.domain }}/" class="bad"><span class="icon"></span>wrong.host</a>
+    <a href="https://self-signed.{{ site.domain }}/" class="bad"><span class="icon"></span>self-signed</a>
+    <a href="https://untrusted-root.{{ site.domain }}/" class="bad"><span class="icon"></span>untrusted-root</a>
+    <a href="https://incomplete-chain.{{ site.domain }}/" class="dubious"><span class="icon"></span>incomplete-chain</a>
+    <hr>
+    <a href="https://sha1-2016.{{ site.domain }}/" class="dubious"><span class="icon"></span>sha1-2016</a>
+    <a href="https://sha1-2017.{{ site.domain }}/" class="bad"><span class="icon"></span>sha1-2017</a>
+    <a href="https://sha256.{{ site.domain }}/" class="good"><span class="icon"></span>sha256</a>
+    <hr>
+    <a href="https://1000-sans.{{ site.domain }}/" class="good"><span class="icon"></span>1000-sans</a>
+    <a href="https://10000-sans.{{ site.domain }}/" class="good"><span class="icon"></span>10000-sans</a>
+    <hr>
+    <a href="https://rsa512.{{ site.domain }}/" class="bad hidden"><span class="icon"></span>rsa512</a>
+    <a href="https://rsa1024.{{ site.domain }}/" class="bad hidden"><span class="icon"></span>rsa1024</a>
+    <a href="https://rsa8192.{{ site.domain }}/" class="dubious"><span class="icon"></span>rsa8192</a>
+  </div>
+  <div class="group">
+    <h2><span class="emoji">🖼</span>Mixed Content</h2>
+    <a href="https://mixed-script.{{ site.domain }}/" class="bad"><span class="icon"></span>mixed-script</a>
+    <a href="https://very.{{ site.domain }}/" class="bad"><span class="icon"></span>very</a>
+    <hr>
+    <a href="https://mixed.{{ site.domain }}/" class="dubious"><span class="icon"></span>mixed</a>
+    <a href="https://mixed-favicon.{{ site.domain }}/" class="dubious"><span class="icon"></span>mixed-favicon</a>
+  </div>
+  <div class="group">
+    <h2><span class="emoji">🔀</span>Cipher Suite</h2>
+    <a href="https://cbc.{{ site.domain }}/" class="dubious"><span class="icon"></span>cbc</a>
+    <a href="https://rc4-md5.{{ site.domain }}/" class="bad hidden"><span class="icon"></span>rc4-md5</a>
+    <a href="https://rc4.{{ site.domain }}/" class="bad"><span class="icon"></span>rc4</a>
+    <a href="https://null.{{ site.domain }}/" class="bad hidden"><span class="icon"></span>null</a>
+    <hr>
+    <a href="https://mozilla-old.{{ site.domain }}/" class="bad"><span class="icon"></span>mozilla-old</a>
+    <a href="https://mozilla-intermediate.{{ site.domain }}/" class="dubious"><span class="icon"></span>mozilla-intermediate</a>
+    <a href="https://mozilla-modern.{{ site.domain }}/" class="good"><span class="icon"></span>mozilla-modern</a>
+  </div>
+</div><!-- class="column" -->
+
+<div class="column">
+  <div class="group">
+    <h2><span class="emoji">🔑</span>Key Exchange</h2>
+    <a href="https://dh480.{{ site.domain }}/" class="bad"><span class="icon"></span>dh480</a>
+    <a href="https://dh512.{{ site.domain }}/" class="bad hidden"><span class="icon"></span>dh512</a>
+    <a href="https://dh1024.{{ site.domain }}/" class="dubious"><span class="icon"></span>dh1024</a>
+    <a href="https://dh2048.{{ site.domain }}/" class="good"><span class="icon"></span>dh2048</a>
+    <hr>
+    <a href="https://dh-small-subgroup.{{ site.domain }}/" class="bad"><span class="icon"></span>dh-small-subgroup</a>
+    <a href="https://dh-composite.{{ site.domain }}/" class="bad"><span class="icon"></span>dh-composite</a>
+    <hr>
+    <a href="https://static-rsa.{{ site.domain }}/" class="dubious"><span class="icon"></span>static-rsa</a>
+  </div>
+  <div class="group">
+    <h2><span class="emoji">⬆️</span>Upgrade</h2>
+    <a href="https://hsts.{{ site.domain }}/" class="good"><span class="icon"></span>hsts</a>
+    <a href="https://upgrade.{{ site.domain }}/" class="good"><span class="icon"></span>upgrade</a>
+    <hr>
+    <a href="https://preloaded-hsts.{{ site.domain }}/" class="good"><span class="icon"></span>preloaded-hsts</a>
+    <a href="https://subdomain.preloaded-hsts.{{ site.domain }}/" class="bad"><span class="icon"></span>subdomain.preloaded-hsts</a>
+    <hr class="hidden">
+    <a href="https://https-everywhere.{{ site.domain }}/" class="good hidden"><span class="icon"></span>https-everywhere</a>
+  </div>
+  <div class="group">
+    <h2><span class="emoji">💬</span>Miscellaneous</h2>
+    <a href="http://http.{{ site.domain }}/" class="dubious"><span class="icon"></span>http</a>
+    <a href="https://spoofed-favicon.{{ site.domain }}/" class="dubious hidden"><span class="icon"></span>spoofed-favicon</a>
+    <a href="https://http-password.{{ site.domain }}/" class="bad"><span class="icon"></span>http-password</a>
+    <a href="https://pinning-test.{{ site.domain }}/" class="bad"><span class="icon"></span>pinning-test</a>
+    <hr class="hidden">
+    <a href="https://long-extended-subdomain-name-containing-many-letters-and-dashes.{{ site.domain }}/" class="good hidden"><span class="icon"></span>long-extended-subdomain-name-containing-many-letters-and-dashes</a>
+    <a href="https://longextendedsubdomainnamewithoutdashesinordertotestwordwrapping.{{ site.domain }}/" class="good hidden"><span class="icon"></span>longextendedsubdomainnamewithoutdashesinordertotestwordwrapping</a>
+  </div>
+  <div class="group">
+    <h2><span class="emoji">❌</span>Known Bad</h2>
+    <a href="https://superfish.{{ site.domain }}/" class="bad"><span class="icon"></span>(Lenovo) Superfish</a>
+    <a href="https://edellroot.{{ site.domain }}/" class="bad"><span class="icon"></span>(Dell) eDellRoot</a>
+    <a href="https://dsdtestprovider.{{ site.domain }}/" class="bad"><span class="icon"></span>(Dell) DSD Test Provider</a>
+  </div>
+</div><!-- class="column" -->
+
+</div><!-- id="links" -->
+
+<h2 class="your-browser">Your Browser:
+  <div id="browser-info">
+    <span class="highlight">
+      <span id="ua"></span><br>
+      <span id="os"></span><br>
+    </span>
+    <span id="click-to-copy">📋 Click to copy</span>
+  </div>
+</h2>
+
+<!-- Start of GitHub ribbon. -->
+<div class="github-fork-ribbon-wrapper right-bottom">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/chromium/badssl.com"><span class="icon"></span>On GitHub</a>
     </div>
-  </div>
-
-  <!-- Start of GitHub ribbon. -->
-
-  <div class="github-fork-ribbon-wrapper right">
-      <div class="github-fork-ribbon">
-          <a href="https://github.com/lgarron/badssl.com">On GitHub</a>
-      </div>
-  </div>
-
-  <style>
-  /*!
-   * "Fork me on GitHub" CSS ribbon v0.1.1 | MIT License
-   * https://github.com/simonwhitaker/github-fork-ribbon-css
-  */
-
-  /* Left will inherit from right (so we don't need to duplicate code) */
-  .github-fork-ribbon {
-    /* The right and left classes determine the side we attach our banner to */
-    position: absolute;
-
-    /* Add a bit of padding to give some substance outside the "stitching" */
-    padding: 2px 0;
-
-    /* Set the base colour */
-    background-color: black;
-
-    /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.15)));
-    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-
-    /* Add a drop shadow */
-    -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
-
-    /* Set the font */
-    font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-    z-index: 9999;
-    pointer-events: auto;
-  }
-
-  .github-fork-ribbon a,
-  .github-fork-ribbon a:hover {
-    /* Set the text properties */
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
-    text-align: center;
-
-    /* Set the geometry. If you fiddle with these you'll also need
-       to tweak the top and right values in .github-fork-ribbon. */
-    width: 200px;
-    line-height: 20px;
-
-    /* Set the layout properties */
-    display: inline-block;
-    padding: 2px 0;
-
-    /* Add "stitching" effect */
-    border-width: 1px 0;
-    border-style: dotted;
-    border-color: #fff;
-    border-color: rgba(255, 255, 255, 0.7);
-  }
-
-  .github-fork-ribbon-wrapper {
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    z-index: 9999;
-    pointer-events: none;
-  }
-
-  .github-fork-ribbon-wrapper.fixed {
-    position: fixed;
-  }
-
-  .github-fork-ribbon-wrapper.left {
-    left: 0;
-  }
-
-  .github-fork-ribbon-wrapper.right {
-    right: 0;
-  }
-
-  .github-fork-ribbon-wrapper.left-bottom {
-    position: fixed;
-    top: inherit;
-    bottom: 0;
-    left: 0;
-  }
-
-  .github-fork-ribbon-wrapper.right-bottom {
-    position: fixed;
-    top: inherit;
-    bottom: 0;
-    right: 0;
-  }
-
-  .github-fork-ribbon-wrapper.right .github-fork-ribbon {
-    top: 42px;
-    right: -43px;
-
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
-  .github-fork-ribbon-wrapper.left .github-fork-ribbon {
-    top: 42px;
-    left: -43px;
-
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-
-
-  .github-fork-ribbon-wrapper.left-bottom .github-fork-ribbon {
-    top: 80px;
-    left: -43px;
-
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
-  .github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon {
-    top: 80px;
-    right: -43px;
-
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-  </style>
-
-  <!-- End of GitHub ribbon. -->
+</div>
+<!-- End of GitHub ribbon. -->
 
 </body>
 </html>
