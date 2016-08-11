@@ -38,7 +38,8 @@ div.group {
 }
 
 h2 {
-  margin: 32px 0px 8px 8px;
+  margin: 16px 0px 8px 8px;
+  padding-top: 8px;
   line-height: 1.5em;
   box-sizing: border-box;
 

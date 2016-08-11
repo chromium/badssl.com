@@ -23,7 +23,7 @@
 
 <div class="column">
   <div class="group">
-    <h2><span class="emoji">🎫</span>Certificate</h2>
+    <h2 id="certificate"><span class="emoji">🎫</span>Certificate</h2>
     <a href="https://expired.{{ site.domain }}/" class="bad"><span class="icon"></span>expired</a>
     <a href="https://wrong.host.{{ site.domain }}/" class="bad"><span class="icon"></span>wrong.host</a>
     <a href="https://self-signed.{{ site.domain }}/" class="bad"><span class="icon"></span>self-signed</a>
@@ -42,7 +42,7 @@
     <a href="https://rsa8192.{{ site.domain }}/" class="dubious"><span class="icon"></span>rsa8192</a>
   </div>
   <div class="group">
-    <h2><span class="emoji">🖼</span>Mixed Content</h2>
+    <h2 id="mixed-content"><span class="emoji">🖼</span>Mixed Content</h2>
     <a href="https://mixed-script.{{ site.domain }}/" class="bad"><span class="icon"></span>mixed-script</a>
     <a href="https://very.{{ site.domain }}/" class="bad"><span class="icon"></span>very</a>
     <hr>
@@ -50,7 +50,7 @@
     <a href="https://mixed-favicon.{{ site.domain }}/" class="dubious"><span class="icon"></span>mixed-favicon</a>
   </div>
   <div class="group">
-    <h2><span class="emoji">🔀</span>Cipher Suite</h2>
+    <h2 id="cipher-suite"><span class="emoji">🔀</span>Cipher Suite</h2>
     <a href="https://cbc.{{ site.domain }}/" class="dubious"><span class="icon"></span>cbc</a>
     <a href="https://rc4-md5.{{ site.domain }}/" class="bad hidden"><span class="icon"></span>rc4-md5</a>
     <a href="https://rc4.{{ site.domain }}/" class="bad"><span class="icon"></span>rc4</a>
@@ -64,7 +64,7 @@
 
 <div class="column">
   <div class="group">
-    <h2><span class="emoji">🔑</span>Key Exchange</h2>
+    <h2 id="key-exchange"><span class="emoji">🔑</span>Key Exchange</h2>
     <a href="https://dh480.{{ site.domain }}/" class="bad"><span class="icon"></span>dh480</a>
     <a href="https://dh512.{{ site.domain }}/" class="bad hidden"><span class="icon"></span>dh512</a>
     <a href="https://dh1024.{{ site.domain }}/" class="dubious"><span class="icon"></span>dh1024</a>
@@ -76,7 +76,7 @@
     <a href="https://static-rsa.{{ site.domain }}/" class="dubious"><span class="icon"></span>static-rsa</a>
   </div>
   <div class="group">
-    <h2><span class="emoji">⬆️</span>Upgrade</h2>
+    <h2 id="upgrade"><span class="emoji">⬆️</span>Upgrade</h2>
     <a href="https://hsts.{{ site.domain }}/" class="good"><span class="icon"></span>hsts</a>
     <a href="https://upgrade.{{ site.domain }}/" class="good"><span class="icon"></span>upgrade</a>
     <hr>
@@ -86,7 +86,7 @@
     <a href="https://https-everywhere.{{ site.domain }}/" class="good hidden"><span class="icon"></span>https-everywhere</a>
   </div>
   <div class="group">
-    <h2><span class="emoji">💬</span>Miscellaneous</h2>
+    <h2 id="miscellaneous"><span class="emoji">💬</span>Miscellaneous</h2>
     <a href="http://http.{{ site.domain }}/" class="dubious"><span class="icon"></span>http</a>
     <a href="https://spoofed-favicon.{{ site.domain }}/" class="dubious hidden"><span class="icon"></span>spoofed-favicon</a>
     <a href="https://http-password.{{ site.domain }}/" class="bad"><span class="icon"></span>http-password</a>
@@ -96,7 +96,7 @@
     <a href="https://longextendedsubdomainnamewithoutdashesinordertotestwordwrapping.{{ site.domain }}/" class="good hidden"><span class="icon"></span>longextendedsubdomainnamewithoutdashesinordertotestwordwrapping</a>
   </div>
   <div class="group">
-    <h2><span class="emoji">❌</span>Known Bad</h2>
+    <h2 id="known-bad"><span class="emoji">❌</span>Known Bad</h2>
     <a href="https://superfish.{{ site.domain }}/" class="bad"><span class="icon"></span>(Lenovo) Superfish</a>
     <a href="https://edellroot.{{ site.domain }}/" class="bad"><span class="icon"></span>(Dell) eDellRoot</a>
     <a href="https://dsdtestprovider.{{ site.domain }}/" class="bad"><span class="icon"></span>(Dell) DSD Test Provider</a>
