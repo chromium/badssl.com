@@ -243,6 +243,19 @@ $(O)/gen/chain/subdomain-dsdtestprovider.pem: $(O)/gen/crt/subdomain-dsdtestprov
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/key/leaf-revoked.key:
+	./tool gen-key $@ $(D) 2048
+
+################################
+$(O)/gen/csr/subdomain-revoked.csr: src/conf/subdomain-revoked.conf $(O)/gen/key/leaf-revoked.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-revoked.crt: src/conf/subdomain-revoked.conf $(O)/gen/csr/subdomain-revoked.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-revoked.pem
+$(O)/gen/chain/subdomain-revoked.pem: $(O)/gen/crt/subdomain-revoked.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/dhparam/dh480.pem:
 	./tool dhparam $@ $(D) 480
 $(O)/gen/dhparam/dh512.pem:
