@@ -139,3 +139,41 @@
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
+
+@media (min-width: 600px) {
+  .github-fork-ribbon-wrapper.right-top-bottom {
+    right: 0;
+  }
+
+  .github-fork-ribbon-wrapper.right-top-bottom .github-fork-ribbon {
+    top: 42px;
+    right: -43px;
+
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
+
+@media (max-width: 599px) {
+  .github-fork-ribbon-wrapper.right-top-bottom {
+    position: fixed;
+    top: inherit;
+    bottom: 0;
+    right: 0;
+  }
+
+  .github-fork-ribbon-wrapper.right-top-bottom .github-fork-ribbon {
+    top: 80px;
+    right: -43px;
+
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+}
