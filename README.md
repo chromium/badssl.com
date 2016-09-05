@@ -31,9 +31,8 @@ Now you can visit `badssl.test` in your browser.
 The root CA is at `certs/sets/test/gen/crt/ca-root.crt`. If you'd like to preserve it even when you run `make clean`, run:
 
     cd certs/sets/test
-    mkdir -p pregen/crt
+    mkdir -p pregen/crt pregen/key
     cp gen/crt/ca-root.crt pregen/crt/ca-root.crt
-    mkdir -p pregen/key
     cp gen/key/ca-root.key pregen/key/ca-root.key
 
 ## Disclaimer
