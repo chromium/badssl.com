@@ -1,0 +1,32 @@
+---
+title: theme color
+layout: page
+favicon: gray
+background: gray
+---
+
+<div id="content">
+  <h1 style="font-size: 9vw;">
+    <input id="color" type="color" name="color" value="#00e000">
+  </h1>
+</div>
+
+<div id="footer">
+  This page allows setting a dynamic theme color.<br>
+  The color defaults to bright green, and will update with the page background.
+</div>
+
+<script>
+var themeColor = document.createElement("meta");
+themeColor.name = "theme-color";
+document.head.appendChild(themeColor);
+
+var colorElem = document.querySelector("#color");
+var updateColor = function() {
+  themeColor.content = colorElem.value;
+  document.body.style.backgroundColor = colorElem.value;
+}
+
+updateColor();
+colorElem.addEventListener("change", updateColor);
+</script>
