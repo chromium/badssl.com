@@ -21,7 +21,15 @@ SIGN_LEAF_DEFAULTS = $(DAYS_DEFAULT) $(HASH_DEFAULT) req_v3_usr
 # These variables will keep track of all chain targets.
 CHAINS_PROD =
 # These are chains that we can't get public versions of (usually due to Baseline Requirements).
-CHAINS_LOCAL_ONLY = 
+CHAINS_LOCAL_ONLY =
+
+# Common dhparams
+DHPARAMS_MAIN =
+# dhparams for tolerance boundary testing
+# https://github.com/chromium/badssl.com/issues/208
+DHPARAMS_BOUNDARY =
+# Ludicrously large values.
+DHPARAMS_LARGE_POWERS_OF_2 =
 
 O = sets/test
 
@@ -258,16 +266,81 @@ $(O)/gen/chain/subdomain-revoked.pem: $(O)/gen/crt/subdomain-revoked.crt $(O)/ge
 ################################
 $(O)/gen/dhparam/dh480.pem:
 	./tool dhparam $@ $(D) 480
+DHPARAMS_MAIN += $(O)/gen/dhparam/dh480.pem
 $(O)/gen/dhparam/dh512.pem:
 	./tool dhparam $@ $(D) 512
+DHPARAMS_MAIN += $(O)/gen/dhparam/dh512.pem
 $(O)/gen/dhparam/dh1024.pem:
 	./tool dhparam $@ $(D) 1024
+DHPARAMS_MAIN += $(O)/gen/dhparam/dh1024.pem
 $(O)/gen/dhparam/dh2048.pem:
 	./tool dhparam $@ $(D) 2048
+DHPARAMS_MAIN += $(O)/gen/dhparam/dh2048.pem
 $(O)/gen/dhparam/dh-composite.pem: src/dhparam/dh-composite.pem
 	cp $^ $@
+DHPARAMS_MAIN += $(O)/gen/dhparam/dh-composite.pem
 $(O)/gen/dhparam/dh-small-subgroup.pem: src/dhparam/dh-small-subgroup.pem
 	cp $^ $@
+DHPARAMS_MAIN += $(O)/gen/dhparam/dh-small-subgroup.pem
+
+$(O)/gen/dhparam/dh448.pem:
+	./tool dhparam $@ $(D) 448
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh448.pem
+$(O)/gen/dhparam/dh511.pem:
+	./tool dhparam $@ $(D) 511
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh511.pem
+$(O)/gen/dhparam/dh513.pem:
+	./tool dhparam $@ $(D) 513
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh513.pem
+$(O)/gen/dhparam/dh576.pem:
+	./tool dhparam $@ $(D) 576
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh576.pem
+
+$(O)/gen/dhparam/dh960.pem:
+	./tool dhparam $@ $(D) 960
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh960.pem
+$(O)/gen/dhparam/dh1023.pem:
+	./tool dhparam $@ $(D) 1023
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh1023.pem
+$(O)/gen/dhparam/dh1025.pem:
+	./tool dhparam $@ $(D) 1025
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh1025.pem
+$(O)/gen/dhparam/dh1088.pem:
+	./tool dhparam $@ $(D) 1088
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh1088.pem
+
+$(O)/gen/dhparam/dh1984.pem:
+	./tool dhparam $@ $(D) 1984
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh1984.pem
+$(O)/gen/dhparam/dh2047.pem:
+	./tool dhparam $@ $(D) 2047
+DHPARAMS_BOUNDARY += $(O)/gen/dhparam/dh2047.pem
+
+$(O)/gen/dhparam/dh4096.pem:
+	./tool dhparam $@ $(D) 4096
+DHPARAMS_LARGE_POWERS_OF_2 += $(O)/gen/dhparam/dh4096.pem
+$(O)/gen/dhparam/dh8192.pem:
+	./tool dhparam $@ $(D) 8192
+DHPARAMS_LARGE_POWERS_OF_2 += $(O)/gen/dhparam/dh8192.pem
+$(O)/gen/dhparam/dh16384.pem:
+	./tool dhparam $@ $(D) 16384
+DHPARAMS_LARGE_POWERS_OF_2 += $(O)/gen/dhparam/dh16384.pem
+$(O)/gen/dhparam/dh32768.pem:
+	./tool dhparam $@ $(D) 32768
+DHPARAMS_LARGE_POWERS_OF_2 += $(O)/gen/dhparam/dh32768.pem
+$(O)/gen/dhparam/dh65536.pem:
+	./tool dhparam $@ $(D) 65536
+DHPARAMS_LARGE_POWERS_OF_2 += $(O)/gen/dhparam/dh65536.pem
+
+################################
+.PHONY: dhparams-main
+dhparams-main: $(DHPARAMS_MAIN)
+
+.PHONY: dhparams-boundary
+dhparams-boundary: $(DHPARAMS_BOUNDARY)
+
+.PHONY: dhparams-large-powers-of-2
+dhparams-large-powers-of-2: $(DHPARAMS_LARGE_POWERS_OF_2)
 
 ################################
 .PHONY: chains-prod
@@ -277,4 +350,4 @@ chains-prod: $(CHAINS_PROD)
 chains-local: chains-prod $(CHAINS_LOCAL_ONLY)
 
 .PHONY: dhparams
-dhparams: $(O)/gen/dhparam/dh480.pem $(O)/gen/dhparam/dh512.pem $(O)/gen/dhparam/dh1024.pem $(O)/gen/dhparam/dh2048.pem $(O)/gen/dhparam/dh-composite.pem $(O)/gen/dhparam/dh-small-subgroup.pem
+dhparams: dhparams-main dhparams-boundary dhparams-large-powers-of-2
