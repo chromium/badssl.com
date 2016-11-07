@@ -22,7 +22,7 @@ Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to
 Your user should be part of the `docker` group or otherwise permitted to access Docker.
 
     sudo apt-get update ; sudo apt-get install docker.io
-    git clone https://github.com/lgarron/badssl.com && cd badssl.com
+    git clone https://github.com/chromium/badssl.com && cd badssl.com
 
     make list-hosts # list of domains to copy into /etc/hosts
     make test
