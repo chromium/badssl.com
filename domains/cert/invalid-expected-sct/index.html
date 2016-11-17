@@ -1,0 +1,16 @@
+---
+subdomain: invalid-expected-sct
+layout: page
+favicon: red
+background: red
+---
+
+<div id="content">
+  <h1 style="font-size: 7vw;">
+    {{ page.subdomain }}.<br>{{ site.domain }}
+  </h1>
+</div>
+
+<div id="footer">
+  The certificate for this site uses a certificate authority that Chrome requires valid <a href="https://www.certificate-transparency.org/how-ct-works">Signed Certificate Timestamps (SCTs)</a> for, but contains an invalid SCT.
+</div>
