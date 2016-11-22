@@ -1,4 +1,4 @@
-# Start with Ubuntu 14.04 (LTS), and build badssl.com up from there
+# Start with Ubuntu 16.04 (LTS), and build badssl.com up from there
 FROM ubuntu:16.04
 MAINTAINER April King <april@twoevils.org>
 EXPOSE 80 443
