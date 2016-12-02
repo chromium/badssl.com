@@ -5,6 +5,10 @@
 .PHONY: test
 test: certs-test docker-build docker-run
 
+# Convenience alias.
+.PHONY: serve
+serve: test
+
 # This should properly deploy from any state of the repo.
 .PHONY: deploy
 deploy: certs-prod jekyll-prod upload nginx
