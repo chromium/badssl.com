@@ -1,20 +1,27 @@
 ---
-subdomain: http-password
+subdomain: http-login
 layout: page
 favicon: red
 background: red
 ---
+
+<style>
+#content input {
+  font-size: 4vw;
+}
+</style>
 
 <div id="content">
   <h1 style="font-size: 5vw;">
     {{ page.subdomain }}.<br>{{ site.domain }}
   </h1>
   <br><br><br>
-  <form method="post">
+  <form>
+    <input type="text" id="username" placeholder="username field"/><br><br>
     <input type="password" id="value" placeholder="password input field" value="password"/>
   </form>
 </div>
 
 <div id="footer">
-  This site has a password field on an insecure (HTTP) page.
+  This page contains a <code>&lt;form&gt;</code> with username and password inputs.
 </div>

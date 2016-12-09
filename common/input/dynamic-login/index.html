@@ -1,0 +1,62 @@
+---
+layout: page
+favicon: gray
+background: gray
+---
+
+<style>
+#content button {
+  font-size: 3vw;
+}
+#content input {
+  font-size: 3vw;
+}
+#content #form-wrapper {
+  height: 5em;
+}
+a {
+  font-size: 3vw;
+  color: white;
+  font-family: Helvetica, Tahoma, sans-serif;
+}
+.hidden {
+  display: none;
+}
+</style>
+
+<div id="content">
+  <h1 style="font-size: 4vw;">
+    dynamic-login
+  </h1>
+  <br><br>
+  <a href="" id="show-form">
+    Show login form
+  </a>
+  <div id="form-wrapper">
+    <br>
+    <form id="form" class="hidden">
+      <input type="text" id="username" placeholder="username field"/><br><br>
+      <input type="password" id="value" placeholder="password input field" value="password"/>
+    </form>
+  </div>
+</div>
+
+<div id="footer">
+  This page can show and hide a <code>&lt;form&gt;</code><br>
+  with username and password inputs.
+</div>
+
+<script>
+var showingForm = false;
+document.querySelector("#show-form").addEventListener("click", function(e) {
+  e.preventDefault();
+  if (showingForm) {
+    document.querySelector("#form").classList.add("hidden");
+    document.querySelector("#show-form").textContent = "Show login form";
+  } else {
+    document.querySelector("#form").classList.remove("hidden");
+    document.querySelector("#show-form").textContent = "Hide login form";
+  }
+  showingForm = !showingForm;
+})
+</script>
