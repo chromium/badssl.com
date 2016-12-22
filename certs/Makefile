@@ -1,10 +1,11 @@
-# chain     :: pem <= []crt
-# dhparam   :: pem <= int (#bits)
-# gen-ca    :: crt <= conf, key
-# gen-csr   :: csr <= conf, key
+# chain      :: pem <= []crt
+# dhparam    :: pem <= int (#bits)
+# gen-ca     :: crt <= conf, key
+# gen-csr    :: csr <= conf, key
 # gen-key    :: key <= int (#bits)
-# self-sign :: crt <= days, hash, extensions, conf, csr, key (self)
-# sign      :: crt <= days, hash, extensions, conf, csr, key (CA), crt (CA)
+# gen-ecckey :: key <= string (ECC Prime)
+# self-sign  :: crt <= days, hash, extensions, conf, csr, key (self)
+# sign       :: crt <= days, hash, extensions, conf, csr, key (CA), crt (CA)
 
 # TODO:
 # Generate the expired cert in the past.
@@ -186,6 +187,17 @@ $(O)/gen/crt/wildcard-rsa8192.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wild
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-rsa8192.pem
 $(O)/gen/chain/wildcard-rsa8192.pem: $(O)/gen/crt/wildcard-rsa8192.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
+$(O)/gen/key/subdomain-ecc256.key:
+	./tool gen-ecckey $@ $(D) prime256v1
+$(O)/gen/csr/subdomain-ecc256.csr: src/conf/subdomain-ecc256.conf $(O)/gen/key/subdomain-ecc256.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-ecc256.crt: src/conf/subdomain-ecc256.conf $(O)/gen/csr/subdomain-ecc256.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_LOCAL_ONLY += $(O)/gen/chain/subdomain-no-san.pem
+$(O)/gen/chain/subdomain-ecc256.pem: $(O)/gen/crt/subdomain-ecc256.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
