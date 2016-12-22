@@ -196,7 +196,7 @@ $(O)/gen/csr/subdomain-ecc256.csr: src/conf/subdomain-ecc256.conf $(O)/gen/key/s
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/subdomain-ecc256.crt: src/conf/subdomain-ecc256.conf $(O)/gen/csr/subdomain-ecc256.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_LOCAL_ONLY += $(O)/gen/chain/subdomain-no-san.pem
+CHAINS_LOCAL_ONLY += $(O)/gen/chain/subdomain-ecc256.pem
 $(O)/gen/chain/subdomain-ecc256.pem: $(O)/gen/crt/subdomain-ecc256.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
