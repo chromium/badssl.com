@@ -42,6 +42,12 @@ gen-key)
     -out $OUT \
     $1
   ;;
+gen-ecckey)
+  openssl ecparam \
+    -out $OUT \
+    -name $1 \
+    -genkey
+  ;;
 self-sign)
   openssl x509  -req  -CAcreateserial \
     -out $OUT \
