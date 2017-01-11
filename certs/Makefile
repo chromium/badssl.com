@@ -21,7 +21,7 @@ SIGN_LEAF_DEFAULTS = $(DAYS_DEFAULT) $(HASH_DEFAULT) req_v3_usr
 # These variables will keep track of all chain targets.
 CHAINS_PROD =
 # These are chains that we can't get public versions of (usually due to Baseline Requirements).
-CHAINS_LOCAL_ONLY = 
+CHAINS_LOCAL_ONLY =
 
 O = sets/test
 
@@ -264,6 +264,21 @@ $(O)/gen/crt/subdomain-revoked.crt: src/conf/subdomain-revoked.conf $(O)/gen/csr
 CHAINS_PROD += $(O)/gen/chain/subdomain-revoked.pem
 $(O)/gen/chain/subdomain-revoked.pem: $(O)/gen/crt/subdomain-revoked.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
+
+
+################################
+$(O)/gen/key/leaf-captive-portal.key:
+	./tool gen-key $@ $(D) 2048
+
+################################
+$(O)/gen/csr/subdomain-captive-portal.csr: src/conf/subdomain-captive-portal.conf $(O)/gen/key/leaf-captive-portal.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-captive-portal.crt: src/conf/subdomain-captive-portal.conf $(O)/gen/csr/subdomain-captive-portal.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-captive-portal.pem
+$(O)/gen/chain/subdomain-captive-portal.pem: $(O)/gen/crt/subdomain-captive-portal.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
 
 ################################
 $(O)/gen/dhparam/dh480.pem:
