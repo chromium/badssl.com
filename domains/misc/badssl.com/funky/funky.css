@@ -1,0 +1,42 @@
+body.funky {
+  animation: funkyColors 4s infinite;
+}
+
+@keyframes funkyColors
+{
+  00% {background: red;}  10% {background: red;}
+  10% {background: blue;}  20% {background: blue;}
+  20% {background: green;}  30% {background: green;}
+  30% {background: yellow;}  40% {background: yellow;}
+  40% {background: orange;}  50% {background: orange;}
+  50% {background: red;}  60% {background: red;}
+  60% {background: white;}  70% {background: white;}
+  70% {background: blue;}  80% {background: blue;}
+  80% {background: yellow;}  90% {background: yellow;}
+  90% {background: green;} 100% {background: green;}
+  100% {background: red;}
+}
+
+div.group.funky a {
+  animation: funkyLinks 4s infinite;
+}
+
+@keyframes funkyLinks
+{
+  00%  {background: black; color: white;}     10% {background: black; color: white;}
+  10%  {background: white; color: inherit;}   20% {background: white; color: inherit;}
+  20%  {background: black; color: white;}     30% {background: black; color: white;}
+  30%  {background: white; color: inherit;}   40% {background: white; color: inherit;}
+  40%  {background: black; color: white;}     50% {background: black; color: white;}
+  50%  {background: white; color: inherit;}   60% {background: white; color: inherit;}
+  60%  {background: black; color: white;}     70% {background: black; color: white;}
+  70%  {background: white; color: inherit;}   80% {background: white; color: inherit;}
+  80%  {background: black; color: white;}     90% {background: black; color: white;}
+  90%  {background: white; color: inherit;}  100% {background: white; color: inherit;}
+  100% {background: black; color: white;}
+}
+
+.hover-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
