@@ -98,21 +98,25 @@ hr {
   flex: 0 0 auto;
 }
 
-#links a.good    { color: #0B8043; }
-#links a.dubious { color: #5A5A5A; }
-#links a.bad     { color: #C63626; }
+#links a.good     { color: #0B8043; }
+#links a.dubious  { color: #5A5A5A; }
+#links a.bad      { color: #C63626; }
+#links a.external { color: #5A5A5A; }
 
 #links a.good .icon    { background-image: url("front-page-icons/good.svg"); }
 #links a.dubious .icon { background-image: url("front-page-icons/dubious.svg"); }
 #links a.bad .icon     { background-image: url("front-page-icons/bad.svg"); }
+#links a.external .icon { background-image: url("front-page-icons/external.svg"); }
 
 #links a.good:hover    { background: #0B8043; }
 #links a.dubious:hover { background: #5A5A5A; }
 #links a.bad:hover     { background: #C63626; }
+#links a.external:hover { background: #5A5A5A; }
 
 #links a.good:hover .icon    { background-image: url("front-page-icons/good-white.svg"); }
 #links a.dubious:hover .icon { background-image: url("front-page-icons/dubious-white.svg"); }
 #links a.bad:hover .icon     { background-image: url("front-page-icons/bad-white.svg"); }
+#links a.external:hover .icon     { background-image: url("front-page-icons/external-white.svg"); }
 
 #links a:hover {
   background: #EEEEEE;
