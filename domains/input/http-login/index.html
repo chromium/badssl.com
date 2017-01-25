@@ -6,7 +6,7 @@ background: red
 ---
 
 <style>
-#content input {
+#content form input, #content form button {
   font-size: 4vw;
 }
 </style>
@@ -16,9 +16,10 @@ background: red
     {{ page.subdomain }}.<br>{{ site.domain }}
   </h1>
   <br><br><br>
-  <form>
+  <form action="./submit/" method="post">
     <input type="text" id="username" placeholder="username field"/><br><br>
-    <input type="password" id="value" placeholder="password input field" value="password"/>
+    <input type="password" id="value" placeholder="password input field" value="password"/><br><br>
+    <button type="submit">Submit</button>
   </form>
 </div>
 
