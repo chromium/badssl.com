@@ -13,6 +13,7 @@
 # Note: Files and paths must not contain spaces.
 
 D = badssl.com
+MAIN_CERT_TYPE = rsa2048
 DAYS_DEFAULT = 730
 HASH_DEFAULT = sha256
 
@@ -60,39 +61,12 @@ $(O)/gen/crt/ca-intermediate.crt: src/conf/ca-intermediate.conf $(O)/gen/csr/ca-
 	./tool sign $@ $(D) $(SIGN_CA_DEFAULTS) $^
 
 ################################
-$(O)/gen/key/leaf-main.key:
-	./tool gen-key $@ $(D) 2048
-
-################################
-$(O)/gen/csr/wildcard-main.csr: src/conf/wildcard-main.conf $(O)/gen/key/leaf-main.key
-	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/wildcard-main.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
-	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_PROD += $(O)/gen/chain/wildcard-main.pem
-$(O)/gen/chain/wildcard-main.pem: $(O)/gen/crt/wildcard-main.crt $(O)/gen/crt/ca-intermediate.crt
-	./tool chain $@ $(D) $^
-
-################################
-$(O)/gen/key/leaf-ecc256.key:
-	./tool gen-ecckey $@ $(D) prime256v1
-$(O)/gen/csr/wildcard-ecc256.csr: src/conf/wildcard-ecc256.conf $(O)/gen/key/leaf-ecc256.key
-	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/wildcard-ecc256.crt: src/conf/wildcard-ecc256.conf $(O)/gen/csr/wildcard-ecc256.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
-	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-ecc256.pem
-$(O)/gen/chain/wildcard-ecc256.pem: $(O)/gen/crt/wildcard-ecc256.crt $(O)/gen/crt/ca-intermediate.crt
-	./tool chain $@ $(D) $^
-
-################################
-$(O)/gen/key/leaf-ecc384.key:
-	./tool gen-ecckey $@ $(D) secp384r1
-$(O)/gen/csr/wildcard-ecc384.csr: src/conf/wildcard-ecc384.conf $(O)/gen/key/leaf-ecc384.key
-	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/wildcard-ecc384.crt: src/conf/wildcard-ecc384.conf $(O)/gen/csr/wildcard-ecc384.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
-	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-ecc384.pem
-$(O)/gen/chain/wildcard-ecc384.pem: $(O)/gen/crt/wildcard-ecc384.crt $(O)/gen/crt/ca-intermediate.crt
-	./tool chain $@ $(D) $^
+$(O)/gen/key/leaf-main.key: $(O)/gen/key/leaf-$(MAIN_CERT_TYPE).key
+	cp $< $@
+$(O)/gen/csr/wildcard-main.csr: $(O)/gen/csr/wildcard-$(MAIN_CERT_TYPE).csr
+	cp $< $@
+$(O)/gen/crt/wildcard-main.crt: $(O)/gen/crt/wildcard-$(MAIN_CERT_TYPE).crt
+	cp $< $@
 
 ################################
 $(O)/gen/csr/fallback.csr: src/conf/fallback.conf $(O)/gen/key/leaf-main.key
@@ -109,7 +83,7 @@ $(O)/gen/chain/wildcard-incomplete-chain.pem: $(O)/gen/crt/wildcard-main.crt
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/crt/wildcard-sha1-2016.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-sha1-2016.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	# TODO: date calculations
 	./tool sign $@ $(D) 10 sha1 req_v3_usr $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-sha1-2016.pem
@@ -117,7 +91,7 @@ $(O)/gen/chain/wildcard-sha1-2016.pem: $(O)/gen/crt/wildcard-sha1-2016.crt $(O)/
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/crt/wildcard-sha1-2017.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-sha1-2017.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	# TODO: date calculations
 	./tool sign $@ $(D) 200 sha1 req_v3_usr $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-sha1-2017.pem
@@ -125,28 +99,28 @@ $(O)/gen/chain/wildcard-sha1-2017.pem: $(O)/gen/crt/wildcard-sha1-2017.crt $(O)/
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/crt/wildcard-md5.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-md5.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(DAYS_DEFAULT) md5 req_v3_usr $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-md5.pem
 $(O)/gen/chain/wildcard-md5.pem: $(O)/gen/crt/wildcard-md5.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/crt/wildcard-sha384.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-sha384.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(DAYS_DEFAULT) sha384 req_v3_usr $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-sha384.pem
 $(O)/gen/chain/wildcard-sha384.pem: $(O)/gen/crt/wildcard-sha384.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/crt/wildcard-sha512.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-sha512.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(DAYS_DEFAULT) sha512 req_v3_usr $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-sha512.pem
 $(O)/gen/chain/wildcard-sha512.pem: $(O)/gen/crt/wildcard-sha512.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/crt/wildcard-expired.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-expired.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	# Too lazy to setup the loathsome mess that is openssl ca when I could just wait a day
 	./tool sign $@ $(D) 1 sha256 req_v3_usr $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-expired.pem
@@ -154,14 +128,14 @@ $(O)/gen/chain/wildcard-expired.pem: $(O)/gen/crt/wildcard-expired.crt $(O)/gen/
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/crt/wildcard-untrusted-root.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-untrusted-root.key $(O)/gen/crt/ca-untrusted-root.crt
+$(O)/gen/crt/wildcard-untrusted-root.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-untrusted-root.key $(O)/gen/crt/ca-untrusted-root.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-untrusted-root.pem
 $(O)/gen/chain/wildcard-untrusted-root.pem: $(O)/gen/crt/wildcard-untrusted-root.crt
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/crt/wildcard-self-signed.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/leaf-main.key
+$(O)/gen/crt/wildcard-self-signed.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/leaf-main.key
 	./tool self-sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-self-signed.pem
 $(O)/gen/chain/wildcard-self-signed.pem: $(O)/gen/crt/wildcard-self-signed.crt
@@ -170,9 +144,9 @@ $(O)/gen/chain/wildcard-self-signed.pem: $(O)/gen/crt/wildcard-self-signed.crt
 ################################
 $(O)/gen/key/leaf-rsa512.key:
 	./tool gen-key $@ $(D) 512
-$(O)/gen/csr/wildcard-rsa512.csr: src/conf/wildcard-main.conf $(O)/gen/key/leaf-rsa512.key
+$(O)/gen/csr/wildcard-rsa512.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-rsa512.key
 	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/wildcard-rsa512.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-rsa512.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-rsa512.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-rsa512.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-rsa512.pem
 $(O)/gen/chain/wildcard-rsa512.pem: $(O)/gen/crt/wildcard-rsa512.crt $(O)/gen/crt/ca-intermediate.crt
@@ -181,20 +155,31 @@ $(O)/gen/chain/wildcard-rsa512.pem: $(O)/gen/crt/wildcard-rsa512.crt $(O)/gen/cr
 ################################
 $(O)/gen/key/leaf-rsa1024.key:
 	./tool gen-key $@ $(D) 1024
-$(O)/gen/csr/wildcard-rsa1024.csr: src/conf/wildcard-main.conf $(O)/gen/key/leaf-rsa1024.key
+$(O)/gen/csr/wildcard-rsa1024.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-rsa1024.key
 	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/wildcard-rsa1024.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-rsa1024.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-rsa1024.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-rsa1024.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-rsa1024.pem
 $(O)/gen/chain/wildcard-rsa1024.pem: $(O)/gen/crt/wildcard-rsa1024.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/key/leaf-rsa2048.key:
+	./tool gen-key $@ $(D) 2048
+$(O)/gen/csr/wildcard-rsa2048.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-rsa2048.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/wildcard-rsa2048.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-rsa2048.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/wildcard-rsa2048.pem
+$(O)/gen/chain/wildcard-rsa2048.pem: $(O)/gen/crt/wildcard-rsa2048.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/key/leaf-rsa3072.key:
 	./tool gen-key $@ $(D) 3072
-$(O)/gen/csr/wildcard-rsa3072.csr: src/conf/wildcard-main.conf $(O)/gen/key/leaf-rsa3072.key
+$(O)/gen/csr/wildcard-rsa3072.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-rsa3072.key
 	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/wildcard-rsa3072.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-rsa3072.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-rsa3072.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-rsa3072.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-rsa3072.pem
 $(O)/gen/chain/wildcard-rsa3072.pem: $(O)/gen/crt/wildcard-rsa3072.crt $(O)/gen/crt/ca-intermediate.crt
@@ -203,12 +188,34 @@ $(O)/gen/chain/wildcard-rsa3072.pem: $(O)/gen/crt/wildcard-rsa3072.crt $(O)/gen/
 ################################
 $(O)/gen/key/leaf-rsa8192.key:
 	./tool gen-key $@ $(D) 8192
-$(O)/gen/csr/wildcard-rsa8192.csr: src/conf/wildcard-main.conf $(O)/gen/key/leaf-rsa8192.key
+$(O)/gen/csr/wildcard-rsa8192.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-rsa8192.key
 	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/wildcard-rsa8192.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wildcard-rsa8192.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/wildcard-rsa8192.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-rsa8192.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-rsa8192.pem
 $(O)/gen/chain/wildcard-rsa8192.pem: $(O)/gen/crt/wildcard-rsa8192.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
+$(O)/gen/key/leaf-ecc256.key:
+	./tool gen-ecckey $@ $(D) prime256v1
+$(O)/gen/csr/wildcard-ecc256.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-ecc256.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/wildcard-ecc256.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-ecc256.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-ecc256.pem
+$(O)/gen/chain/wildcard-ecc256.pem: $(O)/gen/crt/wildcard-ecc256.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
+$(O)/gen/key/leaf-ecc384.key:
+	./tool gen-ecckey $@ $(D) secp384r1
+$(O)/gen/csr/wildcard-ecc384.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-ecc384.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/wildcard-ecc384.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-ecc384.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-ecc384.pem
+$(O)/gen/chain/wildcard-ecc384.pem: $(O)/gen/crt/wildcard-ecc384.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
@@ -236,6 +243,17 @@ $(O)/gen/crt/subdomain-10000-sans.crt: src/conf/subdomain-10000-sans.conf $(O)/g
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_PROD += $(O)/gen/chain/subdomain-10000-sans.pem
 $(O)/gen/chain/subdomain-10000-sans.pem: $(O)/gen/crt/subdomain-10000-sans.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
+# Note: this is just a regular cert in `test`.
+# Getting a real-world cert without SCTs may be extra work in the future.
+$(O)/gen/csr/subdomain-preloaded-expect-ct.csr: src/conf/subdomain-preloaded-expect-ct.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-preloaded-expect-ct.crt: src/conf/subdomain-preloaded-expect-ct.conf $(O)/gen/csr/subdomain-preloaded-expect-ct.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-preloaded-expect-ct.pem
+$(O)/gen/chain/subdomain-preloaded-expect-ct.pem: $(O)/gen/crt/subdomain-preloaded-expect-ct.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
