@@ -73,6 +73,28 @@ $(O)/gen/chain/wildcard-main.pem: $(O)/gen/crt/wildcard-main.crt $(O)/gen/crt/ca
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/key/leaf-ecc256.key:
+	./tool gen-ecckey $@ $(D) prime256v1
+$(O)/gen/csr/wildcard-ecc256.csr: src/conf/wildcard-ecc256.conf $(O)/gen/key/leaf-ecc256.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/wildcard-ecc256.crt: src/conf/wildcard-ecc256.conf $(O)/gen/csr/wildcard-ecc256.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-ecc256.pem
+$(O)/gen/chain/wildcard-ecc256.pem: $(O)/gen/crt/wildcard-ecc256.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
+$(O)/gen/key/leaf-ecc384.key:
+	./tool gen-ecckey $@ $(D) secp384r1
+$(O)/gen/csr/wildcard-ecc384.csr: src/conf/wildcard-ecc384.conf $(O)/gen/key/leaf-ecc384.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/wildcard-ecc384.crt: src/conf/wildcard-ecc384.conf $(O)/gen/csr/wildcard-ecc384.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-ecc384.pem
+$(O)/gen/chain/wildcard-ecc384.pem: $(O)/gen/crt/wildcard-ecc384.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/csr/fallback.csr: src/conf/fallback.conf $(O)/gen/key/leaf-main.key
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/fallback.crt: src/conf/fallback.conf $(O)/gen/csr/fallback.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
@@ -187,28 +209,6 @@ $(O)/gen/crt/wildcard-rsa8192.crt: src/conf/wildcard-main.conf $(O)/gen/csr/wild
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-rsa8192.pem
 $(O)/gen/chain/wildcard-rsa8192.pem: $(O)/gen/crt/wildcard-rsa8192.crt $(O)/gen/crt/ca-intermediate.crt
-	./tool chain $@ $(D) $^
-
-################################
-$(O)/gen/key/subdomain-ecc256.key:
-	./tool gen-ecckey $@ $(D) prime256v1
-$(O)/gen/csr/subdomain-ecc256.csr: src/conf/subdomain-ecc256.conf $(O)/gen/key/subdomain-ecc256.key
-	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/subdomain-ecc256.crt: src/conf/subdomain-ecc256.conf $(O)/gen/csr/subdomain-ecc256.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
-	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_LOCAL_ONLY += $(O)/gen/chain/subdomain-ecc256.pem
-$(O)/gen/chain/subdomain-ecc256.pem: $(O)/gen/crt/subdomain-ecc256.crt $(O)/gen/crt/ca-intermediate.crt
-	./tool chain $@ $(D) $^
-
-################################
-$(O)/gen/key/subdomain-ecc384.key:
-	./tool gen-ecckey $@ $(D) secp384r1
-$(O)/gen/csr/subdomain-ecc384.csr: src/conf/subdomain-ecc384.conf $(O)/gen/key/subdomain-ecc384.key
-	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/subdomain-ecc384.crt: src/conf/subdomain-ecc384.conf $(O)/gen/csr/subdomain-ecc384.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
-	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_LOCAL_ONLY += $(O)/gen/chain/subdomain-ecc384.pem
-$(O)/gen/chain/subdomain-ecc384.pem: $(O)/gen/crt/subdomain-ecc384.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
