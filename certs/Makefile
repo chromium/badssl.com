@@ -203,7 +203,7 @@ $(O)/gen/csr/wildcard-ecc256.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-ecc25
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/wildcard-ecc256.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-ecc256.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-ecc256.pem
+CHAINS_PROD += $(O)/gen/chain/wildcard-ecc256.pem
 $(O)/gen/chain/wildcard-ecc256.pem: $(O)/gen/crt/wildcard-ecc256.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
@@ -214,7 +214,7 @@ $(O)/gen/csr/wildcard-ecc384.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-ecc38
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/wildcard-ecc384.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-ecc384.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_LOCAL_ONLY += $(O)/gen/chain/wildcard-ecc384.pem
+CHAINS_PROD += $(O)/gen/chain/wildcard-ecc384.pem
 $(O)/gen/chain/wildcard-ecc384.pem: $(O)/gen/crt/wildcard-ecc384.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
