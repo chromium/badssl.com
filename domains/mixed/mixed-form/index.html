@@ -5,13 +5,21 @@ favicon: yellow
 background: rgb(246, 207, 47)
 ---
 
+<style>
+#content form input, #content form button {
+  font-size: 4vw;
+}
+</style>
+
 <div id="content">
-  <h1 style="font-size: 8vw;">
-    {{ page.subdomain }}.{{ site.domain }}
+  <h1 style="font-size: 5vw;">
+    {{ page.subdomain }}.<br>{{ site.domain }}
   </h1>
+  <br><br><br>
   <div>
     <form action="http://http.{{ site.domain }}/" method="get">
-    Search: <input type="text" name="query" placeholder="Non-secure query"><input type="submit" value="Submit">
+      Search: <input type="text" id="query" name="query" placeholder="Non-secure query"><br><br>
+      <button type="submit">Submit</button>
     </form>
   </div>
 </div>
