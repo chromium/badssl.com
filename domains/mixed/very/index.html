@@ -13,6 +13,7 @@ background: red
   width: 60vw;
   max-width: 512px;
   margin-top: 2.5vh;
+  border: 0;
 }
 </style>
 
@@ -21,7 +22,13 @@ background: red
     {{ page.subdomain }}.{{ site.domain }}
   </h1>
   <div>
-    <img src="http://{{ page.subdomain }}.{{ site.domain }}/image.jpg" alt="very badssl">
+    <a download="http-download.jpg" href="http://{{ page.subdomain }}.{{ site.domain }}/image.jpg">
+      <img src="http://{{ page.subdomain }}.{{ site.domain }}/image.jpg" alt="very badssl">
+    </a>
+    <br>
+    <form action="http://{{ site.http-domain }}/resources/form-submitted.html" method="post">
+      <button type="submit">Submit to HTTP</button>
+    </form>
   </div>
 </div>
 
