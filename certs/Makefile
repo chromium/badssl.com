@@ -219,12 +219,30 @@ $(O)/gen/chain/wildcard-ecc384.pem: $(O)/gen/crt/wildcard-ecc384.crt $(O)/gen/cr
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/csr/subdomain-no-common-name.csr: src/conf/subdomain-no-common-name.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-no-common-name.crt: src/conf/subdomain-no-common-name.conf $(O)/gen/csr/subdomain-no-common-name.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-no-common-name.pem
+$(O)/gen/chain/subdomain-no-common-name.pem: $(O)/gen/crt/subdomain-no-common-name.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/csr/subdomain-no-san.csr: src/conf/subdomain-no-san.conf $(O)/gen/key/leaf-main.key
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/subdomain-no-san.crt: src/conf/subdomain-no-san.conf $(O)/gen/csr/subdomain-no-san.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_LOCAL_ONLY += $(O)/gen/chain/subdomain-no-san.pem
 $(O)/gen/chain/subdomain-no-san.pem: $(O)/gen/crt/subdomain-no-san.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
+$(O)/gen/csr/subdomain-no-subject.csr: src/conf/subdomain-no-subject.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr-no-subject $@ $(D) $^
+$(O)/gen/crt/subdomain-no-subject.crt: src/conf/subdomain-no-subject.conf $(O)/gen/csr/subdomain-no-subject.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-no-subject.pem
+$(O)/gen/chain/subdomain-no-subject.pem: $(O)/gen/crt/subdomain-no-subject.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
