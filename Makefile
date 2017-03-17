@@ -89,7 +89,6 @@ docker-run:
 .PHONY: upload
 upload:
 	rsync -avz \
-		-e "ssh -i ${HOME}/.ssh/google_compute_engine" \
 		--exclude .DS_Store \
 		--exclude .git \
 		--exclude _site/domains-local-only \
