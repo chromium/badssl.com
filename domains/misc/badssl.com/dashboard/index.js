@@ -24,8 +24,10 @@ var bad = [
   "dh1024",
   "superfish",
   "edellroot",
-  "dsdtestprovider"
+  "dsdtestprovider",
+  "null"
 ];
+
 var good = [
   "sha256",
   "ecc256",
@@ -35,6 +37,7 @@ var good = [
 
 var bad_ish = [
   "revoked",
+  "cbc",
   "3des",
   "mozilla-old",
   "pinning-test"
