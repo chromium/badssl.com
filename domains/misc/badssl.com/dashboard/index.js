@@ -29,6 +29,7 @@ var bad = [
 ];
 
 var good = [
+  "rsa2048",
   "sha256",
   "ecc256",
   "ecc384",
@@ -39,8 +40,9 @@ var bad_ish = [
   "revoked",
   "cbc",
   "3des",
-  "mozilla-old",
-  "pinning-test"
+  "pinning-test",
+  "invalid-expected-sct",
+  "incomplete-chain"
 ];
 
 
@@ -48,7 +50,7 @@ var good_ish = [
   "1000-sans",
   "10000-sans",
   "rsa8192",
-  "mozilla-intermediate"
+  "no-subject"
 ];
 
 var verdict = {
