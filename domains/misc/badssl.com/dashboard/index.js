@@ -11,48 +11,58 @@ function createSpinner() {
   return spinner;
 }
 
-var bad = [
-  "expired",
-  "wrong.host",
-  "self-signed",
-  "untrusted-root",
+function calculateOrigin(config) {
+  var origin = "https://" + config.subdomain + "." + domain;
+  if (config.port) {
+    origin += ":" + config.port;
+  }
+  return origin;
+}
 
-  "rc4",
-  "rc4-md5",
-  "dh480",
-  "dh512",
-  "dh1024",
-  "superfish",
-  "edellroot",
-  "dsdtestprovider",
-  "null"
+var bad = [
+  {subdomain: "expired"},
+  {subdomain: "wrong.host"},
+  {subdomain: "self-signed"},
+  {subdomain: "untrusted-root"},
+
+  {subdomain: "rc4"},
+  {subdomain: "rc4-md5"},
+  {subdomain: "dh480"},
+  {subdomain: "dh512"},
+  {subdomain: "dh1024"},
+  {subdomain: "superfish"},
+  {subdomain: "edellroot"},
+  {subdomain: "dsdtestprovider"},
+  {subdomain: "null"}
 ];
 
 var good = [
-  "sha256",
-  "sha384",
-  "sha512",
-  "rsa2048",
-  "ecc256",
-  "ecc384",
-  "mozilla-modern"
+  {subdomain: "sha256"},
+  {subdomain: "sha384"},
+  {subdomain: "sha512"},
+  {subdomain: "rsa2048"},
+  {subdomain: "ecc256"},
+  {subdomain: "ecc384"},
+  {subdomain: "mozilla-modern"}
 ];
 
 var bad_ish = [
-  "revoked",
-  "cbc",
-  "3des",
-  "pinning-test",
-  "invalid-expected-sct",
-  "incomplete-chain"
+  {subdomain: "revoked"},
+  {subdomain: "tls-v1-0", port: 1010},
+  {subdomain: "tls-v1-1", port: 1011},
+  {subdomain: "cbc"},
+  {subdomain: "3des"},
+  {subdomain: "pinning-test"},
+  {subdomain: "invalid-expected-sct"},
+  {subdomain: "incomplete-chain"}
 ];
 
 
 var good_ish = [
-  "1000-sans",
-  "10000-sans",
-  "rsa8192",
-  "no-subject"
+  {subdomain: "1000-sans"},
+  {subdomain: "10000-sans"},
+  {subdomain: "rsa8192"},
+  {subdomain: "no-subject"}
 ];
 
 var verdict = {
@@ -125,16 +135,16 @@ function scanSet(set, title, expected, container) {
   var tbody = createChild(table, "tbody");
 
   for (var i = 0; i < set.length; i++) {
-    var subdomain = set[i];
+    var config = set[i];
 
-    var origin = "https://" + subdomain + "." + domain;
+    var origin = calculateOrigin(config);
 
     var tr = createChild(tbody, "tr");
 
     var tdSubdomain = createChild(tr, "td");
     var a = createChild(tdSubdomain, "a");
     a.href = origin;
-    a.textContent = subdomain;
+    a.textContent = config.subdomain;
     a.target = "_blank";
 
     var tdResult = createChild(tr, "td");
