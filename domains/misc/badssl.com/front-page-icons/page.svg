@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>page</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M4,3.99079514 C4,2.89130934 4.89008354,2 5.99013994,2 L13.8344116,2 L20,8.19256592 L20,19.9922805 C20,21.1011134 19.1054862,22 18.0059397,22 L5.99406028,22 C4.8927712,22 4,21.1017876 4,20.0092049 L4,3.99079514 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="16" height="20" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="page">
+            <use id="Rectangle-3" stroke="#5A5A5A" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+            <rect id="Rectangle-4" fill="#5A5A5A" x="11" y="3" width="2" height="7"></rect>
+            <circle id="Oval-2" fill="#5A5A5A" cx="12" cy="10" r="1"></circle>
+            <rect id="Rectangle-5" fill="#5A5A5A" x="12" y="9" width="7" height="2"></rect>
+        </g>
+    </g>
+</svg>
