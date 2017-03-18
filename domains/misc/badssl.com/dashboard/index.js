@@ -29,8 +29,10 @@ var bad = [
 ];
 
 var good = [
-  "rsa2048",
   "sha256",
+  "sha384",
+  "sha512",
+  "rsa2048",
   "ecc256",
   "ecc384",
   "mozilla-modern"
