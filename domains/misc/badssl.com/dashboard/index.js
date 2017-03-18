@@ -1,9 +1,5 @@
-// ---
-// ---
-
-// Jekyll config
-var domain = "{{ site.domain | url_escape }}";
 var domain = document.location.hostname || "badssl.test";
+var sanityCheckOrigin = "https://" + domain;
 
 function createSpinner() {
   var spinner = document.createElement("span");
@@ -19,71 +15,11 @@ function calculateOrigin(config) {
   return origin;
 }
 
-var bad = [
-  {subdomain: "expired"},
-  {subdomain: "wrong.host"},
-  {subdomain: "self-signed"},
-  {subdomain: "untrusted-root"},
-
-  {subdomain: "rc4"},
-  {subdomain: "rc4-md5"},
-  {subdomain: "dh480"},
-  {subdomain: "dh512"},
-  {subdomain: "dh1024"},
-  {subdomain: "superfish"},
-  {subdomain: "edellroot"},
-  {subdomain: "dsdtestprovider"},
-  {subdomain: "null"}
-];
-
-var good = [
-  {subdomain: "sha256"},
-  {subdomain: "sha384"},
-  {subdomain: "sha512"},
-  {subdomain: "rsa2048"},
-  {subdomain: "ecc256"},
-  {subdomain: "ecc384"},
-  {subdomain: "mozilla-modern"}
-];
-
-var bad_ish = [
-  {subdomain: "revoked"},
-  {subdomain: "tls-v1-0", port: 1010},
-  {subdomain: "tls-v1-1", port: 1011},
-  {subdomain: "cbc"},
-  {subdomain: "3des"},
-  {subdomain: "pinning-test"},
-  {subdomain: "invalid-expected-sct"},
-  {subdomain: "incomplete-chain"}
-];
-
-
-var good_ish = [
-  {subdomain: "1000-sans"},
-  {subdomain: "10000-sans"},
-  {subdomain: "rsa8192"},
-  {subdomain: "no-subject"}
-];
-
 var verdict = {
   yes:   "✅ YES", // ✅✔
   maybe: "🆗 OKAY", // 🆗🤔
   no:    "❌ NO", // ❌✖
 }
-
-var success = {
-  "bad":      "no",
-  "bad-ish":  "maybe",
-  "good":     "yes",
-  "good-ish": "yes"
-};
-
-var fail = {
-  "bad":      "yes",
-  "bad-ish":  "yes",
-  "good":     "no",
-  "good-ish": "maybe"
-};
 
 function request(origin, success, failure) {
   var url = origin + "/test/dashboard/small-image.png";
@@ -99,18 +35,18 @@ function request(origin, success, failure) {
   img.src = url;
 }
 
-function test(origin, expected, tr) {
+function test(origin, set, tr) {
   request(
     origin,
     function() {
-      tr.classList.add("expected-" + success[expected]);
+      tr.classList.add("expected-" + set.success);
       tr.querySelector(".result").textContent = "connected";
-      tr.querySelector(".expected").textContent = verdict[success[expected]];
+      tr.querySelector(".expected").textContent = verdict[set.success];
     },
     function() {
-      tr.classList.add("expected-" + fail[expected]);
+      tr.classList.add("expected-" + set.fail);
       tr.querySelector(".result").textContent = "cannot connect";
-      tr.querySelector(".expected").textContent = verdict[fail[expected]];
+      tr.querySelector(".expected").textContent = verdict[set.fail];
     }
   );
 
@@ -122,8 +58,8 @@ function createChild(parent, tag) {
   return elem;
 }
 
-function scanSet(set, title, expected, container) {
-  var h2 = createChild(container, "h2").textContent = title;
+function scanSet(set, container) {
+  createChild(container, "h2").textContent = set.heading;
 
   var table = createChild(container, "table");
   
@@ -134,8 +70,8 @@ function scanSet(set, title, expected, container) {
 
   var tbody = createChild(table, "tbody");
 
-  for (var i = 0; i < set.length; i++) {
-    var config = set[i];
+  for (var i = 0; i < set.subdomains.length; i++) {
+    var config = set.subdomains[i];
 
     var origin = calculateOrigin(config);
 
@@ -155,20 +91,29 @@ function scanSet(set, title, expected, container) {
     tdExpected.classList.add("expected");
     tdExpected.appendChild(createSpinner());
 
-    test(origin, expected, tr)
+    test(origin, set, tr)
   }
+}
+
+function error(e) {
+  document.querySelector("#message").textContent = "ERROR: " + e;
+  console.error(e);
 }
 
 function scan() {
   var tableWrapper = document.querySelector("#table-wrapper");
-  request("https://" + domain, function() {
-    document.body.removeChild(document.querySelector("#message"));
-    scanSet(bad,      "Bad",      "bad",      tableWrapper);
-    scanSet(good,     "Good",     "good",     tableWrapper);
-    scanSet(bad_ish,  "Bad-ish",  "bad-ish",  tableWrapper);
-    scanSet(good_ish, "Good-ish", "good-ish", tableWrapper);
+  request(sanityCheckOrigin, function() {
+    try {
+      for (var i = 0; i < sets.length; i++) {
+        scanSet(sets[i], tableWrapper);
+      }
+      document.body.removeChild(document.querySelector("#message"));
+      tableWrapper.classList.remove("hidden");
+    } catch(e) {
+      error(e);
+    }
   }, function() {
-    createChild(tableWrapper, "div").textContent = "ERROR: Could not connect to test server.";
+    error("Could not connect to test server.");
   });
 }
 

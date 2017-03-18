@@ -162,6 +162,7 @@ hr {
 
 #message {
   margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 #table-wrapper {
@@ -232,4 +233,8 @@ table tr.expected-maybe,
 table tr.expected-no {
   /*color: white;*/
   /*border-top: 1px solid white;*/
+}
+
+.hidden {
+  display: none;
 }
