@@ -53,7 +53,7 @@ var good_ish = [
 
 var verdict = {
   yes:   "✅ YES", // ✅✔
-  maybe: "🤔 OKAY",
+  maybe: "🆗 OKAY", // 🆗🤔
   no:    "❌ NO", // ❌✖
 }
 
