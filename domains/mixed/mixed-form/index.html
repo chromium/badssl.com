@@ -1,0 +1,17 @@
+---
+subdomain: mixed-form
+layout: page
+favicon: yellow
+background: rgb(246, 207, 47)
+---
+
+<div id="content">
+  <h1 style="font-size: 7vw;">
+    mixed form
+  </h1>
+  <br><br>
+  <form action="http://{{ site.http-domain }}/resources/form-submitted.html" method="post">
+    <input type="text" id="value" placeholder="This form submits to HTTP."/>
+    <button type="submit">Submit</button>
+  </form>
+</div>
