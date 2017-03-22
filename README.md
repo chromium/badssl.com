@@ -34,6 +34,23 @@ The root CA is at `certs/sets/test/gen/crt/ca-root.crt`. If you'd like to preser
     cp gen/crt/ca-root.crt pregen/crt/ca-root.crt
     cp gen/key/ca-root.key pregen/key/ca-root.key
 
+## Acknowledgments
+
+badssl.com is hosted on Google Cloud infrastructure and co-maintained by:
+
+- [April King](https://github.com/marumari), Mozilla Firefox
+- [Lucas Garron](https://github.com/lgarron), Google Chrome
+
+Several public badssl.com certificates required special issuance processes. Most certificates were gracefully issued for free, thanks to help from:
+
+- [Vincent Lynch](https://twitter.com/vtlynch), [The SSL Store](https://www.thesslstore.com/) (`sha1-2016`, `sha1-2017`)
+- [Richard Barnes](https://twitter.com/rlbarnes), Mozilla (`1000-sans`, `10000-sans`)
+- [Clint Wilson](https://twitter.com/clintw_), [DigiCert](https://www.digicert.com/) (most wildcards)
+- [Andrew Ayer](https://github.com/agwa), [SSLMate](https://sslmate.com/) (`invalid-expected-sct`)
+- [Rob Stradling](https://github.com/robstradling), [Comodo](https://www.comodo.com/) (`no-subject`, etc.)
+
+Various subdomains and test pages are also implemented by [external contributors](https://github.com/chromium/badssl.com/graphs/contributors).
+
 ## Disclaimer
 
 `badssl.com` is meant for *manual* testing of security UI in web clients.
