@@ -27,7 +27,11 @@ background: red
     </a>
     <br>
     <form action="http://{{ site.http-domain }}/resources/form-submitted.html" method="post">
-      <button type="submit">Submit to HTTP</button>
+      <fieldset>
+        <legend>Mixed Form:</legend>
+        <input type="text" id="value" placeholder="This form submits to HTTP."/>
+        <button type="submit">Submit</button>
+      </fieldset>
     </form>
   </div>
 </div>
