@@ -41,7 +41,7 @@ badssl.com is hosted on Google Cloud infrastructure and co-maintained by:
 - [April King](https://github.com/marumari), Mozilla Firefox
 - [Lucas Garron](https://github.com/lgarron), Google Chrome
 
-Several public badssl.com certificates required special issuance processes. Most certificates were gracefully issued for free, thanks to help from:
+Several public badssl.com certificates required special issuance processes. Most certificates were graciously issued for free, thanks to help from:
 
 - [Vincent Lynch](https://twitter.com/vtlynch), [The SSL Store](https://www.thesslstore.com/) (`sha1-2016`, `sha1-2017`)
 - [Richard Barnes](https://twitter.com/rlbarnes), Mozilla (`1000-sans`, `10000-sans`)
