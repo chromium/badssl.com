@@ -8,7 +8,6 @@ Visit [`badssl.com`](https://badssl.com/) for a list of test subdomains, includi
 
 - [`self-signed.badssl.com`](https://self-signed.badssl.com)
 - [`expired.badssl.com`](https://expired.badssl.com)
-- [`sha1.badssl.com`](https://sha1.badssl.com)
 - [`mixed.badssl.com`](https://mixed.badssl.com)
 - [`rc4.badssl.com`](https://rc4.badssl.com)
 - [`hsts.badssl.com`](https://hsts.badssl.com)
