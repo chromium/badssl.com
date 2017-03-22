@@ -6,7 +6,7 @@ background: red
 ---
 
 <style>
-#content h1 {
+#content h1, fieldset {
   font-family: "Comic Sans MS", "Comic Sans", "Marker Felt", "Source Code Pro", Monaco, Consolas, "Courier New", monospace, Impact;
 }
 #content img {
@@ -28,7 +28,7 @@ background: red
     <br>
     <form action="http://{{ site.http-domain }}/resources/form-submitted.html" method="post">
       <fieldset>
-        <legend>Mixed Form:</legend>
+        <legend>Mixed Form</legend>
         <input type="text" id="value" placeholder="This form submits to HTTP."/>
         <button type="submit">Submit</button>
       </fieldset>
