@@ -15,6 +15,14 @@ background: red
   margin-top: 2.5vh;
   border: 0;
 }
+fieldset {
+  border: 0.25em dashed white;
+  border-radius: 1em;
+}
+legend {
+  font-size: 3vw;
+  color: white;
+}
 </style>
 
 <div id="content">
@@ -22,13 +30,11 @@ background: red
     {{ page.subdomain }}.{{ site.domain }}
   </h1>
   <div>
-    <a download="http-download.jpg" href="http://{{ page.subdomain }}.{{ site.domain }}/image.jpg">
-      <img src="http://{{ page.subdomain }}.{{ site.domain }}/image.jpg" alt="very badssl">
-    </a>
-    <br>
+    <a download="http-download.jpg" href="http://{{ page.subdomain }}.{{ site.domain }}/image.jpg"><img src="http://{{ page.subdomain }}.{{ site.domain }}/image.jpg" alt="very badssl"></a>
+    <br><br>
     <form action="http://{{ site.http-domain }}/resources/form-submitted.html" method="post">
       <fieldset>
-        <legend>Mixed Form</legend>
+        <legend>&nbsp;Mixed&nbsp;Form&nbsp;</legend>
         <input type="text" id="value" placeholder="This form submits to HTTP."/>
         <button type="submit">Submit</button>
       </fieldset>
