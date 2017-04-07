@@ -61,6 +61,14 @@ $(O)/gen/crt/ca-intermediate.crt: src/conf/ca-intermediate.conf $(O)/gen/csr/ca-
 	./tool sign $@ $(D) $(SIGN_CA_DEFAULTS) $^
 
 ################################
+$(O)/gen/key/ca-sha1-intermediate.key:
+	./tool gen-key $@ $(D) 4096
+$(O)/gen/csr/ca-sha1-intermediate.csr: src/conf/ca-intermediate.conf $(O)/gen/key/ca-sha1-intermediate.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/ca-sha1-intermediate.crt: src/conf/ca-intermediate.conf $(O)/gen/csr/ca-sha1-intermediate.csr $(O)/gen/key/ca-root.key $(O)/gen/crt/ca-root.crt
+	./tool sign $@ $(D) 3650 sha1 req_v3_ca $^
+
+################################
 $(O)/gen/key/leaf-main.key: $(O)/gen/key/leaf-$(MAIN_CERT_TYPE).key
 	cp $< $@
 $(O)/gen/csr/wildcard-main.csr: $(O)/gen/csr/wildcard-$(MAIN_CERT_TYPE).csr
@@ -96,6 +104,13 @@ $(O)/gen/crt/wildcard-sha1-2017.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcar
 	./tool sign $@ $(D) 200 sha1 req_v3_usr $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-sha1-2017.pem
 $(O)/gen/chain/wildcard-sha1-2017.pem: $(O)/gen/crt/wildcard-sha1-2017.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
+$(O)/gen/crt/wildcard-sha1-intermediate.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-sha1-intermediate.key $(O)/gen/crt/ca-sha1-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/wildcard-sha1-intermediate.pem
+$(O)/gen/chain/wildcard-sha1-intermediate.pem: $(O)/gen/crt/wildcard-sha1-intermediate.crt $(O)/gen/crt/ca-sha1-intermediate.crt
 	./tool chain $@ $(D) $^
 
 ################################
