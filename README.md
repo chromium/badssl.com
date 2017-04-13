@@ -47,7 +47,7 @@ Several public badssl.com certificates required special issuance processes. Most
 - [Richard Barnes](https://twitter.com/rlbarnes), Mozilla (`1000-sans`, `10000-sans`)
 - [Clint Wilson](https://twitter.com/clintw_), [DigiCert](https://www.digicert.com/) (most wildcards)
 - [Andrew Ayer](https://github.com/agwa), [SSLMate](https://sslmate.com/) (`invalid-expected-sct`)
-- [Rob Stradling](https://github.com/robstradling), [Comodo](https://www.comodo.com/) (`1000-sans`, `10000-sans`, `no-subject`, `no-common-name`)
+- [Rob Stradling](https://github.com/robstradling), [Comodo](https://www.comodo.com/) (`1000-sans`, `10000-sans`, `no-subject`, `no-common-name`, `sha1-intermediate`)
 
 Various subdomains and test pages are also implemented by [external contributors](https://github.com/chromium/badssl.com/graphs/contributors).
 

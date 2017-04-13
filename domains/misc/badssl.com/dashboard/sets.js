@@ -10,6 +10,7 @@ var sets = [
       {subdomain: "self-signed"},
       {subdomain: "untrusted-root"},
 
+      {subdomain: "sha1-intermediate"},
       {subdomain: "rc4"},
       {subdomain: "rc4-md5"},
       {subdomain: "dh480"},
