@@ -279,6 +279,15 @@ $(O)/gen/chain/subdomain-10000-sans.pem: $(O)/gen/crt/subdomain-10000-sans.crt $
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/csr/subdomain-xn--n1aae7f7o.csr: src/conf/subdomain-xn--n1aae7f7o.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-xn--n1aae7f7o.crt: src/conf/subdomain-xn--n1aae7f7o.conf $(O)/gen/csr/subdomain-xn--n1aae7f7o.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-xn--n1aae7f7o.pem
+$(O)/gen/chain/subdomain-xn--n1aae7f7o.pem: $(O)/gen/crt/subdomain-xn--n1aae7f7o.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 # Note: this is just a regular cert in `test`.
 # Getting a real-world cert without SCTs may be extra work in the future.
 $(O)/gen/csr/subdomain-preloaded-expect-ct.csr: src/conf/subdomain-preloaded-expect-ct.conf $(O)/gen/key/leaf-main.key
