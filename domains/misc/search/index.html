@@ -1,0 +1,57 @@
+---
+title: Example
+layout: page
+no-favicon: no-favicon
+background: gray
+---
+
+<style>
+#content input {
+  font-size: 4vw;
+}
+#content input {
+  text-align: left;
+  font-size: 6vw;
+  padding: 0.075em 0.25em 0.125em;
+  min-width: 5em;
+}
+input[type=password] {
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+#a {
+  height: 0;
+  width: 0;
+}
+</style>
+
+<div id="content"><!-- 
+  <h1 style="font-size: 5vw;">
+    search
+  </h1> -->
+  <form>
+     <!--autofocus-->
+    <input type="text" placeholder="Search">
+  </form>
+  <div id="a" ></div>
+</div>
+<!-- 
+<div id="footer">
+  This page contains a search input field.
+</div> -->
+
+
+<script>
+var p = null;
+window.addEventListener("load", function() {
+  document.querySelector("input").addEventListener("input", function() {
+    if (!p) {
+      p = document.createElement("input");
+      p.type = "password";
+      document.querySelector("#a").appendChild(p);
+      console.log("Added");
+    }
+  });
+});
+</script>
