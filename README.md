@@ -38,7 +38,7 @@ The root CA is at `certs/sets/test/gen/crt/ca-root.crt`. If you'd like to preser
 
 badssl.com is hosted on Google Cloud infrastructure and co-maintained by:
 
-- [April King](https://github.com/marumari), Mozilla Firefox
+- [April King](https://github.com/april), Mozilla Firefox
 - [Lucas Garron](https://github.com/lgarron), Google Chrome
 
 Several public badssl.com certificates required special issuance processes. Most certificates were graciously issued for free, thanks to help from:
