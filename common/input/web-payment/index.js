@@ -3,7 +3,7 @@
  * @return {PaymentRequest} The PaymentRequest object.
  */
 function initPaymentRequest() {
-  return new PaymentRequest(
+  const request = new PaymentRequest(
       [{
         supportedMethods: ['basic-card'],
       }],
@@ -16,6 +16,12 @@ function initPaymentRequest() {
           },
         },
       });
+  request.canMakePayment().then(function(result) {
+    console.log(result);
+  }).catch(function(err) {
+    console.log(err);
+  });
+  return request;
 }
 
 let request = initPaymentRequest();
