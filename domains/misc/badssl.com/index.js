@@ -5,12 +5,12 @@ function getBrowserVersion(ua) {
   var regexes = [
 
     [/^.*Edge\/([\d\.]*)\b.*$/, "Edge $1"],
-    [/^.*Chrome\/([\d\.]*)\b.*$/, "Chrome $1"],
     [/^.*CriOS\/([\d\.]*)\b.*$/, "Chrome $1"],
     [/^.*Firefox\/([\d\.]*)\b.*$/, "Firefox $1"],
     [/^.*OPR\/([\d\.]*)\b.*$/, "Opera $1"],
     [/^.*OPiOS\/([\d\.]*)\b.*$/, "Opera Mini $1"],
     [/^.*FxiOS\/([\d\.]*)\b.*$/, "Firefox (for iOS) $1"],
+    [/^.*Chrome\/([\d\.]*)\b.*$/, "Chrome $1"],
     /* This has to go last: Safari has "Version/8.0.5 Safari/600.5.17", but "Safari/600.5.17" is the WebKit version, which Chrome and Opera also include.*/
     [/^.*Version\/([\d\.]*)\b.*$/, "Safari $1"]
   ];
