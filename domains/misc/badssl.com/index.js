@@ -8,6 +8,7 @@ function getBrowserVersion(ua) {
     [/^.*CriOS\/([\d\.]*)\b.*$/, "Chrome $1"],
     [/^.*Firefox\/([\d\.]*)\b.*$/, "Firefox $1"],
     [/^.*OPR\/([\d\.]*)\b.*$/, "Opera $1"],
+    [/^.*Vivaldi\/([\d\.]*)\b.*$/, "Vivaldi $1"],
     [/^.*OPiOS\/([\d\.]*)\b.*$/, "Opera Mini $1"],
     [/^.*FxiOS\/([\d\.]*)\b.*$/, "Firefox (for iOS) $1"],
     [/^.*Chrome\/([\d\.]*)\b.*$/, "Chrome $1"],
