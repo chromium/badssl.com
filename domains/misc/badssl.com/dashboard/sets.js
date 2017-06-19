@@ -19,6 +19,8 @@ var sets = [
       {subdomain: "superfish"},
       {subdomain: "edellroot"},
       {subdomain: "dsdtestprovider"},
+      {subdomain: "ssl-v2", port: 1002},
+      {subdomain: "ssl-v3", port: 1003},
       {subdomain: "null"}
     ]
   },
