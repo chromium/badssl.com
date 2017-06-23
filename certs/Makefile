@@ -336,6 +336,15 @@ $(O)/gen/chain/subdomain-dsdtestprovider.pem: $(O)/gen/crt/subdomain-dsdtestprov
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/csr/subdomain-preact-cli.csr: src/conf/subdomain-preact-cli.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-preact-cli.crt: src/conf/subdomain-preact-cli.conf $(O)/gen/csr/subdomain-preact-cli.csr src/key/ca-preact-cli.key src/crt/ca-preact-cli.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-preact-cli.pem
+$(O)/gen/chain/subdomain-preact-cli.pem: $(O)/gen/crt/subdomain-preact-cli.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/key/leaf-revoked.key:
 	./tool gen-key $@ $(D) 2048
 

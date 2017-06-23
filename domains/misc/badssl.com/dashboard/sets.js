@@ -19,6 +19,7 @@ var sets = [
       {subdomain: "superfish"},
       {subdomain: "edellroot"},
       {subdomain: "dsdtestprovider"},
+      {subdomain: "preact-cli"},
       {subdomain: "null"}
     ]
   },
