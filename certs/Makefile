@@ -345,6 +345,15 @@ $(O)/gen/chain/subdomain-preact-cli.pem: $(O)/gen/crt/subdomain-preact-cli.crt
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/csr/subdomain-webpack-dev-server.csr: src/conf/subdomain-webpack-dev-server.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-webpack-dev-server.crt: src/conf/subdomain-webpack-dev-server.conf $(O)/gen/csr/subdomain-webpack-dev-server.csr src/key/ca-webpack-dev-server.key src/crt/ca-webpack-dev-server.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-webpack-dev-server.pem
+$(O)/gen/chain/subdomain-webpack-dev-server.pem: $(O)/gen/crt/subdomain-webpack-dev-server.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/key/leaf-revoked.key:
 	./tool gen-key $@ $(D) 2048
 
