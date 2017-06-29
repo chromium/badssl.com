@@ -29,9 +29,9 @@ function getOS() {
   var ua = navigator.userAgent;
 
   var regexes = [
-    [/^.*Mac OS X (\d+)_(\d+)_(\d+).*$/g, "OSX $1.$2.$3"], // OSX Chrome, OSX Safari, OSX Opera
-    [/^.*Mac OS X (\d+)_(\d+).*$/g, "OSX $1.$2"], // Just in case?
-    [/^.*Mac OS X (\d+)\.(\d+).*$/g, "OSX $1.$2"], // OSX Firefox
+    [/^.*Mac OS X (\d+)_(\d+)_(\d+).*$/g, "macOS $1.$2.$3"], // OSX Chrome, OSX Safari, OSX Opera
+    [/^.*Mac OS X (\d+)_(\d+).*$/g, "macOS $1.$2"], // Just in case?
+    [/^.*Mac OS X (\d+)\.(\d+).*$/g, "macOS $1.$2"], // OSX Firefox
     [/^.*iPhone OS (\d+)_(\d+).*OPiOS.*$/g, null], // iPhone Opera doesn't seem to pick up the OS dynamically?
     [/^.*iPhone OS (\d+)_(\d+).*$/g, "iOS $1.$2 (iPhone)"], // iPhone WebKit
     [/^.*iPad.*OS (\d+)_(\d+).*$/g, "iOS $1.$2 (iPad)"], // iPad WebKit
