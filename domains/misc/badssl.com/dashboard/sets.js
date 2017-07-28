@@ -69,6 +69,7 @@ var sets = [
       {subdomain: "rsa8192"},
       {subdomain: "no-subject"},
       {subdomain: "no-common-name"}
+      {subdomain: "incomplete-chain"}
     ]
   }
 ];
