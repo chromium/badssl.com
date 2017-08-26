@@ -22,16 +22,15 @@ Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to
 
 2. Clone into the badssl repo by running `git clone https://github.com/chromium/badssl.com && cd badssl.com`.
  
-3. In order to access the various badssl subdomains locally you will need to add them to your [system hosts file](http://bencane.com/2013/10/29/managing-dns-locally-with-etchosts/). Run `make list-hosts` and copy and paste the output into `/etc/hosts`. 
+3. In order to access the various badssl subdomains locally you will need to add them to your [system hosts file](https://bencane.com/2013/10/29/managing-dns-locally-with-etchosts/). Run `make list-hosts` and copy and paste the output into `/etc/hosts`. 
 
 4. Start Docker by running `make serve`.
 
 5. You can now navigate to `badssl.test` in your browser, and you should see a certificate error.
 
 6. The badssl root certificate is at `certs/sets/test/gen/crt/ca-root.crt`. In order to get the rest of the badssl subdomains working, you will need to add this to your machine's list of trusted certificates.
-
-##### Mac OS X
-Save `certs/sets/test/gen/crt/ca-root.crt` to your Desktop and drag it into the program Keychain Access. A <b>BadSSL Root Certificate Authority</b> entry should appear in the list. Double-click on this entry and select "Always Trust" from the drop-down menu next to "When using this certificate." Close the window to save your changes.
+    - #### macOS X
+      Save `certs/sets/test/gen/crt/ca-root.crt` to your Desktop and drag it into the program Keychain Access. A <b>BadSSL Root Certificate Authority</b> entry should appear in the list. Double-click on this entry and select "Always Trust" from the drop-down menu next to "When using this certificate." Close the window to save your changes.
 
 7. In order to preserve the root certificate even after running `make clean`, run:
 
