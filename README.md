@@ -18,13 +18,13 @@ Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to
 
 ### Testing and development
 
-Your user should be part of the `docker` group or otherwise permitted to access Docker.
+Your need to [install Docker](https://www.docker.com/get-docker) to run badssl.com locally.
 
-    sudo apt-get update ; sudo apt-get install docker.io
     git clone https://github.com/chromium/badssl.com && cd badssl.com
-
     make list-hosts # list of domains to copy into /etc/hosts
-    make test
+
+    # Make sure Docker is running before the next line.
+    make serve
 
 Now you can visit `badssl.test` in your browser.
 The root CA is at `certs/sets/test/gen/crt/ca-root.crt`. If you'd like to preserve it even when you run `make clean`, run:
