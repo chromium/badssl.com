@@ -318,6 +318,15 @@ $(O)/gen/chain/subdomain-superfish.pem: $(O)/gen/crt/subdomain-superfish.crt
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/csr/subdomain-mitm-software.csr: src/conf/subdomain-mitm-software.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-mitm-software.crt: src/conf/subdomain-mitm-software.conf $(O)/gen/csr/subdomain-mitm-software.csr src/key/ca-mitm-software.key src/crt/ca-mitm-software.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-mitm-software.pem
+$(O)/gen/chain/subdomain-mitm-software.pem: $(O)/gen/crt/subdomain-mitm-software.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/csr/subdomain-edellroot.csr: src/conf/subdomain-edellroot.conf $(O)/gen/key/leaf-main.key
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/subdomain-edellroot.crt: src/conf/subdomain-edellroot.conf $(O)/gen/csr/subdomain-edellroot.csr src/key/ca-edellroot.key src/crt/ca-edellroot.crt
