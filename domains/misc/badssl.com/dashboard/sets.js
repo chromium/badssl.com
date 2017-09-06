@@ -17,6 +17,7 @@ var sets = [
       {subdomain: "dh512"},
       {subdomain: "dh1024"},
       {subdomain: "superfish"},
+      {subdomain: "mitm-software"},
       {subdomain: "edellroot"},
       {subdomain: "dsdtestprovider"},
       {subdomain: "preact-cli"},
