@@ -158,3 +158,8 @@ hr {
 #browser-info:hover #click-to-copy {
   visibility: visible;
 }
+
+.chrome-icon {
+  vertical-align: -5%;
+  width: 1em;
+}
