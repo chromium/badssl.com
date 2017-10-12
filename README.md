@@ -29,7 +29,14 @@ Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to
 5. You can now navigate to `badssl.test` in your browser, and you should see a certificate error.
 
 6. The badssl root certificate is at `certs/sets/test/gen/crt/ca-root.crt`. In order to get the rest of the badssl subdomains working, you will need to add this to your machine's list of trusted certificates.
-    - On `macOS`, save `certs/sets/test/gen/crt/ca-root.crt` to your Desktop and drag it into the program Keychain Access. A BadSSL Root Certificate Authority entry should appear in the list. Double-click on this entry and select "Always Trust" from the drop-down menu next to "When using this certificate." Close the window to save your changes.
+    - On `macOS`, drag `certs/sets/test/gen/crt/ca-root.crt` into the login section of the program Keychain Access. A BadSSL Root Certificate Authority entry should appear in the list. Double-click on this entry and select "Use Custom Settings" from the drop-down menu next to "When using this certificate." Then select "Always Trust" from the drop-down menu next to "Secure Sockets Layer (SSL)." Close the window to save your changes.
+    
+      If you are already familiar with this process, you can instead run this command:
+
+      ```
+      security add-trusted-cert -r trustRoot -p ssl \
+        -k "$HOME/Library/Keychains/login.keychain" certs/sets/test/gen/crt/ca-root.crt
+      ```
 
 7. In order to preserve the root certificate even after running `make clean`, run:
 
