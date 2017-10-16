@@ -13,13 +13,6 @@
   <link rel="stylesheet" href="github-ribbon.css">
   <script src="index.js"></script>
 
-  <link rel=preload as=image href="front-page-icons/bad-white.svg">
-  <link rel=preload as=image href="front-page-icons/dubious-white.svg">
-  <link rel=preload as=image href="front-page-icons/good-white.svg">
-  <link rel=preload as=image href="front-page-icons/page-white.svg">
-  <link rel=preload as=image href="front-page-icons/bullet-list-white.svg">
-  <link rel=preload as=image href="front-page-icons/external-white.svg">
-
   <!-- fUnKy -->
   <link rel="stylesheet" href="funky/funky.css">
   <script src="funky/funky.js"></script>
@@ -160,6 +153,21 @@
     <a href="https://testsafebrowsing.appspot.com/" target="_blank" class="external"><span class="icon"></span>Safe Browsing Tests</a>
     <a href="https://www.ssllabs.com/ssltest/viewMyClient.html" target="_blank" class="external"><span class="icon"></span>SSL Labs Client Test</a>
     <a href="https://mitm.watch/" target="_blank" class="external"><span class="icon"></span>mitm.watch</a>
+  </div>
+  <div id="preload" style="width: 0; height: 0;">
+    <!-- <link rel=preload> results in warnings in Chrome: https://crbug.com/661055 -->
+    <!-- Workaround: Load the images in bogus elements. -->
+    <script>
+      window.addEventListener("load", function() {
+        var parent = document.querySelector("#preload");
+        var names = ["bad-white","dubious-white","good-white","page-white","bullet-list-white","external-white"]
+        for (var i = 0; i < names.length; i++) {
+          var elem = document.createElement("span");
+          elem.style.backgroundImage = "url(front-page-icons/" + names[i] + ".svg)";
+          parent.appendChild(elem);
+        }
+      });
+    </script>
   </div>
 </div><!-- class="column" -->
 
