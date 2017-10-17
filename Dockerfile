@@ -8,8 +8,7 @@ RUN apt-get update && apt-get install -y \
     make \
     nginx \
     ruby \
-    ruby-dev \
-    zip
+    ruby-dev
 RUN gem install jekyll
 
 # Install badssl.com
