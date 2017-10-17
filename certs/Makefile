@@ -16,6 +16,7 @@ D = badssl.com
 MAIN_CERT_TYPE = rsa2048
 DAYS_DEFAULT = 730
 HASH_DEFAULT = sha256
+PKCS12_PASSWORD = $(D)
 
 SIGN_CA_DEFAULTS = 3650 $(HASH_DEFAULT) req_v3_ca
 SIGN_LEAF_DEFAULTS = $(DAYS_DEFAULT) $(HASH_DEFAULT) req_v3_usr
@@ -45,6 +46,27 @@ $(O)/gen/key/ca-root.key:
 	./tool gen-key $@ $(D) 4096
 $(O)/gen/crt/ca-root.crt: src/conf/ca-root.conf $(O)/gen/key/ca-root.key
 	./tool gen-ca $@ $(D) $^
+
+################################
+$(O)/gen/key/client-ca-root.key:
+	./tool gen-key $@ $(D) 4096
+$(O)/gen/crt/client-ca-root.crt: src/conf/client-ca-root.conf $(O)/gen/key/client-ca-root.key
+	./tool gen-ca $@ $(D) $^
+$(O)/gen/chain/client-ca-root.pem: $(O)/gen/crt/client-ca-root.crt
+	./tool chain $@ $(D) $^
+CHAINS_PROD += $(O)/gen/chain/client-ca-root.pem
+
+$(O)/gen/key/client.key:
+	./tool gen-key $@ $(D) 2048
+$(O)/gen/csr/client.csr: src/conf/client.conf $(O)/gen/key/client.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/client.crt: src/conf/client.conf $(O)/gen/csr/client.csr $(O)/gen/key/client-ca-root.key $(O)/gen/crt/client-ca-root.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+$(O)/gen/crt/client.p12: $(O)/gen/crt/client.crt $(O)/gen/key/client.key
+	./tool pkcs12-p12 $@ $(D) $^
+$(O)/gen/crt/client.pem: $(O)/gen/crt/client.p12
+	./tool pkcs12-pem $@ $(D) $^
+CHAINS_PROD += $(O)/gen/crt/client.pem
 
 ################################
 $(O)/gen/key/ca-untrusted-root.key:
@@ -403,6 +425,7 @@ $(O)/gen/dhparam/dh-composite.pem: src/dhparam/dh-composite.pem
 	cp $^ $@
 $(O)/gen/dhparam/dh-small-subgroup.pem: src/dhparam/dh-small-subgroup.pem
 	cp $^ $@
+
 
 ################################
 .PHONY: chains-prod

@@ -33,6 +33,8 @@ certs-test:
 	rm -rf common/certs/*.crt
 	cp certs/sets/current/gen/crt/ca-root.crt common/certs
 	cp certs/sets/current/gen/crt/ca-untrusted-root.crt common/certs
+	cp certs/sets/current/gen/crt/client.p12 common/certs
+	cp certs/sets/current/gen/crt/client.pem common/certs
 
 .PHONY: certs-prod
 certs-prod:

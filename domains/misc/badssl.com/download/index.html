@@ -1,0 +1,65 @@
+---
+---
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Certificate Downloads &mdash; {{ site.domain }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=0.75">
+  <link rel="shortcut icon" href="/icons/favicon-blue.ico"/>
+  <link rel="apple-touch-icon" href="/icons/icon-blue.png"/>
+  <link rel="stylesheet" href="/dashboard/index.css">
+</head>
+<body>
+
+<div class="title-bar" title="badssl.com - Certificate Downloads">
+  Certificate Downloads&nbsp;&mdash;&nbsp;<a href="https://{{ site.domain }}">{{ site.domain }}</a>
+</div>
+
+<h2>Client Certificates</h2>
+<div id="table-wrapper">
+  <table>
+    <thead>
+      <td>Download</td>
+      <td>Password</td>
+      <td>Format</td>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/certs/client.p12">client.p12</a></td>
+        <td>{{ site.domain }}</td>
+        <td>PKCS #12</td>
+      </tr>
+      <tr>
+        <td><a href="/certs/client.pem">client.pem</a></td>
+        <td>{{ site.domain }}</td>
+        <td>PEM</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Installation Instructions</h2>
+
+<div class="group">
+    <ul>
+      <li>
+        macOS: drag <code><a href="/certs/client.p12">client.p12</a></code> into Keychain Access.
+      </li>
+      <li>
+        Firefox: import <code><a href="/certs/client.p12">client.p12</a></code> into the Your Certificates
+        section of the Certificate Manager.
+      </li>
+      <li>
+        YubiKeys: import <code><a href="/certs/client.pem">client.pem</a></code> using the following command:<br><br>
+        <code>yubico-piv-tool -a verify-pin -s 9a -a import-key -a import-cert -i client.pem</code>
+      </li>
+    </ul>
+  </p>
+</div>
+
+</div>
+
+</body>
+</html>
