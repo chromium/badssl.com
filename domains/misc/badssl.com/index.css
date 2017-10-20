@@ -38,14 +38,19 @@ div.group {
 }
 
 h2 {
-  margin: 16px 0px 8px 8px;
-  padding-top: 8px;
+  margin: 8px 0px 0px 0px;
+  padding: 8px 8px 8px;
   line-height: 1.5em;
   box-sizing: border-box;
 
   color: #616161;
   font-size: 16px;
   font-weight: normal;
+}
+
+h2:target {
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 h2 .emoji {
