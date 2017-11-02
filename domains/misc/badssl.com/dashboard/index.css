@@ -91,10 +91,6 @@ hr {
 #links a.dubious  { color: #5A5A5A; }
 #links a.bad      { color: #C63626; }
 #links a.external { color: #5A5A5A; }
-li code a         {
-  color: #000000;
-  text-decoration: none;
-}
 
 #links a.good .icon    { background-image: url("front-page-icons/good.svg"); }
 #links a.dubious .icon { background-image: url("front-page-icons/dubious.svg"); }
