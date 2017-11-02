@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.75">
   <link rel="shortcut icon" href="/icons/favicon-blue.ico"/>
   <link rel="apple-touch-icon" href="/icons/icon-blue.png"/>
-  <link rel="stylesheet" href="/dashboard/index.css">
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
@@ -43,20 +43,19 @@
 <h2>Installation Instructions</h2>
 
 <div class="group">
-    <ul>
-      <li>
-        macOS: drag <code><a href="/certs/client.p12">client.p12</a></code> into Keychain Access.
-      </li>
-      <li>
-        Firefox: import <code><a href="/certs/client.p12">client.p12</a></code> into the Your Certificates
-        section of the Certificate Manager.
-      </li>
-      <li>
-        YubiKeys: import <code><a href="/certs/client.pem">client.pem</a></code> using the following command:<br><br>
-        <code>yubico-piv-tool -a verify-pin -s 9a -a import-key -a import-cert -i client.pem</code>
-      </li>
-    </ul>
-  </p>
+  <ul>
+    <li>
+      macOS: drag <code><a href="/certs/client.p12">client.p12</a></code> into Keychain Access.
+    </li>
+    <li>
+      Firefox: import <code><a href="/certs/client.p12">client.p12</a></code> into the Your Certificates
+      section of the Certificate Manager.
+    </li>
+    <li>
+      YubiKeys: import <code><a href="/certs/client.pem">client.pem</a></code> using the following command:<br><br>
+      <code>yubico-piv-tool -a verify-pin -s 9a -a import-key -a import-cert -i client.pem</code>
+    </li>
+  </ul>
 </div>
 
 </div>

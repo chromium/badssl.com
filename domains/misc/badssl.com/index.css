@@ -104,7 +104,6 @@ hr {
 #links a.external    { color: #5A5A5A; }
 #links a.page        { color: #5A5A5A; }
 #links a.bullet-list { color: #5A5A5A; }
-#links a.download    { color: #5A5A5A; }
 
 #links a.good        .icon { background-image: url("front-page-icons/good.svg"); }
 #links a.dubious     .icon { background-image: url("front-page-icons/dubious.svg"); }
@@ -112,7 +111,6 @@ hr {
 #links a.external    .icon { background-image: url("front-page-icons/external.svg"); }
 #links a.page        .icon { background-image: url("front-page-icons/page.svg"); }
 #links a.bullet-list .icon { background-image: url("front-page-icons/bullet-list.svg"); }
-#links a.download    .icon { background-image: url("front-page-icons/download.svg"); }
 
 #links a.good:hover        { background: #0B8043; }
 #links a.dubious:hover     { background: #5A5A5A; }
@@ -120,7 +118,6 @@ hr {
 #links a.external:hover    { background: #5A5A5A; }
 #links a.page:hover        { background: #5A5A5A; }
 #links a.bullet-list:hover { background: #5A5A5A; }
-#links a.download:hover    { background: #5A5A5A; }
 
 #links a.good:hover        .icon { background-image: url("front-page-icons/good-white.svg"); }
 #links a.dubious:hover     .icon { background-image: url("front-page-icons/dubious-white.svg"); }
@@ -128,7 +125,6 @@ hr {
 #links a.external:hover    .icon { background-image: url("front-page-icons/external-white.svg"); }
 #links a.page:hover        .icon { background-image: url("front-page-icons/page-white.svg"); }
 #links a.bullet-list:hover .icon { background-image: url("front-page-icons/bullet-list-white.svg"); }
-#links a.download:hover    .icon { background-image: url("front-page-icons/download-white.svg"); }
 
 
 #links a:hover {
