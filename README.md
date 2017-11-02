@@ -44,9 +44,11 @@ Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to
 cd certs/sets/test
 mkdir -p pregen/crt pregen/key
 cp gen/crt/ca-root.crt pregen/crt/ca-root.crt
-cp gen/crt/client* pregen/crt
+cp gen/crt/client.crt pregen/crt/client.crt
+cp gen/crt/client-ca-root.crt pregen/crt/client-ca-root.crt
 cp gen/key/ca-root.key pregen/key/ca-root.key
-cp gen/key/client* pregen/key
+cp gen/key/client.key pregen/key/client.key
+cp gen/key/client-ca-root.key pregen/key/client-ca-root.key
 ``` 
 
 ## Acknowledgments
