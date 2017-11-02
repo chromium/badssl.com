@@ -126,7 +126,6 @@ hr {
 #links a.page:hover        .icon { background-image: url("front-page-icons/page-white.svg"); }
 #links a.bullet-list:hover .icon { background-image: url("front-page-icons/bullet-list-white.svg"); }
 
-
 #links a:hover {
   background: #EEEEEE;
   color: white;
