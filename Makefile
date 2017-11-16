@@ -43,6 +43,8 @@ certs-prod:
 
 	rm -rf common/certs/*.crt
 	cp certs/sets/current/gen/crt/ca-untrusted-root.crt common/certs
+	cp certs/sets/current/gen/crt/client.p12 common/certs
+	cp certs/sets/current/gen/crt/client.pem common/certs
 
 .PHONY: clean-certs
 clean-certs:
