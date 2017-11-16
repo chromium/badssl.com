@@ -1,6 +1,6 @@
 # Start with Ubuntu 16.04 (LTS), and build badssl.com up from there
 FROM ubuntu:16.04
-MAINTAINER April King <april@twoevils.org>
+MAINTAINER April King <april@pokeinthe.io>
 EXPOSE 80 443
 RUN apt-get update && apt-get install -y \
     build-essential \

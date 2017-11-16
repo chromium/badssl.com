@@ -55,6 +55,23 @@ gen-ecckey)
     -name $1 \
     -genkey
   ;;
+gen-pkcs12-p12)
+  openssl pkcs12 \
+    -out $OUT \
+    -export \
+    -clcerts \
+    -passout "pass:$DOMAIN" \
+    -in $1 \
+    -inkey $2
+  ;;
+pkcs12-convert-p12-pem)
+  openssl pkcs12 \
+    -out $OUT \
+    -clcerts \
+    -passin "pass:$DOMAIN" \
+    -passout "pass:$DOMAIN" \
+    -in $1
+  ;;
 self-sign)
   openssl x509  -req  -CAcreateserial \
     -out $OUT \

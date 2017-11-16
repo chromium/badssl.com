@@ -47,6 +47,35 @@ $(O)/gen/crt/ca-root.crt: src/conf/ca-root.conf $(O)/gen/key/ca-root.key
 	./tool gen-ca $@ $(D) $^
 
 ################################
+$(O)/gen/key/client-ca-root.key:
+	./tool gen-key $@ $(D) 4096
+$(O)/gen/crt/client-ca-root.crt: src/conf/client-ca-root.conf $(O)/gen/key/client-ca-root.key
+	./tool gen-ca $@ $(D) $^
+$(O)/gen/chain/client-ca-root.pem: $(O)/gen/crt/client-ca-root.crt
+	./tool chain $@ $(D) $^
+CHAINS_PROD += $(O)/gen/chain/client-ca-root.pem
+
+$(O)/gen/key/client-ca-untrusted-root.key:
+	./tool gen-key $@ $(D) 4096
+$(O)/gen/crt/client-ca-untrusted-root.crt: src/conf/client-ca-untrusted-root.conf $(O)/gen/key/client-ca-untrusted-root.key
+	./tool gen-ca $@ $(D) $^
+$(O)/gen/chain/client-ca-untrusted-root.pem: $(O)/gen/crt/client-ca-untrusted-root.crt
+	./tool chain $@ $(D) $^
+CHAINS_PROD += $(O)/gen/chain/client-ca-untrusted-root.pem
+
+$(O)/gen/key/client.key:
+	./tool gen-key $@ $(D) 2048
+$(O)/gen/csr/client.csr: src/conf/client.conf $(O)/gen/key/client.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/client.crt: src/conf/client.conf $(O)/gen/csr/client.csr $(O)/gen/key/client-ca-root.key $(O)/gen/crt/client-ca-root.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+$(O)/gen/crt/client.p12: $(O)/gen/crt/client.crt $(O)/gen/key/client.key
+	./tool gen-pkcs12-p12 $@ $(D) $^
+$(O)/gen/crt/client.pem: $(O)/gen/crt/client.p12
+	./tool pkcs12-convert-p12-pem $@ $(D) $^
+CHAINS_PROD += $(O)/gen/crt/client.pem
+
+################################
 $(O)/gen/key/ca-untrusted-root.key:
 	./tool gen-key $@ $(D) 4096
 $(O)/gen/crt/ca-untrusted-root.crt: src/conf/ca-untrusted-root.conf $(O)/gen/key/ca-untrusted-root.key
