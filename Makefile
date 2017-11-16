@@ -1,3 +1,8 @@
+################ Definitions ################
+
+TEST_DOMAIN = badssl.test
+PROD_DOMAIN = badssl.com
+
 ################ Main ################
 
 # This should bring up a full test server in docker from a bare repo.
@@ -17,11 +22,11 @@ deploy: certs-prod jekyll-prod upload nginx
 
 .PHONY: jekyll-test
 jekyll-test:
-	DOMAIN="badssl.test" jekyll build
+	DOMAIN=${TEST_DOMAIN} jekyll build
 
 .PHONY: jekyll-prod
 jekyll-prod:
-	DOMAIN="badssl.com" jekyll build
+	DOMAIN=${PROD_DOMAIN} jekyll build
 
 ################ Certs ################
 
@@ -33,8 +38,8 @@ certs-test:
 	rm -rf common/certs/*.crt
 	cp certs/sets/current/gen/crt/ca-root.crt common/certs
 	cp certs/sets/current/gen/crt/ca-untrusted-root.crt common/certs
-	cp certs/sets/current/gen/crt/client.p12 common/certs
-	cp certs/sets/current/gen/crt/client.pem common/certs
+	cp certs/sets/current/gen/crt/client.p12 common/certs/${TEST_DOMAIN}-client.p12
+	cp certs/sets/current/gen/crt/client.pem common/certs/${TEST_DOMAIN}-client.pem
 
 .PHONY: certs-prod
 certs-prod:
@@ -43,8 +48,8 @@ certs-prod:
 
 	rm -rf common/certs/*.crt
 	cp certs/sets/current/gen/crt/ca-untrusted-root.crt common/certs
-	cp certs/sets/current/gen/crt/client.p12 common/certs
-	cp certs/sets/current/gen/crt/client.pem common/certs
+	cp certs/sets/current/gen/crt/client.p12 common/certs/${PROD_DOMAIN}-client.p12
+	cp certs/sets/current/gen/crt/client.pem common/certs/${PROD_DOMAIN}-client.pem
 
 .PHONY: clean-certs
 clean-certs:
