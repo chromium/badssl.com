@@ -317,6 +317,15 @@ $(O)/gen/chain/subdomain-xn--n1aae7f7o.pem: $(O)/gen/crt/subdomain-xn--n1aae7f7o
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/csr/subdomain-extended-validation.csr: src/conf/subdomain-extended-validation.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-extended-validation.crt: src/conf/subdomain-extended-validation.conf $(O)/gen/csr/subdomain-extended-validation.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-extended-validation.pem
+$(O)/gen/chain/subdomain-extended-validation.pem: $(O)/gen/crt/subdomain-extended-validation.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 # Note: this is just a regular cert in `test`.
 # Getting a real-world cert without SCTs may be extra work in the future.
 $(O)/gen/csr/subdomain-preloaded-expect-ct.csr: src/conf/subdomain-preloaded-expect-ct.conf $(O)/gen/key/leaf-main.key
