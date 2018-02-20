@@ -6,6 +6,7 @@ module Jekyll
 
     def generate(site)
       site.config['domain'] = ENV['DOMAIN'] || 'badssl.com'
+      site.config['prod'] = ENV['DOMAIN'] == ENV['PROD_DOMAIN']
       site.config['http-domain'] = ENV['HTTP_DOMAIN'] || 'http.badssl.com'
       site.config['serving-path'] = ENV['SERVING_PATH'] || '/var/www/badssl/_site'
 

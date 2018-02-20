@@ -1,0 +1,20 @@
+---
+subdomain: extended-validation
+layout: page
+favicon: green
+background: green
+---
+
+<div id="content">
+  <h1 style="font-size: 12vw;">
+    {{ page.subdomain }}.<br>{{ site.domain }}
+  </h1>
+</div>
+
+<div id="footer">
+  {% if site.prod %}
+    This site uses an EV (<a href="https://en.wikipedia.org/wiki/Extended_Validation_Certificate">Extended Validation</a>) digital certificate.
+  {% else %}
+    This site&#8217;s EV (<a href="https://en.wikipedia.org/wiki/Extended_Validation_Certificate">Extended Validation</a>) digital certificate is<br>treated like a DV cert because it is not issued by a trusted CA.
+  {% endif %}
+</div>
