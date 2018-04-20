@@ -241,6 +241,17 @@ $(O)/gen/chain/wildcard-rsa8192.pem: $(O)/gen/crt/wildcard-rsa8192.crt $(O)/gen/
 	./tool chain $@ $(D) $^
 
 ################################
+$(O)/gen/key/leaf-rsa4096.key:
+	./tool gen-key $@ $(D) 4096
+$(O)/gen/csr/wildcard-rsa4096.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-rsa4096.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/wildcard-rsa4096.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-rsa4096.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/wildcard-rsa4096.pem
+$(O)/gen/chain/wildcard-rsa4096.pem: $(O)/gen/crt/wildcard-rsa4096.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/key/leaf-ecc256.key:
 	./tool gen-ecckey $@ $(D) prime256v1
 $(O)/gen/csr/wildcard-ecc256.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-ecc256.key
