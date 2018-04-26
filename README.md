@@ -56,7 +56,8 @@ cp gen/key/client-ca-root.key pregen/key/client-ca-root.key
 badssl.com is hosted on Google Cloud infrastructure and co-maintained by:
 
 - [April King](https://github.com/april), Mozilla Firefox
-- [Lucas Garron](https://github.com/lgarron), Google Chrome
+- [Lucas Garron](https://github.com/lgarron), formerly Google Chrome
+- [Chris Thompson](https://github.com/christhompson), Google Chrome
 
 Several public badssl.com certificates required special issuance processes. Most certificates were graciously issued for free, thanks to help from:
 
