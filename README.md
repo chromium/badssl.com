@@ -1,8 +1,6 @@
-<center>
-  <a href="https://badssl.com/">
-    <img src="./badssl.png" width="472" />
-  </a>
-</center>
+<a href="https://badssl.com/">
+  <img src="./badssl.png" alt="" width="472" height="68">
+</a>
 
 Visit [`badssl.com`](https://badssl.com/) for a list of test subdomains, including:
 
@@ -19,28 +17,23 @@ Stock Ubuntu VM, DNS A records for `badssl.com.` and `*.badssl.com.` pointing to
 ### Testing and development
 
 1. Follow the instructions to [install Docker.](https://www.docker.com/get-docker)
-
 2. Clone into the badssl repo by running `git clone https://github.com/chromium/badssl.com && cd badssl.com`.
- 
-3. In order to access the various badssl subdomains locally you will need to add them to your [system hosts file](https://bencane.com/2013/10/29/managing-dns-locally-with-etchosts/). Run `make list-hosts` and copy and paste the output into `/etc/hosts`. 
-
+3. In order to access the various badssl subdomains locally you will need to add them to your [system hosts file](https://bencane.com/2013/10/29/managing-dns-locally-with-etchosts/). Run `make list-hosts` and copy and paste the output into `/etc/hosts`.
 4. Start Docker by running `make serve`.
-
 5. You can now navigate to `badssl.test` in your browser, and you should see a certificate error.
-
 6. The badssl root certificate is at `certs/sets/test/gen/crt/ca-root.crt`. In order to get the rest of the badssl subdomains working, you will need to add this to your machine's list of trusted certificates.
     - On `macOS`, drag `certs/sets/test/gen/crt/ca-root.crt` into the login section of the program Keychain Access. A BadSSL Root Certificate Authority entry should appear in the list. Double-click on this entry and select "Always Trust" from the drop-down menu next to "Secure Sockets Layer (SSL)." Close the window to save your changes.
-    
+
       If you are already familiar with this process, you can instead run this command:
 
-      ```
+      ```sh
       security add-trusted-cert -r trustRoot -p ssl \
         -k "$HOME/Library/Keychains/login.keychain" certs/sets/test/gen/crt/ca-root.crt
       ```
 
 7. In order to preserve the client and root certificates even after running `make clean`, run:
 
-```
+```sh
 cd certs/sets/test
 mkdir -p pregen/crt pregen/key
 cp gen/crt/ca-root.crt pregen/crt/ca-root.crt
@@ -49,7 +42,7 @@ cp gen/crt/client-ca-root.crt pregen/crt/client-ca-root.crt
 cp gen/key/ca-root.key pregen/key/ca-root.key
 cp gen/key/client.key pregen/key/client.key
 cp gen/key/client-ca-root.key pregen/key/client-ca-root.key
-``` 
+```
 
 ## Acknowledgments
 
