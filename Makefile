@@ -70,7 +70,10 @@ install-keys:
 link:
 	if [ ! -d /var/www ]; then mkdir -p /var/www; fi
 	if [ ! -d /var/www/badssl ]; then ln -sf "`pwd`" /var/www/badssl; fi
-	if [ -f /etc/nginx/nginx.conf ] ; then sed -i '/Virtual Host Configs/a include /var/www/badssl/_site/nginx.conf;' /etc/nginx/nginx.conf; else @echo "Please add `pwd`/_site/nginx.conf to your nginx.conf configuration."; fi
+	# Add the badssl.conf include to /etc/nginx/nginx.conf only if it is not already in the config.
+	if ! `grep -q "include /var/www/badssl/_site/nginx.conf" /etc/nginx/nginx.conf`; then sed -i '/# Virtual Host Configs/,/^$/s@^$@\tinclude /var/www/badssl/_site/nginx.conf;\n@' /etc/nginx/nginx.conf; fi
+	# If /etc/nginx/nginx.conf doesn't exist, alert the user that the include must be manually added.
+	if [ ! -f /etc/nginx/nginx.conf ]; then @echo "Please add `pwd`/_site/nginx.conf to your nginx.conf configuration."; fi
 
 .PHONY: install
 install: install-keys link
