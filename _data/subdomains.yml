@@ -1,0 +1,318 @@
+### Certificates ###
+1000-sans:
+    favicon: green
+    background: green
+    category: Certificates
+    description: |
+        This site uses a certificate with 1000 <a href=\"https://tools.ietf.org/html/rfc5280#section-4.2.1.6\">subjectAltName entries</a>.
+10000-sans:
+    favicon: green
+    background: green
+    category: Certificates
+    description: |
+        This site uses a certificate with 10000 <a href=\"https://tools.ietf.org/html/rfc5280#section-4.2.1.6\">subjectAltName entries</a>.
+expired:
+    favicon: red
+    background: red
+    category: Certificates
+    description: |
+        This site's certificate has expired.
+incomplete-chain:
+    favicon: orange
+    background: rgb(243, 121, 46)
+    category: Certificates
+    description: |
+        This site's certificate chain doesn't include the root certificate.
+rsa512:
+    favicon: red
+    background: red
+    category: Certificates
+    description: |
+        This site uses a weak 512-bit RSA key for key exchange.
+rsa1024:
+    favicon: yellow
+    background: rgb(246, 207, 47)
+    category: Certificates
+    description: |
+        This site uses a weak 1024-bit RSA key for key exchange.
+rsa8192:
+    favicon: yellow
+    background: rgb(246, 207, 47)
+    category: Certificates
+    description: |
+        This site uses an 8192-bit RSA key for key exchange.<br>
+        (8192-bit RSA keys were <a href="http://blog.shiz.me/post/67305143330/8192-bit-rsa-keys-in-os-x">not supported</a> in OSX between 2006 and <a href="https://twitter.com/ivanristic/status/662581577835114497">2015</a>.)
+self-signed:
+    favicon: red
+    background: red
+    category: Certificates
+    description: |
+        This site's certificate is not signed by a trusted CA, instead it is signed by the issuer.
+sha1:
+    favicon: yellow
+    background: rgb(246, 207, 47)
+    category: Certificates
+    description: |
+        This site's certificate is signed using SHA-1 and expires on Dec. 29, 2016. This date is prior to the <a href="https://googleonlinesecurity.blogspot.ca/2014/09/gradually-sunsetting-sha-1.html">sunset date</a>.
+sha1-2016:
+    favicon: yellow
+    background: rgb(246, 207, 47)
+    category: Certificates
+    # TODO: Why is this important?
+    description: |
+        This site's certificate is signed using SHA-1 and expires on Dec. 29, 2016. This date is prior to the <a href="https://googleonlinesecurity.blogspot.ca/2014/09/gradually-sunsetting-sha-1.html">sunset date</a>.
+sha1-2017:
+    favicon: red
+    background: red
+    category: Certificates
+    # TODO: Why is this important?
+    description: |
+        This site's certificate is signed using SHA-1 and expires on Jan. 5, 2017. This date is after the <a href="https://googleonlinesecurity.blogspot.ca/2014/09/gradually-sunsetting-sha-1.html">sunset date</a>.
+sha256:
+    favicon: green
+    background: green
+    category: Certificates
+    description: |
+        The certificate for this site is signed using SHA-256.
+wrong.host:
+    favicon: red
+    background: red
+    category: Certificates
+    description: |
+        This site's hostname isn't contained in the certificate.
+
+### Cipher Suites ###
+cbc:
+    favicon: gray
+    background: gray
+    category: Cipher Suites
+    description: |
+        This site uses the AES cipher in cipher block chaining mode.
+mozilla-intermediate:
+    favicon: yellow
+    background: rgb(246, 207, 47)
+    category: Cipher Suites
+    description: |
+        This site uses the Mozilla &ldquo;<a href="https://wiki.mozilla.org/Security/Server_Side_TLS#Intermediate_compatibility_.28default.29">Intermediate</a>&rdquo; TLS configuration.
+mozilla-modern:
+    favicon: green
+    background: green
+    category: Cipher Suites
+    description: |
+        This site uses the Mozilla &ldquo;<a href="https://wiki.mozilla.org/Security/Server_Side_TLS#Modern_compatibility">Modern</a>&rdquo; TLS configuration.
+mozilla-old:
+    favicon: red
+    background: red
+    category: Cipher Suites
+    description: |
+        This site uses the Mozilla &ldquo;<a href="https://wiki.mozilla.org/Security/Server_Side_TLS#Old_backward_compatibility">Old</a>&rdquo; TLS configuration.
+'null': # MUST be quoted due to type cohersion.
+    favicon: red
+    background: red
+    category: Cipher Suites
+    description: |
+        This site uses TLS but without encryption.
+rc4:
+    favicon: gray
+    background: gray
+    category: Cipher Suites
+    description: |
+        This site uses the RC4 cipher.
+rc4-md5:
+    favicon: gray
+    background: gray
+    category: Cipher Suites
+    description: |
+        This site uses the RC4 cipher with MD5 as an HMAC.
+
+### Diffie-Hellman ###
+dh480:
+    favicon: red
+    background: red
+    category: Diffie-Hellman
+    description: |
+        This site uses an ephemeral Diffie-Hellman key exchange<br>
+        over a 480-bit group.
+dh512:
+    favicon: red
+    background: red
+    category: Diffie-Hellman
+    description: |
+        This site uses an ephemeral Diffie-Hellman key exchange<br>
+        over a 512-bit group.
+dh1024:
+    favicon: yellow
+    background: rgb(246, 207, 47)
+    category: Diffie-Hellman
+    description: |
+        This site uses an ephemeral Diffie-Hellman key exchange<br>
+        over a 1024-bit group.
+dh2048:
+    favicon: green
+    background: green
+    category: Diffie-Hellman
+    description: |
+        This site uses an ephemeral Diffie-Hellman key exchange<br>
+        over a 2048-bit group.
+dh-composite:
+    favicon: red
+    background: red
+    category: Diffie-Hellman
+    description: |
+        This site uses an ephemeral Diffie-Hellman key exchange<br>
+        over a composite group.
+dh-small-subgroup:
+    favicon: red
+    background: red
+    category: Diffie-Hellman
+    description: |
+        This site uses an ephemeral Diffie-Hellman key exchange<br>over a 2048-bit group with a 31-bit subgroup.
+
+### Known Bad ###
+dsdtestprovider:
+    favicon: red
+    background: red
+    category: Known Bad
+    description: |
+        A MITM certificate installed on some Dell machines. <a href="https://blog.hboeck.de/archives/876-Superfish-2.0-Dangerous-Certificate-on-Dell-Laptops-breaks-encrypted-HTTPS-Connections.html">Hboeck source</a>.
+edellroot:
+    favicon: red
+    background: red
+    category: Known Bad
+    description: |
+        Another MITM certificate installed on some Dell machines. <a href="https://blog.hboeck.de/archives/876-Superfish-2.0-Dangerous-Certificate-on-Dell-Laptops-breaks-encrypted-HTTPS-Connections.html">Hboeck source</a>.
+superfish:
+    favicon: red
+    background: red
+    category: Known Bad
+    description: |
+        A MITM certificate installed on some Lenovo machines. <a href="http://blog.erratasec.com/2015/02/extracting-superfish-certificate.html">Erratasec source</a>.
+
+### Miscellaneous ###
+badssl.com:
+    # Nothing here on purpose.
+http:
+    favicon: gray
+    background: gray
+    category: Miscellaneous
+    description: |
+        This site uses HTTP instead of HTTPS.
+http-password:
+    favicon: red
+    background: red
+    category: Miscellaneous
+    description: |
+        This site has a password field on an insecure (HTTP) page.
+long-extended-subdomain-name-containing-many-letters-and-dashes:
+    favicon: green
+    background: green
+    category: Miscellaneous
+    description: |
+        This site has a very long hostname intended to break browser interfaces.
+longextendedsubdomainnamewithoutdashesinordertotestwordwrapping:
+    favicon: green
+    background: green
+    category: Miscellaneous
+    description: |
+        This site has a very long hostname intended to break browser interfaces.
+pinning-test:
+    favicon: red
+    background: red
+    category: Miscellaneous
+    # TODO: Firefox?
+    description: |
+        This site is preloaded with a bad HPKP pin starting in Chrome 48.
+spoofed-favicon:
+    background: gray
+    category: Miscellaneous
+    description: |
+        This site's <a href="https://en.wikipedia.org/wiki/Favicon">favicon</a> pretends to be the TLS lock icon.
+
+### Mixed Content ###
+mixed:
+    favicon: yellow
+    background: rgb(246, 207, 47)
+    category: Mixed Content
+    description: |
+        This page triggers passive mixed content warnings by loading an image from an insecure source.
+mixed-favicon:
+    favicon: yellow
+    background: rgb(246, 207, 47)
+    category: Mixed Content
+    description: |
+        This site's <a href="/favicon.ico">implicit favicon</a> redirects to HTTP.
+mixed-script:
+    favicon: red
+    background: gray
+    category: Mixed Content
+    description: |
+        This page triggers active mixed content warnings by loading a script from an insecure source.
+very:
+    favicon: red
+    background: red
+    category: Mixed Content
+    description: |
+        This site has been a very bad doge.
+
+### Upgrade ###
+hsts:
+    favicon: green
+    background: rgb(68, 136, 68)
+    category: Upgrade
+    description: |
+        This site advertises HTTP Strict Transport Security and correctly provides HTTPS.
+hsts-http:
+    listed: false
+    favicon: red
+    background: red
+    category: Upgrade
+    description: |
+        This site advertises HTTP Strict Transport Security however only provides HTTP.
+https-everywhere:
+    favicon: green
+    background: rgb(68, 136, 68)
+    category: Upgrade
+    description: |
+        This site will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
+https-everywhere-http:
+    listed: false
+    favicon: red
+    background: rgb(170, 68, 68)
+    category: Upgrade
+    description: |
+        This site will be upgraded to HTTPS if you use <a href="https://www.eff.org/https-everywhere">HTTPS Everywhere</a>.
+preloaded-hsts-http:
+    listed: false
+    favicon: red
+    background: rgb(170, 68, 68)
+    category: Upgrade
+    description: |
+        This site has preloaded HTTP Strict Transport Security however only provides HTTP.<br>
+        Preloaded in: Chrome 44, Firefox 41
+preloaded-hsts:
+    favicon: green
+    background: rgb(68, 136, 68)
+    category: Upgrade
+    description: |
+        This site has preloaded HTTP Strict Transport Security and correctly provides HTTPS.<br>
+        Preloaded in: Chrome 44, Firefox 41
+subdomain.preloaded-hsts:
+    favicon: red
+    background: red
+    category: Upgrade
+    description: |
+        This site is preloaded to use HTTP Strict Transport Security, but its hostname doesn't match the certificate.
+        Preloaded in: Chrome 44, Firefox 41
+upgrade:
+    favicon: green
+    background: rgb(68, 136, 68)
+    category: Upgrade
+    description: |
+        This site attempts to load an image over HTTP. If your browser supports the [upgrade-insecure-requests](https://www.w3.org/TR/upgrade-insecure-requests/) CSP directive, it will be transparently loaded over HTTPS.
+upgrade-http:
+    listed: false
+    favicon: green
+    background: rgb(68, 136, 68)
+    category: Upgrade
+    description: |
+        This site attempts to load an HTTP image. If upgrade-insecure-requests is working, the source should be rewritten to HTTPS. The image will vary depending on the outcome.
