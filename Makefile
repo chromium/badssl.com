@@ -1,7 +1,7 @@
 ################ Definitions ################
 
-TEST_DOMAIN = badssl.test
-PROD_DOMAIN = badssl.com
+export TEST_DOMAIN = badssl.test
+export PROD_DOMAIN = badssl.com
 
 ################ Main ################
 
