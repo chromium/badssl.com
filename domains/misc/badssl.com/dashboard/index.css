@@ -35,19 +35,17 @@ body {
 
 h2,
 div.group {
-  width: 75vw;
-  max-width: 300px;
   min-width: 160px;
-  margin: 0 5vw;
+  margin-top: 1em;
+  margin-bottom: 0.25em;
   box-sizing: border-box;
 }
 
-h2 {
-  margin: 16px 0px 8px 8px;
+.info {
+  margin-bottom: 8px;
   padding-top: 8px;
   line-height: 1.5em;
   box-sizing: border-box;
-
   color: #616161;
   font-size: 16px;
   font-weight: normal;
@@ -166,7 +164,9 @@ hr {
 }
 
 #table-wrapper {
-  margin-bottom: 2em;
+  margin-bottom: 20em;
+  width: 30em;
+  max-width: calc(100% - 4em);
 }
 
 .endnote {
