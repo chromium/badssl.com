@@ -74,6 +74,7 @@ link:
 	# If /etc/nginx/nginx.conf does not exist, instead warn the user that it must be manually added.
 	if [ -f /etc/nginx/nginx.conf ]; then \
 		if ! grep -q "include /var/www/badssl/_site/nginx.conf" /etc/nginx/nginx.conf; then \
+			sed -i 's/sendfile on/sendfile off/' /etc/nginx/nginx.conf; \
 			sed -i '/# Virtual Host Configs/a\\tinclude /var/www/badssl/_site/nginx.conf;' /etc/nginx/nginx.conf; \
 		fi \
 	else \
@@ -91,15 +92,15 @@ clean: clean-certs
 ################ Docker ################
 
 .PHONY: inside-docker
-inside-docker: jekyll-test install
+inside-docker: install
 
 .PHONY: docker-build
-docker-build:
+docker-build: jekyll-test
 	docker build -t badssl .
 
 .PHONY: docker-run
 docker-run:
-	docker run -it -p 80:80 -p 443:443 -p 1000-1024:1000-1024 badssl
+	docker run -v "$(shell pwd):/badssl.com" -it -p 80:80 -p 443:443 -p 1000-1024:1000-1024 badssl
 
 ################ Deployment ################
 
