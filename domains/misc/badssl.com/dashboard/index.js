@@ -59,14 +59,17 @@ function createChild(parent, tag) {
 }
 
 function scanSet(set, container) {
-  createChild(container, "h2").textContent = set.heading;
+  var info = createChild(container, "div");
+  info.classList.add("info");
+  createChild(info, "h2").textContent = set.heading;
+  createChild(info, "div").textContent = set.description;
 
   var table = createChild(container, "table");
   
   var thead = createChild(table, "thead");
   createChild(thead, "td").textContent = "Subdomain";
   createChild(thead, "td").textContent = "Result";
-  createChild(thead, "td").textContent = "Expected";
+  createChild(thead, "td").textContent = "Secure Result?";
 
   var tbody = createChild(table, "tbody");
 
