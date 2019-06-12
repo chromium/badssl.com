@@ -18,4 +18,5 @@ WORKDIR badssl.com
 RUN make inside-docker
 
 # Start things up!
+RUN chmod -R +r /var/www/badssl
 CMD nginx && tail -f /var/log/nginx/access.log /var/log/nginx/error.log
