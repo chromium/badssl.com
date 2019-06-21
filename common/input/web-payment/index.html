@@ -7,9 +7,15 @@ background: gray
 
 <div id="content">
   <h1>web-payment</h1>
-  <p><button onclick="handleClick();">Initiate payment</button></p>
+  <p>
+    <button onclick="handleClick();">Initiate payment</button>
+    <button id="log-toggle" onclick="toggleLogVisibility();">Show log</button>
+    <ul id="log" hidden></ul>
+  </p>
 </div>
 
-<div id="footer">This page requires web payment API.</div>
+<div id="footer">
+  <p>This page requires web payment API.</p>
+</div>
 
 <script src="index.js"></script>

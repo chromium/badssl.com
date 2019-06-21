@@ -50,6 +50,14 @@ body {
   font-size: 2vw;
 }
 
+#log {
+  list-style: none;
+  padding-inline-start: 0px;
+  color: white;
+  font-family: Helvetica, Tahoma, sans-serif;
+  font-size: 2vw;
+}
+
 #footer {
   padding: 2vh 2vw;
   background: rgba(0, 0, 0, 0.25);
