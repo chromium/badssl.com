@@ -1,11 +1,29 @@
-function append(msg) {
+function appendLog(msg) {
   console.log(msg);
-  const footer = document.getElementById('footer');
-  footer.innerHTML = footer.innerHTML + '<br>' + msg;
+  let logList = document.getElementById('log');
+  let logEntry = document.createElement('li');
+  let logText = document.createTextNode(msg);
+  logEntry.appendChild(logText);
+  logList.appendChild(logEntry);
 }
 
-function clearOutput() {
-  document.getElementById('footer').innerHTML = '';
+function clearLog() {
+  let logList = document.getElementById('log');
+  while (logList.firstChild) {
+    logList.removeChild(logList.firstChild);
+  }
+}
+
+function toggleLogVisibility() {
+  let logList = document.getElementById('log');
+  let logToggle = document.getElementById('log-toggle');
+  if (logList.hidden) {
+    logToggle.innerHTML = 'Hide log';
+    logList.hidden = false;
+  } else {
+    logToggle.innerHTML = 'Show log';
+    logList.hidden = true;
+  }
 }
 
 /**
@@ -27,14 +45,14 @@ function initPaymentRequest() {
         },
       });
   request.canMakePayment().then(function(result) {
-    append('canMakePayment returned: ' + result);
+    appendLog('canMakePayment returned: ' + result);
   }).catch(function(err) {
-    append('canMakePayment rejected: ' + err.name + ': ' + err.message);
+    appendLog('canMakePayment rejected: ' + err.name + ': ' + err.message);
   });
   request.hasEnrolledInstrument().then(function(result) {
-    append('hasEnrolledInstrument returned: ' + result);
+    appendLog('hasEnrolledInstrument returned: ' + result);
   }).catch(function(err) {
-    append('hasEnrolledInstrument rejected: ' + err.name + ': ' + err.message);
+    appendLog('hasEnrolledInstrument rejected: ' + err.name + ': ' + err.message);
   });
   return request;
 }
@@ -43,14 +61,14 @@ let request = initPaymentRequest();
 
 /** Invokes PaymentRequest for credit cards. */
 function handleClick() {
-  clearOutput();
+  clearLog();
   request.show().then(function(instrumentResponse) {
-    append('show returned: ' + JSON.stringify(instrumentResponse));
+    appendLog('show returned: ' + JSON.stringify(instrumentResponse));
     request = initPaymentRequest();
     return instrumentResponse.complete('success');
   })
   .catch(function(err) {
-    append('show rejected: ' + err.name + ': ' + err.message);
+    appendLog('show rejected: ' + err.name + ': ' + err.message);
     request = initPaymentRequest();
   });
 
