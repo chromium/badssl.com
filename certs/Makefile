@@ -175,7 +175,7 @@ $(O)/gen/chain/wildcard-expired.pem: $(O)/gen/crt/wildcard-expired.crt $(O)/gen/
 $(O)/gen/crt/wildcard-untrusted-root.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-untrusted-root.key $(O)/gen/crt/ca-untrusted-root.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-untrusted-root.pem
-$(O)/gen/chain/wildcard-untrusted-root.pem: $(O)/gen/crt/wildcard-untrusted-root.crt
+$(O)/gen/chain/wildcard-untrusted-root.pem: $(O)/gen/crt/wildcard-untrusted-root.crt $(O)/gen/crt/ca-untrusted-root.crt
 	./tool chain $@ $(D) $^
 
 ################################
