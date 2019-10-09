@@ -49,7 +49,8 @@ var sets = [
       {subdomain: "tls-v1-0", port: 1010},
       {subdomain: "tls-v1-1", port: 1011},
       {subdomain: "cbc"},
-      {subdomain: "3des"}
+      {subdomain: "3des"},
+      {subdomain: "dh2048"}
     ]
   },
   {
