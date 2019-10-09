@@ -61,7 +61,7 @@ var sets = [
     subdomains: [
       {subdomain: "revoked"},
       {subdomain: "pinning-test"},
-      {subdomain: "invalid-expected-sct"}
+      {subdomain: "invalid-expected-sct"},
       {subdomain: "no-sct"}
     ]
   },
