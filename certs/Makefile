@@ -358,6 +358,16 @@ $(O)/gen/chain/subdomain-invalid-expected-sct.pem: $(O)/gen/crt/subdomain-invali
 	./tool chain $@ $(D) $^
 
 ################################
+# Note: this is just a regular cert in `test`
+$(O)/gen/csr/subdomain-no-sct.csr: src/conf/subdomain-no-sct.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-no-sct.crt: src/conf/subdomain-no-sct.conf $(O)/gen/csr/subdomain-no-sct.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-no-sct.pem
+$(O)/gen/chain/subdomain-no-sct.pem: $(O)/gen/crt/subdomain-no-sct.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/csr/subdomain-superfish.csr: src/conf/subdomain-superfish.conf $(O)/gen/key/leaf-main.key
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/subdomain-superfish.crt: src/conf/subdomain-superfish.conf $(O)/gen/csr/subdomain-superfish.csr src/key/ca-superfish.key src/crt/ca-superfish.crt
