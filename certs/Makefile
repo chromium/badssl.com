@@ -448,6 +448,34 @@ CHAINS_PROD += $(O)/gen/chain/subdomain-captive-portal.pem
 $(O)/gen/chain/subdomain-captive-portal.pem: $(O)/gen/crt/subdomain-captive-portal.crt $(O)/gen/crt/ca-intermediate.crt
 	./tool chain $@ $(D) $^
 
+################################
+$(O)/gen/key/leaf-blocked-interception.key:
+	./tool gen-key $@ $(D) 2048
+
+################################
+# Note: this is just a regular cert in `test`
+$(O)/gen/csr/subdomain-blocked-interception.csr: src/conf/subdomain-blocked-interception.conf $(O)/gen/key/leaf-blocked-interception.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-blocked-interception.crt: src/conf/subdomain-blocked-interception.conf $(O)/gen/csr/subdomain-blocked-interception.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-blocked-interception.pem
+$(O)/gen/chain/subdomain-blocked-interception.pem: $(O)/gen/crt/subdomain-blocked-interception.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
+################################
+$(O)/gen/key/leaf-known-interception.key:
+	./tool gen-key $@ $(D) 2048
+
+################################
+# Note: this is just a regular cert in `test`
+$(O)/gen/csr/subdomain-known-interception.csr: src/conf/subdomain-known-interception.conf $(O)/gen/key/leaf-known-interception.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-known-interception.crt: src/conf/subdomain-known-interception.conf $(O)/gen/csr/subdomain-known-interception.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-known-interception.pem
+$(O)/gen/chain/subdomain-known-interception.pem: $(O)/gen/crt/subdomain-known-interception.crt $(O)/gen/crt/ca-intermediate.crt
+	./tool chain $@ $(D) $^
+
 
 ################################
 $(O)/gen/dhparam/dh480.pem:
