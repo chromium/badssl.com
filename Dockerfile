@@ -2,14 +2,18 @@
 FROM ubuntu:16.04
 MAINTAINER April King <april@pokeinthe.io>
 EXPOSE 80 443
+RUN apt-get update && apt-get install -y apt-transport-https
+RUN apt-get install -y software-properties-common
+RUN apt-add-repository ppa:brightbox/ruby-ng
 RUN apt-get update && apt-get install -y \
     build-essential \
     git \
     libffi-dev \
     make \
     nginx \
-    ruby \
-    ruby-dev
+    ruby2.4 \
+    ruby2.4-dev
+RUN gem update --system
 RUN gem install jekyll
 
 # Install badssl.com
