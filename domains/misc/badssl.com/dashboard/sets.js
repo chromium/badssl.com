@@ -93,7 +93,8 @@ var sets = [
       {subdomain: "ecc256"},
       {subdomain: "ecc384"},
       {subdomain: "extended-validation"},
-      {subdomain: "mozilla-modern"}
+      {subdomain: "mozilla-modern"},
+      {subdomain: "disorderly-chain"}
     ]
   }
 ];
