@@ -31,7 +31,6 @@ var sets = [
     success: "no",
     fail: "yes",
     subdomains: [
-      {subdomain: "sha1-intermediate"},
       {subdomain: "rc4"},
       {subdomain: "rc4-md5"},
       {subdomain: "dh480"},
@@ -61,7 +60,6 @@ var sets = [
     subdomains: [
       {subdomain: "revoked"},
       {subdomain: "pinning-test"},
-      {subdomain: "invalid-expected-sct"},
       {subdomain: "no-sct"}
     ]
   },
