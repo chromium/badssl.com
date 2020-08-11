@@ -22,7 +22,7 @@
   <table>
     <thead>
       <td>Download</td>
-      <td>Password</td>
+      <td>Passphrase</td>
       <td>Format</td>
     </thead>
     <tbody>
@@ -34,6 +34,11 @@
       <tr>
         <td><a href="/certs/{{ site.domain }}-client.pem">{{ site.domain }}-client.pem</a></td>
         <td><b><code>{{ site.domain }}</code></b></td>
+        <td>PEM</td>
+      </tr>
+      <tr>
+        <td><a href="/certs/{{ site.domain }}-client-nopass.pem">{{ site.domain }}-client-nopass.pem</a></td>
+        <td>&mdash;</td>
         <td>PEM</td>
       </tr>
     </tbody>
