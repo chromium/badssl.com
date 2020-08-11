@@ -45,14 +45,14 @@
 <div class="group">
   <ul>
     <li>
-      macOS: drag <code><a href="/certs/client.p12">client.p12</a></code> into Keychain Access.
+      macOS: drag <code><a href="/certs/{{ site.domain }}-client.p12">{{ site.domain }}-client.p12</a></code> into Keychain Access.
     </li>
     <li>
-      Firefox: import <code><a href="/certs/client.p12">client.p12</a></code> into the Your Certificates
+      Firefox: import <code><a href="/certs/{{ site.domain }}-client.p12">{{ site.domain }}-client.p12</a></code> into the Your Certificates
       section of the Certificate Manager.
     </li>
     <li>
-      YubiKeys: import <code><a href="/certs/client.pem">client.pem</a></code> using the following command:<br><br>
+      YubiKeys: import <code><a href="/certs/{{ site.domain }}-client.pem">{{ site.domain }}-client.pem</a></code> using the following command:<br><br>
       <code>yubico-piv-tool -a verify-pin -s 9a -a import-key -a import-cert -i {{ site.domain }}-client.pem</code>
     </li>
   </ul>
