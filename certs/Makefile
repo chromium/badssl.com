@@ -120,12 +120,12 @@ $(O)/gen/chain/wildcard-incomplete-chain.pem: $(O)/gen/crt/wildcard-main.crt
 	./tool chain $@ $(D) $^
 
 ################################
-$(O)/gen/csr/subdomain-misorderly-chain.csr: src/conf/subdomain-misorderly-chain.conf $(O)/gen/key/leaf-main.key
+$(O)/gen/csr/subdomain-reverse-chain.csr: src/conf/subdomain-reverse-chain.conf $(O)/gen/key/leaf-main.key
 	./tool gen-csr $@ $(D) $^
-$(O)/gen/crt/subdomain-misorderly-chain.crt: src/conf/subdomain-misorderly-chain.conf $(O)/gen/csr/subdomain-misorderly-chain.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
+$(O)/gen/crt/subdomain-reverse-chain.crt: src/conf/subdomain-reverse-chain.conf $(O)/gen/csr/subdomain-reverse-chain.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
 	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
-CHAINS_PROD += $(O)/gen/chain/subdomain-misorderly-chain.pem
-$(O)/gen/chain/subdomain-misorderly-chain.pem: $(O)/gen/crt/ca-intermediate.crt $(O)/gen/crt/subdomain-misorderly-chain.crt
+CHAINS_PROD += $(O)/gen/chain/subdomain-reverse-chain.pem
+$(O)/gen/chain/subdomain-reverse-chain.pem: $(O)/gen/crt/ca-intermediate.crt $(O)/gen/crt/subdomain-reverse-chain.crt
 	./tool chain $@ $(D) $^
 
 ################################
