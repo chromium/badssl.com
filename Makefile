@@ -8,6 +8,7 @@ export PROD_DOMAIN = badssl.com
 # This should bring up a full test server in docker from a bare repo.
 # Certs are generated outside the docker container, for persistence.
 .PHONY: test
+.NOTPARALLEL: test
 test: certs-test docker-build docker-run
 
 # Convenience alias.
