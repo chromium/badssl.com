@@ -86,6 +86,7 @@ var sets = [
     fail: "no",
     subdomains: [
       {subdomain: "tls-v1-2", port: 1012},
+      {subdomain: "tls-v1-3", port: 1013},
       {subdomain: "sha256"},
       {subdomain: "rsa2048"},
       {subdomain: "ecc256"},
