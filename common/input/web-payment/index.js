@@ -33,7 +33,7 @@ function toggleLogVisibility() {
 function initPaymentRequest() {
   const request = new PaymentRequest(
       [{
-        supportedMethods: ['basic-card'],
+        supportedMethods: 'https://bobbucks.dev/pay',
       }],
       {
         total: {
