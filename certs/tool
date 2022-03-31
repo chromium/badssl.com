@@ -72,6 +72,13 @@ pkcs12-convert-p12-pem)
     -passout "pass:$DOMAIN" \
     -in $1
   ;;
+pkcs12-convert-p12-pem-nopass)
+  openssl pkcs12 \
+    -out $OUT \
+    -clcerts \
+    -passin "pass:$DOMAIN" \
+    -in $1
+  ;;
 self-sign)
   openssl x509  -req  -CAcreateserial \
     -out $OUT \

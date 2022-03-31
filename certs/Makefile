@@ -73,7 +73,10 @@ $(O)/gen/crt/client.p12: $(O)/gen/crt/client.crt $(O)/gen/key/client.key
 	./tool gen-pkcs12-p12 $@ $(D) $^
 $(O)/gen/crt/client.pem: $(O)/gen/crt/client.p12
 	./tool pkcs12-convert-p12-pem $@ $(D) $^
+$(O)/gen/crt/client-nopass.pem: $(O)/gen/crt/client.p12
+	./tool pkcs12-convert-p12-pem-nopass $@ $(D) $^
 CHAINS_PROD += $(O)/gen/crt/client.pem
+CHAINS_PROD += $(O)/gen/crt/client-nopass.pem
 
 ################################
 $(O)/gen/key/ca-untrusted-root.key:

@@ -41,6 +41,7 @@ certs-test:
 	cp certs/sets/current/gen/crt/ca-untrusted-root.crt common/certs
 	cp certs/sets/current/gen/crt/client.p12 common/certs/${TEST_DOMAIN}-client.p12
 	cp certs/sets/current/gen/crt/client.pem common/certs/${TEST_DOMAIN}-client.pem
+	cp certs/sets/current/gen/crt/client-nopass.pem common/certs/${TEST_DOMAIN}-client-nopass.pem
 
 .PHONY: certs-prod
 certs-prod:
@@ -51,6 +52,7 @@ certs-prod:
 	cp certs/sets/current/gen/crt/ca-untrusted-root.crt common/certs
 	cp certs/sets/current/gen/crt/client.p12 common/certs/${PROD_DOMAIN}-client.p12
 	cp certs/sets/current/gen/crt/client.pem common/certs/${PROD_DOMAIN}-client.pem
+	cp certs/sets/current/gen/crt/client-nopass.pem common/certs/${PROD_DOMAIN}-client-nopass.pem
 
 .PHONY: clean-certs
 clean-certs:
