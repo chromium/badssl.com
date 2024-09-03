@@ -93,12 +93,12 @@ $(O)/gen/crt/ca-intermediate.crt: src/conf/ca-intermediate.conf $(O)/gen/csr/ca-
 $(O)/gen/key/leaf-main.key:
 	./tool gen-key $@ $(D) 2048
 $(O)/gen/csr/wildcard-main.csr: src/conf/wildcard.conf $(O)/gen/key/leaf-main.key
-       ./tool gen-csr $@ $(D) $^
+	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/wildcard-main.crt: src/conf/wildcard.conf $(O)/gen/csr/wildcard-main.csr $(O)/gen/key/ca-intermediate.key $(O)/gen/crt/ca-intermediate.crt
-       ./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
 CHAINS_PROD += $(O)/gen/chain/wildcard-main.pem
 $(O)/gen/chain/wildcard-main.pem: $(O)/gen/crt/wildcard-main.crt $(O)/gen/crt/ca-intermediate.crt
-       ./tool chain $@ $(D) $^
+	./tool chain $@ $(D) $^
 
 ################################
 $(O)/gen/csr/fallback.csr: src/conf/fallback.conf $(O)/gen/key/leaf-main.key

@@ -10,13 +10,12 @@ RUN apt-get update && apt-get install -y \
     nginx \
     ruby \
     ruby-dev
-RUN gem update --system
 RUN gem install jekyll
 
 # Install badssl.com
-ADD . badssl.com
-WORKDIR badssl.com
+ADD . /badssl.com
+WORKDIR /badssl.com
 RUN make inside-docker
 
 # Start things up!
-CMD nginx && tail -f /var/log/nginx/access.log /var/log/nginx/error.log
+CMD ["/bin/bash", "-c", "nginx && tail -f /var/log/nginx/access.log /var/log/nginx/error.log"]
