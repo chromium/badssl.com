@@ -487,10 +487,6 @@ $(O)/gen/chain/subdomain-known-interception.pem: $(O)/gen/crt/subdomain-known-in
 
 
 ################################
-$(O)/gen/dhparam/dh480.pem:
-	./tool dhparam $@ $(D) 480
-$(O)/gen/dhparam/dh512.pem:
-	./tool dhparam $@ $(D) 512
 $(O)/gen/dhparam/dh1024.pem:
 	./tool dhparam $@ $(D) 1024
 $(O)/gen/dhparam/dh2048.pem:
@@ -508,4 +504,4 @@ chains-prod: $(CHAINS_PROD)
 chains-local: chains-prod $(CHAINS_LOCAL_ONLY)
 
 .PHONY: dhparams
-dhparams: $(O)/gen/dhparam/dh480.pem $(O)/gen/dhparam/dh512.pem $(O)/gen/dhparam/dh1024.pem $(O)/gen/dhparam/dh2048.pem $(O)/gen/dhparam/dh-composite.pem $(O)/gen/dhparam/dh-small-subgroup.pem
+dhparams: $(O)/gen/dhparam/dh1024.pem $(O)/gen/dhparam/dh2048.pem $(O)/gen/dhparam/dh-composite.pem $(O)/gen/dhparam/dh-small-subgroup.pem
