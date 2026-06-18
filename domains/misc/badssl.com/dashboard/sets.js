@@ -90,7 +90,6 @@ var sets = [
       {subdomain: "rsa2048"},
       {subdomain: "ecc256"},
       {subdomain: "ecc384"},
-      {subdomain: "extended-validation"},
       {subdomain: "mozilla-modern"},
     ]
   }
