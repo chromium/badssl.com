@@ -37,6 +37,7 @@ var sets = [
       {subdomain: "dh512"},
       {subdomain: "dh1024"},
       {subdomain: "null"}
+      {subdomain: "md5-server-signature"},
     ]
   },
   {
@@ -50,6 +51,7 @@ var sets = [
       {subdomain: "cbc"},
       {subdomain: "3des"},
       {subdomain: "dh2048"}
+      {subdomain: "sha1-server-signature"},
     ]
   },
   {
