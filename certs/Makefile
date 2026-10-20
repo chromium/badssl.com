@@ -413,6 +413,18 @@ $(O)/gen/chain/subdomain-dsdtestprovider.pem: $(O)/gen/crt/subdomain-dsdtestprov
 	./tool chain $@ $(D) $^
 
 ################################
+# eMudhra: compromised publicly-trusted intermediate (private key is a single
+# byte). Unlike the self-signed known-bad roots above, this chains to a public
+# root, so the served chain is leaf + intermediate.
+$(O)/gen/csr/subdomain-emudhra.csr: src/conf/subdomain-emudhra.conf $(O)/gen/key/leaf-main.key
+	./tool gen-csr $@ $(D) $^
+$(O)/gen/crt/subdomain-emudhra.crt: src/conf/subdomain-emudhra.conf $(O)/gen/csr/subdomain-emudhra.csr src/key/ca-emudhra.key src/crt/ca-emudhra.crt
+	./tool sign $@ $(D) $(SIGN_LEAF_DEFAULTS) $^
+CHAINS_PROD += $(O)/gen/chain/subdomain-emudhra.pem
+$(O)/gen/chain/subdomain-emudhra.pem: $(O)/gen/crt/subdomain-emudhra.crt src/crt/ca-emudhra.crt
+	./tool chain $@ $(D) $^
+
+################################
 $(O)/gen/csr/subdomain-preact-cli.csr: src/conf/subdomain-preact-cli.conf $(O)/gen/key/leaf-main.key
 	./tool gen-csr $@ $(D) $^
 $(O)/gen/crt/subdomain-preact-cli.crt: src/conf/subdomain-preact-cli.conf $(O)/gen/csr/subdomain-preact-cli.csr src/key/ca-preact-cli.key src/crt/ca-preact-cli.crt

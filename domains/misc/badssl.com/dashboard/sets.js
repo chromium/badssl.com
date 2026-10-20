@@ -22,7 +22,8 @@ var sets = [
       {subdomain: "edellroot"},
       {subdomain: "dsdtestprovider"},
       {subdomain: "preact-cli"},
-      {subdomain: "webpack-dev-server"}
+      {subdomain: "webpack-dev-server"},
+      {subdomain: "emudhra"}
     ]
   },
   {
